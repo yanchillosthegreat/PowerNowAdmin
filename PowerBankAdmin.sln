@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBankAdmin", "PowerBankAdmin\PowerBankAdmin.csproj", "{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CFBE98C6-DC50-4FC7-87D9-EFD929FFDF08}
+	EndGlobalSection
+EndGlobal
