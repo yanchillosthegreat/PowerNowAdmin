@@ -4,22 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
+using PowerBankAdmin.Models;
 
 namespace PowerBankAdmin.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BaseAuthedPageModel
     {
-        [BindProperty]
-        public int Name { get; set; }
-
-        [BindProperty]
-        public List<int> Ints { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
-            Name = 3;
-            Ints = new List<int> { 1, 2, 3 };
+            User = JsonConvert.DeserializeObject<UserModel>(Request.Headers["user"]);
             return Page();
         }
 
+        public IActionResult OnPost()
+        {
+            Response.Cookies.Append("authToken", string.Empty, new Microsoft.AspNetCore.Http.CookieOptions() { Expires = DateTime.Now.AddSeconds(-1) });
+            return RedirectToPage("/Auth/Login");
+        }
     }
 }

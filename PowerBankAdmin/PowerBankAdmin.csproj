@@ -7,12 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="$(AspNetCoreAppRuntimeFrameworkVersion)">
+      <IsImplicitlyDefined>true</IsImplicitlyDefined>
+      <PrivateAssets>all</PrivateAssets>
+      <Publish>true</Publish>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="Pages\Shared\" />
+    <Folder Include="Services\" />
+    <Folder Include="Models\" />
+    <Folder Include="Data\" />
+    <Folder Include="Data\Moq\" />
+    <Folder Include="Pages\Auth\" />
+    <Folder Include="Data\Repository\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Pages\Shared\_ViewStart.cshtml" />
+    <Content Remove="Pages\Shared\_RightSidebar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20190804002309_initial.cs" />
+  </ItemGroup>
 </Project>

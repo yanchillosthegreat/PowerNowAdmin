@@ -1,7 +1,7 @@
 ﻿@page
-@model PowerBankAdmin.Pages.IndexModel
+@model IndexModel
 
-    <h3>
+    @*<h3>
         Hi @Model.Name 
     </h3>
     @{ 
@@ -10,5 +10,10 @@
             <h2>@a</h2>
             
         }
-    }
-    <a class="btn btn-circle btn-danger" href="@Url.Page("/Users/Index")">Go To Users</a>
+    }*@
+
+    @*<h1>@Model.User.Login</h1>*@
+
+    <form method="post">
+        <input type="submit" value="Logout" class="btn btn-circle btn-danger" href="@Url.Page("/Users/Index")"/>
+    </form>
