@@ -13,7 +13,10 @@ namespace PowerBankAdmin.Pages
     {
         public async Task<IActionResult> OnGetAsync()
         {
-            User = JsonConvert.DeserializeObject<UserModel>(Request.Headers["user"]);
+            if(Request.Headers.ContainsKey("user"))
+            {
+                User = JsonConvert.DeserializeObject<UserModel>(Request.Headers["user"]);
+            }
             return Page();
         }
 

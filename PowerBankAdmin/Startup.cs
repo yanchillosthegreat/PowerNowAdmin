@@ -24,7 +24,8 @@ namespace PowerBankAdmin
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration.GetConnectionString("MacConnection");
+            
+            var connection = Configuration.GetConnectionString("ProdConnection");
 
             services.AddDbContext<AppRepository>(options => options.UseSqlServer(connection));
             services.AddMvc();
@@ -37,8 +38,6 @@ namespace PowerBankAdmin
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            
 
             app.UseStaticFiles();
             app.UseMiddleware<AuthorizationMiddleware>();

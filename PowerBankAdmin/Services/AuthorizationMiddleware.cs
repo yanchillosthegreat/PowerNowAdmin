@@ -25,10 +25,10 @@ namespace PowerBankAdmin.Services
         public async Task Invoke(HttpContext httpContext)
         {
             void RedirectToLogin() {
-                httpContext.Response.Redirect("/auth/login");
+                httpContext.Response.Redirect("/Auth/Login");
             }
 
-            if (httpContext.Request.Path == "/auth/login")
+            if (httpContext.Request.Path.ToString().ToLower() == "/auth/login")
             {
                 await _next(httpContext);
                 return;
