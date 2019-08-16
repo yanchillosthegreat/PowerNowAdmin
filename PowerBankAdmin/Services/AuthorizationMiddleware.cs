@@ -42,8 +42,7 @@ namespace PowerBankAdmin.Services
             }
 
             var db = httpContext.RequestServices.GetService(typeof(AppRepository)) as AppRepository;
-            await db.Users.ToListAsync();
-            var authorization = await db.Authorizations.FirstOrDefaultAsync(x => x.AuthToken == authToken);
+            var authorization = await db.Authorizations.Include(a => a.User).FirstOrDefaultAsync(x => x.AuthToken == authToken);
             
             if (authorization == null || authorization.User == null)
             {
