@@ -12940,11 +12940,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/stanislav/Projects/PowerNowAdmin/PowerBankAdmin/PowerBankAdmin.csproj",
+      "projectUniqueName": "/Users/stanislav/Projects/powernow/PowerBankAdmin/PowerBankAdmin.csproj",
       "projectName": "PowerBankAdmin",
-      "projectPath": "/Users/stanislav/Projects/PowerNowAdmin/PowerBankAdmin/PowerBankAdmin.csproj",
+      "projectPath": "/Users/stanislav/Projects/powernow/PowerBankAdmin/PowerBankAdmin.csproj",
       "packagesPath": "/Users/stanislav/.nuget/packages/",
-      "outputPath": "/Users/stanislav/Projects/PowerNowAdmin/PowerBankAdmin/obj/",
+      "outputPath": "/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

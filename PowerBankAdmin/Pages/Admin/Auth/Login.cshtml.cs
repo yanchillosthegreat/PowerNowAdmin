@@ -9,7 +9,7 @@ using PowerBankAdmin.Data.Moq;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Models;
 
-namespace PowerBankAdmin.Pages.Auth
+namespace PowerBankAdmin.Pages.Admin.Auth
 {
     public class LoginModel : PageModel
     {
@@ -41,13 +41,14 @@ namespace PowerBankAdmin.Pages.Auth
                 return Page();
             }
 
+
             var authToken = Guid.NewGuid().ToString();
 
             await _appRepository.Authorizations.AddAsync(new AuthorizationModel { AuthToken = authToken, User = user });
             await _appRepository.SaveChangesAsync();
 
-            Response.Cookies.Append("authToken", authToken, new Microsoft.AspNetCore.Http.CookieOptions() { Expires = DateTime.Now.AddDays(1) });
-            return RedirectToPage("/Index");
+            Response.Cookies.Append(Strings.CookieAuthToken, authToken, new Microsoft.AspNetCore.Http.CookieOptions() { Expires = DateTime.Now.AddDays(1) });
+            return RedirectToPage(Strings.UrlAdminIndexPage);
         }
 
     }

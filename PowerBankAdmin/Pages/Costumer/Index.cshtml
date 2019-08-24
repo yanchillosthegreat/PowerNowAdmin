@@ -1,0 +1,10 @@
+﻿@page
+@model Pages.Costumer.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@{
+    var name = string.IsNullOrEmpty(Model.Costumer?.Name) ? "Нет имени" : Model.Costumer.Name;
+}
+<h1>@name</h1>

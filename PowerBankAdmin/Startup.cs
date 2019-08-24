@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Services;
 
@@ -26,8 +27,8 @@ namespace PowerBankAdmin
         {
             
             var connection = Configuration.GetConnectionString("ProdConnection");
-
             services.AddDbContext<AppRepository>(options => options.UseSqlServer(connection));
+            services.AddTransient<ISmsService, Data.Moq.SmsService>();
             services.AddMvc();
         }
 
@@ -40,6 +41,7 @@ namespace PowerBankAdmin
             }
 
             app.UseStaticFiles();
+            app.UseMiddleware<CostumerAuthorizationMiddleware>();
             app.UseMiddleware<AuthorizationMiddleware>();
             app.UseMvc();
             

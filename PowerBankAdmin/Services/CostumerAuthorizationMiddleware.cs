@@ -1,40 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using PowerBankAdmin.Data.Repository;
+using PowerBankAdmin.Models;
 
 namespace PowerBankAdmin.Services
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class AuthorizationMiddleware
+    public class CostumerAuthorizationMiddleware
     {
         private readonly List<string> _pagesWithoutAuthCheck;
         private readonly RequestDelegate _next;
 
-        public AuthorizationMiddleware(RequestDelegate next)
+        public CostumerAuthorizationMiddleware(RequestDelegate next)
         {
             _next = next;
             _pagesWithoutAuthCheck = new List<string>
             {
+                "/admin",
                 "/admin/auth/login",
                 "/index",
                 "/",
-                "/costumer/registration",
-                "/costumer"
+                "/costumer/registration"
             };
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
-            void RedirectToAdminLogin() {
-                httpContext.Response.Redirect(Strings.UrlAdminLoginPage);
+            void RedirectToCostumerLogin()
+            {
+                httpContext.Response.Redirect(Strings.UrlCostumerRegistrationPage);
             }
 
             if (_pagesWithoutAuthCheck.Contains(httpContext.Request.Path.ToString().ToLower()))
@@ -43,31 +41,31 @@ namespace PowerBankAdmin.Services
                 return;
             }
 
-            var authToken = httpContext.Request.Cookies[Strings.CookieAuthToken];
+            var authToken = httpContext.Request.Cookies[Strings.CookieCostumerAuthToken];
             if (authToken == null)
             {
-                RedirectToAdminLogin();
+                RedirectToCostumerLogin();
                 return;
             }
 
             var db = httpContext.RequestServices.GetService(typeof(AppRepository)) as AppRepository;
-            var authorization = await db.Authorizations.Include(a => a.User).FirstOrDefaultAsync(x => x.AuthToken == authToken);
-            
-            if (authorization == null || authorization.User == null)
+            var authorization = await db.CostumerAuthorizations.Include(a => a.Costumer).FirstOrDefaultAsync(x => x.AuthToken == authToken);
+
+            if (authorization == null || authorization.Costumer == null)
             {
-                RedirectToAdminLogin();
+                RedirectToCostumerLogin();
                 return;
             }
-            var userToSendInHeader = authorization.User;
-            userToSendInHeader.Authorizations = new List<AuthorizationModel>();
-            httpContext.Request.Headers.Add(Strings.UserObject, JsonConvert.SerializeObject(userToSendInHeader));
+            var userToSendInHeader = authorization.Costumer;
+            userToSendInHeader.Authorizations = new List<CostumerAuthorizationModel>();
+            httpContext.Request.Headers.Add(Strings.CostumerObject, JsonConvert.SerializeObject(userToSendInHeader));
 
             await _next(httpContext);
         }
     }
 
     // Extension method used to add the middleware to the HTTP request pipeline.
-    public static class AuthorizationMiddlewareExtensions
+    public static class CostumerAuthorizationMiddlewareExtensions
     {
         public static IApplicationBuilder UseMiddlewareClassTemplate(this IApplicationBuilder builder)
         {
@@ -75,3 +73,4 @@ namespace PowerBankAdmin.Services
         }
     }
 }
+
