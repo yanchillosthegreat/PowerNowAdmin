@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using PowerBankAdmin.Data.Repository;
+using PowerBankAdmin.Models;
 
 namespace PowerBankAdmin.Services
 {
@@ -58,7 +59,7 @@ namespace PowerBankAdmin.Services
                 RedirectToAdminLogin();
                 return;
             }
-            var userToSendInHeader = authorization.User;
+            var userToSendInHeader = (UserModel)authorization.User.Clone();
             userToSendInHeader.Authorizations = new List<AuthorizationModel>();
             httpContext.Request.Headers.Add(Strings.UserObject, JsonConvert.SerializeObject(userToSendInHeader));
 

@@ -34,6 +34,7 @@
     <Folder Include="Pages\Costumer\" />
     <Folder Include="Data\Interfaces\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Pages\Admin\Costumers\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,16 +42,13 @@
     <Content Remove="Pages\Shared\_RightSidebar.cshtml" />
     <Content Remove="Pages\Shared\_AdminLayout.cshtml" />
     <Content Remove="Pages\Shared\_Imports.cshtml" />
+    <Content Remove="Pages\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20190804002309_initial.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pages\Shared\_Layout.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </None>
-    <None Include="Pages\Shared\_CssImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>

@@ -1249,11 +1249,11 @@ button.dim:active:before {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-  background-color: #f4f4f4;
-  border-color: #DDDDDD;
-  color: inherit;
-  cursor: default;
-  z-index: 2;
+    background-color: #19b393;
+    border-color: #DDDDDD;
+    color: #FFFFFF;
+    cursor: default;
+    z-index: 2;
 }
 .pagination > li > a,
 .pagination > li > span {

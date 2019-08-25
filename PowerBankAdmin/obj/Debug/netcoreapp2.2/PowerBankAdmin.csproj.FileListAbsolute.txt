@@ -95,7 +95,6 @@ C:/Users/yanmoroz/source/repos/PowerBankAdmin/PowerBankAdmin/obj/Debug/netcoreap
 /Users/stanislav/Projects/powernow/PowerBankAdmin/bin/Debug/netcoreapp2.2/PowerBankAdmin.pdb
 /Users/stanislav/Projects/powernow/PowerBankAdmin/bin/Debug/netcoreapp2.2/PowerBankAdmin.Views.dll
 /Users/stanislav/Projects/powernow/PowerBankAdmin/bin/Debug/netcoreapp2.2/PowerBankAdmin.Views.pdb
-/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.csprojAssemblyReference.cache
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.RazorAssemblyInfo.cache
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.RazorAssemblyInfo.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.AssemblyInfoInputs.cache
@@ -103,8 +102,15 @@ C:/Users/yanmoroz/source/repos/PowerBankAdmin/PowerBankAdmin/obj/Debug/netcoreap
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.TagHelpers.input.cache
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.TagHelpers.output.cache
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.RazorCoreGenerate.cache
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Auth/Login.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Costumers/Index.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Index.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Costumer/Index.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Costumer/Registration.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Index.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_CssImports.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_Footer.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_JsImports.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_Layout.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_Navigation.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_TopNavbar.cshtml.g.cs
@@ -116,9 +122,4 @@ C:/Users/yanmoroz/source/repos/PowerBankAdmin/PowerBankAdmin/obj/Debug/netcoreap
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.dll
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.pdb
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.csproj.CopyComplete
-/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Auth/Login.cshtml.g.cs
-/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Index.cshtml.g.cs
-/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Costumer/Registration.cshtml.g.cs
-/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_CssImports.cshtml.g.cs
-/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_JsImports.cshtml.g.cs
-/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Costumer/Index.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.csprojAssemblyReference.cache

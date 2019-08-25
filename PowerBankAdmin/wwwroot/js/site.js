@@ -69,4 +69,33 @@ $(document).ready(function () {
             submitPhoneCodeButton.ladda('stop');
         }
     });
-})
+
+    function deleteCostumer(idCostumer) {
+        var request = $.ajax({
+            url: "/admin/costumers",
+            type: "DELETE",
+            dataType: "json",
+            data: {id: idCostumer},
+            success: function (response) {
+                switch (response.code) {
+                    case 200:
+                        alert("OK");
+                        $("clients-table#" + idCostumer).remove();
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+        request.error(e)
+        {
+            alert(e);
+        }
+    }
+
+    function getPasswordCostumer(password){
+        alert(password);
+    }
+});
+

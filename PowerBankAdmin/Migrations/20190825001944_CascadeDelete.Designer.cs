@@ -10,8 +10,8 @@ using PowerBankAdmin.Data.Repository;
 namespace PowerBankAdmin.Migrations
 {
     [DbContext(typeof(AppRepository))]
-    [Migration("20190818161259_Costumers1")]
-    partial class Costumers1
+    [Migration("20190825001944_CascadeDelete")]
+    partial class CascadeDelete
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,14 +135,16 @@ namespace PowerBankAdmin.Migrations
                 {
                     b.HasOne("PowerBankAdmin.Models.CostumerModel", "Costumer")
                         .WithMany("Authorizations")
-                        .HasForeignKey("CostumerId");
+                        .HasForeignKey("CostumerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.VerificationCodeModel", b =>
                 {
                     b.HasOne("PowerBankAdmin.Models.CostumerModel", "Costumer")
                         .WithMany("Verifications")
-                        .HasForeignKey("CostumerId");
+                        .HasForeignKey("CostumerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

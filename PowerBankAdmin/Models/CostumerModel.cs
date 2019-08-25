@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PowerBankAdmin.Models
 {
-    public class CostumerModel
+    public class CostumerModel : ICloneable
     {
 		public int Id { get; set; }
         public string Phone { get; set; }
@@ -18,6 +18,21 @@ namespace PowerBankAdmin.Models
         public CostumerModel()
         {
             Authorizations = new List<CostumerAuthorizationModel>();
+        }
+
+        public object Clone()
+        {
+            return new CostumerModel
+            {
+                Id = Id,
+                Phone = Phone,
+                Email = Email,
+                Password = Password,
+                Name = Name,
+                CostumerStatus = CostumerStatus,
+                Verifications = Verifications,
+                Authorizations = Authorizations
+            };
         }
     }
 

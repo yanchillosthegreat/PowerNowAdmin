@@ -21,6 +21,7 @@ namespace PowerBankAdmin.Services
             _pagesWithoutAuthCheck = new List<string>
             {
                 "/admin",
+                "/admin/costumers",
                 "/admin/auth/login",
                 "/index",
                 "/",
@@ -56,9 +57,9 @@ namespace PowerBankAdmin.Services
                 RedirectToCostumerLogin();
                 return;
             }
-            var userToSendInHeader = authorization.Costumer;
-            userToSendInHeader.Authorizations = new List<CostumerAuthorizationModel>();
-            httpContext.Request.Headers.Add(Strings.CostumerObject, JsonConvert.SerializeObject(userToSendInHeader));
+            var costumerToSendInHeader = (CostumerModel)authorization.Costumer.Clone();
+            costumerToSendInHeader.Authorizations = new List<CostumerAuthorizationModel>();
+            httpContext.Request.Headers.Add(Strings.CostumerObject, JsonConvert.SerializeObject(costumerToSendInHeader));
 
             await _next(httpContext);
         }

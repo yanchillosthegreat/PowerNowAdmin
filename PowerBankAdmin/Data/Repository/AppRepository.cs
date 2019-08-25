@@ -20,7 +20,16 @@ namespace PowerBankAdmin.Data.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UserModel>().HasData(new UserModel { Id = 1, Login = "admin", Password = "admin" });
+            modelBuilder.Entity<UserModel>()
+                .HasData(new UserModel { Id = 1, Login = "admin", Password = "admin" });
+            modelBuilder.Entity<VerificationCodeModel>()
+                .HasOne(x => x.Costumer)
+                .WithMany(x => x.Verifications)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<CostumerAuthorizationModel>()
+                .HasOne(x => x.Costumer)
+                .WithMany(x => x.Authorizations)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
