@@ -5,7 +5,7 @@
 }
 
 <div class="middle-box text-center loginscreen  animated fadeInDown">
-    @Html.AntiForgeryToken();
+    @Html.AntiForgeryToken()
     <div>
         <h1 class="logo-name">PN</h1>
     </div>
@@ -14,7 +14,7 @@
         <form class="m-t" method="POST" id="enter-phone-form">
             <span class="text-center text-danger">@Model.ErrorMessage</span>
             <div class="form-group">
-                <input type="tel" id="phone-input" asp-for="@Model.Costumer.Phone" class="form-control" placeholder="Phone" required="">
+                <input type="tel" id="phone-input" asp-for="@Model.Costumer.Phone" class="form-control" placeholder="Phone" required="" data-mask="+7 (999) 999-9999">
             </div>
             <button type="submit" id="phone-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
                 Получить SMS

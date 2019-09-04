@@ -35,14 +35,13 @@
     <Folder Include="Data\Interfaces\" />
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Admin\Costumers\" />
+    <Folder Include="Pages\Take\" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Pages\Shared\_ViewStart.cshtml" />
     <Content Remove="Pages\Shared\_RightSidebar.cshtml" />
-    <Content Remove="Pages\Shared\_AdminLayout.cshtml" />
     <Content Remove="Pages\Shared\_Imports.cshtml" />
-    <Content Remove="Pages\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20190804002309_initial.cs" />

@@ -13,7 +13,7 @@ using PowerBankAdmin.Models;
 
 namespace PowerBankAdmin.Pages.Costumer
 {
-    public class RegistrationModel : PageModel
+    public class RegistrationModel : BaseAuthCostumerPage
     {
         private readonly ISmsService _smsService;
         private readonly AppRepository _appRepository;

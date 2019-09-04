@@ -28,7 +28,8 @@ namespace PowerBankAdmin.Services
                 "/index",
                 "/",
                 "/costumer/registration",
-                "/costumer"
+                "/costumer",
+                "/take"
             };
         }
 

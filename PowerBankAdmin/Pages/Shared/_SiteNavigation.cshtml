@@ -1,0 +1,42 @@
+﻿@model Pages.BaseAuthCostumerPage
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a href="#" class="navbar-brand">PowerNow</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="@Url.Page("/index")">Main Page</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">  
+                @if(Model.IsAuthorized())
+                {
+                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> @Model.GetName() <span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li>
+                            <a href="@Url.Page("/costumer/index")">Account</a>
+                        </li>
+                        <li>
+                            <form id="logout-form">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-warning btn-sm m-sm" type="submit"><i class="fa fa-sign-out"></i> Log out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                }else
+                {
+                <li>
+                    <a href="@Url.Page("/costumer/registration")"><i class="fa fa-sign-in"></i> Log in</a>
+                </li>
+                }
+            </ul>
+         </div>
+    </nav>
+</div>

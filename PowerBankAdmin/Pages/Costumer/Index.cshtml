@@ -7,4 +7,73 @@
 @{
     var name = string.IsNullOrEmpty(Model.Costumer?.Name) ? "Нет имени" : Model.Costumer.Name;
 }
-<h1>@name</h1>
+
+    <h1>Личный кабинет</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>История</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row" style="min-height: 100px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Счет</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row" style="min-height: 100px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox" style="margin-bottom: 60px">
+                <div class="ibox-title">
+                    <h5>Изменение данных пользователя</h5>
+                </div>
+                <div class="ibox-content">
+                    <form id="costumer-data-form">
+                        <div class="row form-group">
+                            <div class="col-form-label col-md-2">
+                                <label>Имя</label>
+                            </div> 
+                            <div class="col-md-10">
+                                <input asp-for="Costumer.Name" class="form-control" value="@Model.Costumer.Name"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-form-label col-md-2">
+                                <label>Телефон</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input asp-for="Costumer.Phone" class="form-control" value="@Model.Costumer.Phone"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-form-label col-md-2">
+                                <label>e-mail</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input asp-for="Costumer.Email" class="form-control" value="@Model.Costumer.Email"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <input type="submit" class="form-control button btn-block btn-success" value="Изменить данные"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+

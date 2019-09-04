@@ -12,58 +12,51 @@ namespace PowerBankAdmin.Services
 {
     public class CostumerAuthorizationMiddleware
     {
-        private readonly List<string> _pagesWithoutAuthCheck;
+        private readonly List<string> _restrictedPages;
         private readonly RequestDelegate _next;
 
         public CostumerAuthorizationMiddleware(RequestDelegate next)
         {
             _next = next;
-            _pagesWithoutAuthCheck = new List<string>
-            {
-                "/admin",
-                "/admin/costumers",
-                "/admin/auth/login",
-                "/index",
-                "/",
-                "/costumer/registration"
-            };
+            _restrictedPages = new List<string> { "/take" }; //add here pages that shouldn't work without auth
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
-            void RedirectToCostumerLogin()
+            var authToken = httpContext.Request.Cookies[Strings.CookieCostumerAuthToken];
+            var costumer = await GetCostumer(authToken, httpContext);
+            //no permisions
+            if (costumer == null && _restrictedPages.Contains(httpContext.Request.Path.ToString().ToLower()))
             {
                 httpContext.Response.Redirect(Strings.UrlCostumerRegistrationPage);
-            }
-
-            if (_pagesWithoutAuthCheck.Contains(httpContext.Request.Path.ToString().ToLower()))
-            {
-                await _next(httpContext);
                 return;
             }
 
-            var authToken = httpContext.Request.Cookies[Strings.CookieCostumerAuthToken];
-            if (authToken == null)
+            if(costumer != null)
             {
-                RedirectToCostumerLogin();
-                return;
+                var costumerToSendInHeader = (CostumerModel)costumer.Clone();
+                costumerToSendInHeader.Authorizations = new List<CostumerAuthorizationModel>();
+                httpContext.Request.Headers.Add(Strings.CostumerObject, JsonConvert.SerializeObject(costumerToSendInHeader));
+            }
+            await _next(httpContext);
+        }
+
+
+        private async Task<CostumerModel> GetCostumer(string authToken, HttpContext httpContext)
+        {
+            if (string.IsNullOrEmpty(authToken))
+            {
+                return null;
             }
 
             var db = httpContext.RequestServices.GetService(typeof(AppRepository)) as AppRepository;
             var authorization = await db.CostumerAuthorizations.Include(a => a.Costumer).FirstOrDefaultAsync(x => x.AuthToken == authToken);
 
-            if (authorization == null || authorization.Costumer == null)
-            {
-                RedirectToCostumerLogin();
-                return;
-            }
-            var costumerToSendInHeader = (CostumerModel)authorization.Costumer.Clone();
-            costumerToSendInHeader.Authorizations = new List<CostumerAuthorizationModel>();
-            httpContext.Request.Headers.Add(Strings.CostumerObject, JsonConvert.SerializeObject(costumerToSendInHeader));
-
-            await _next(httpContext);
+            return authorization?.Costumer;
         }
     }
+
+    
 
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class CostumerAuthorizationMiddlewareExtensions

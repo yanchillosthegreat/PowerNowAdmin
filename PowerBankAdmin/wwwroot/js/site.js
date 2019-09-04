@@ -11,6 +11,29 @@ $(document).ready(function () {
     var phoneCodeBlock = $('#phone-code-block');
     var phoneInput = $('#phone-input');
     var phoneVerificationInput = $('#phone-verification-input');
+    var logOutForm = $("#logout-form");
+
+    logOutForm.on("submit", function (e) {
+        e.preventDefault();
+        var formData = logOutForm.serialize();
+        var currentUrl = window.location.pathname;
+        var request = $.ajax({
+            url: currentUrl + "?handler=logout",
+            type: "POST",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                switch (response.code) {
+                    case 200:
+                        window.location.href = "/";
+                        break;
+                    default:
+                        alert(response.error);
+                        break;
+                }
+            }
+        });
+    });
 
     formPhone.on("submit", function (e) {
         e.preventDefault();
@@ -36,10 +59,6 @@ $(document).ready(function () {
                 }
             }
         });
-        request.error(e)
-        {
-            submitPhoneButton.ladda('stop');
-        }
     });
 
     formCode.on("submit", function (e) {
@@ -56,7 +75,7 @@ $(document).ready(function () {
                 submitPhoneCodeButton.ladda('stop');
                 switch (response.code) {
                     case 200:
-                        window.location.href = "/costumer";
+                        window.location.href = "/";
                         break;
                     default:
                         alert(response.message);
@@ -64,10 +83,6 @@ $(document).ready(function () {
                 }
             }
         });
-        request.error(e)
-        {
-            submitPhoneCodeButton.ladda('stop');
-        }
     });
 
     function deleteCostumer(idCostumer) {
