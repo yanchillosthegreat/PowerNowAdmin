@@ -1,0 +1,27 @@
+﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Pages/Costumer/Index.cshtml">
+    <Files>
+      <File FileName="PowerBankAdmin/Pages/Take/Index.cshtml" Line="11" Column="11" />
+      <File FileName="PowerBankAdmin/Pages/Take/Index.cshtml.cs" />
+      <File FileName="PowerBankAdmin/Pages/Costumer/Index.cshtml" Line="30" Column="33" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PowerBankAdmin" expanded="True">
+            <Node name="PowerBankAdmin" expanded="True">
+              <Node name="Pages" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.PowerBankAdmin PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
