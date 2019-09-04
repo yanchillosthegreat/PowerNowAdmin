@@ -80,6 +80,42 @@ namespace PowerBankAdmin.Migrations
                     b.ToTable("Costumers");
                 });
 
+            modelBuilder.Entity("PowerBankAdmin.Models.HolderModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code");
+
+                    b.Property<int>("LocalCode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Holders");
+                });
+
+            modelBuilder.Entity("PowerBankAdmin.Models.PowerbankModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Code");
+
+                    b.Property<int?>("CostumerModelId");
+
+                    b.Property<int?>("PowerbanksId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostumerModelId");
+
+                    b.HasIndex("PowerbanksId");
+
+                    b.ToTable("PowerbankModel");
+                });
+
             modelBuilder.Entity("PowerBankAdmin.Models.UserModel", b =>
                 {
                     b.Property<int>("Id")
@@ -135,6 +171,17 @@ namespace PowerBankAdmin.Migrations
                         .WithMany("Authorizations")
                         .HasForeignKey("CostumerId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PowerBankAdmin.Models.PowerbankModel", b =>
+                {
+                    b.HasOne("PowerBankAdmin.Models.CostumerModel")
+                        .WithMany("Powerbanks")
+                        .HasForeignKey("CostumerModelId");
+
+                    b.HasOne("PowerBankAdmin.Models.HolderModel", "Powerbanks")
+                        .WithMany("Powerbanks")
+                        .HasForeignKey("PowerbanksId");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.VerificationCodeModel", b =>

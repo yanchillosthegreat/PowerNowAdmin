@@ -11,6 +11,7 @@ namespace PowerBankAdmin.Data.Repository
         public DbSet<CostumerModel> Costumers { get; set; }
         public DbSet<CostumerAuthorizationModel> CostumerAuthorizations { get; set; }
         public DbSet<VerificationCodeModel> VerificationCodes { get; set; }
+        public DbSet<HolderModel> Holders { get; set; }
 
         public AppRepository(DbContextOptions<AppRepository> options) : base(options)
         {

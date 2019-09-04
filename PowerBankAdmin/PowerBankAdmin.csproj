@@ -36,6 +36,8 @@
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Admin\Costumers\" />
     <Folder Include="Pages\Take\" />
+    <Folder Include="Pages\Admin\Holders\" />
+    <Folder Include="Pages\Admin\Powerbanks\" />
   </ItemGroup>
 
   <ItemGroup>
