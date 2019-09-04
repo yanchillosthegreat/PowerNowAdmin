@@ -88,7 +88,7 @@ namespace PowerBankAdmin.Migrations
 
                     b.Property<string>("Code");
 
-                    b.Property<int>("LocalCode");
+                    b.Property<string>("LocalCode");
 
                     b.HasKey("Id");
 
@@ -101,19 +101,19 @@ namespace PowerBankAdmin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Code");
+                    b.Property<string>("Code");
 
-                    b.Property<int?>("CostumerModelId");
+                    b.Property<int?>("CostumerId");
 
-                    b.Property<int?>("PowerbanksId");
+                    b.Property<int?>("HolderId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CostumerModelId");
+                    b.HasIndex("CostumerId");
 
-                    b.HasIndex("PowerbanksId");
+                    b.HasIndex("HolderId");
 
-                    b.ToTable("PowerbankModel");
+                    b.ToTable("Powerbanks");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.UserModel", b =>
@@ -175,13 +175,13 @@ namespace PowerBankAdmin.Migrations
 
             modelBuilder.Entity("PowerBankAdmin.Models.PowerbankModel", b =>
                 {
-                    b.HasOne("PowerBankAdmin.Models.CostumerModel")
+                    b.HasOne("PowerBankAdmin.Models.CostumerModel", "Costumer")
                         .WithMany("Powerbanks")
-                        .HasForeignKey("CostumerModelId");
+                        .HasForeignKey("CostumerId");
 
-                    b.HasOne("PowerBankAdmin.Models.HolderModel", "Powerbanks")
+                    b.HasOne("PowerBankAdmin.Models.HolderModel", "Holder")
                         .WithMany("Powerbanks")
-                        .HasForeignKey("PowerbanksId");
+                        .HasForeignKey("HolderId");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.VerificationCodeModel", b =>

@@ -13,6 +13,59 @@ $(document).ready(function () {
     var phoneVerificationInput = $('#phone-verification-input');
     var logOutForm = $("#logout-form");
 
+
+    //Holders page
+    var formAddHolder = $("#add-holder-form");
+    var submitAddHolder = $("#add-holder-submit-button").ladda();
+    var holdersTable = $("#holders-table");
+
+    formAddHolder.on("submit", function (e) {
+        e.preventDefault();
+        submitAddHolder.ladda("start");
+        var formData = formAddHolder.serialize();
+        var request = $.ajax({
+            url: "/admin/holders",
+            type: "POST",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                submitAddHolder.ladda('stop');
+                switch (response.code) {
+                    case 200:
+                        holdersTable.append(response.message);
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+    });
+
+    function deleteHolder(idHolder) {
+        var request = $.ajax({
+            url: "/admin/holders",
+            type: "DELETE",
+            dataType: "json",
+            data: {id: idHolder},
+            success: function (response) {
+                switch (response.code) {
+                    case 200:
+                        alert("OK");
+                        $("holders-table#" + idHolder).remove();
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+        request.error(e)
+        {
+            alert(e);
+        }
+    }
+
     logOutForm.on("submit", function (e) {
         e.preventDefault();
         var formData = logOutForm.serialize();
@@ -84,6 +137,8 @@ $(document).ready(function () {
             }
         });
     });
+
+
 
     function deleteCostumer(idCostumer) {
         var request = $.ajax({

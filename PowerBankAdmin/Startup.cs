@@ -29,6 +29,7 @@ namespace PowerBankAdmin
             var connection = Configuration.GetConnectionString("ProdConnection");
             services.AddDbContext<AppRepository>(options => options.UseSqlServer(connection));
             services.AddTransient<ISmsService, Data.Moq.SmsService>();
+            services.AddTransient<IHolderService, Services.HolderService>();
             services.AddMvc();
         }
 
