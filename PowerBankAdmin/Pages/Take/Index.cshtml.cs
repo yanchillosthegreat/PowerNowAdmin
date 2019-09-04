@@ -9,6 +9,8 @@ namespace PowerBankAdmin.Pages.Take
 {
     public class IndexModel : BaseAuthCostumerPage
     {
+        [BindProperty]
+        public string ErrorMessage { get; set; }
         public void OnGet()
         {
             IdentifyCostumer();
