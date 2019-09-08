@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PowerBankAdmin.Pages.Take
+namespace PowerBankAdmin.Pages
 {
     public class IndexModel : BaseAuthCostumerPage
     {
-        [BindProperty]
-        public string ErrorMessage { get; set; }
-
         public void OnGet()
         {
             IdentifyCostumer();

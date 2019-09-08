@@ -42,30 +42,6 @@ $(document).ready(function () {
         });
     });
 
-    function deleteHolder(idHolder) {
-        var request = $.ajax({
-            url: "/admin/holders",
-            type: "DELETE",
-            dataType: "json",
-            data: {id: idHolder},
-            success: function (response) {
-                switch (response.code) {
-                    case 200:
-                        alert("OK");
-                        $("holders-table#" + idHolder).remove();
-                        break;
-                    default:
-                        alert(response.message);
-                        break;
-                }
-            }
-        });
-        request.error(e)
-        {
-            alert(e);
-        }
-    }
-
     logOutForm.on("submit", function (e) {
         e.preventDefault();
         var formData = logOutForm.serialize();
@@ -128,7 +104,7 @@ $(document).ready(function () {
                 submitPhoneCodeButton.ladda('stop');
                 switch (response.code) {
                     case 200:
-                        window.location.href = "/";
+                        window.location.href = "/take";
                         break;
                     default:
                         alert(response.message);
@@ -137,35 +113,5 @@ $(document).ready(function () {
             }
         });
     });
-
-
-
-    function deleteCostumer(idCostumer) {
-        var request = $.ajax({
-            url: "/admin/costumers",
-            type: "DELETE",
-            dataType: "json",
-            data: {id: idCostumer},
-            success: function (response) {
-                switch (response.code) {
-                    case 200:
-                        alert("OK");
-                        $("clients-table#" + idCostumer).remove();
-                        break;
-                    default:
-                        alert(response.message);
-                        break;
-                }
-            }
-        });
-        request.error(e)
-        {
-            alert(e);
-        }
-    }
-
-    function getPasswordCostumer(password){
-        alert(password);
-    }
 });
 

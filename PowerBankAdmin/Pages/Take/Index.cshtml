@@ -4,22 +4,30 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="middle-box text-center loginscreen  animated fadeInDown">
-    @Html.AntiForgeryToken()
-    <div>
-        <h1 class="logo-name">PN</h1>
-    </div>
+<div class="container  animated fadeInDown">
+    @Html.AntiForgeryToken();
+    <h1>Получить Power Bank </h1>
     <div class="animated fadeInRight" id="equipment-block">
-        <h3>Получить PowerBank</h3>
-        <form class="m-t" method="POST" id="enter-equipment-code-form">
-            <span class="text-center text-danger">@Model.ErrorMessage</span>
-            <div class="form-group">
-                <input type="text" id="equipment-code-input" class="form-control" placeholder="Number" required="" data-mask="9-9-9-9">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h3>Определим устройство</h3>
             </div>
-            <button type="submit" id="equipment-code-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
-                Получить power bank
-            </button>
-        </form>
+
+            <div class="ibox-content">
+                <form class="m-t" method="POST" id="enter-equipment-code-form">
+                    <span class="text-center text-danger">@Model.ErrorMessage</span>
+                    <div class="form-group">
+                        <input type="text" id="equipment-code-input" class="form-control" placeholder="Введите код" required="" data-mask="9-9-9-9">
+                    </div>
+                    <button type="submit" id="equipment-code-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
+                        Получить power bank
+                    </button>
+                </form>
+
+                <div class="google-map" id="map2" style="position: relative; overflow: hidden;">
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="animated fadeInRight" id="timer-equipment-block" style="display: none;">

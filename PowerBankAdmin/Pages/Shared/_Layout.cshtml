@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <partial name="Shared/_CssImports" />
+    @*Html.ApplicationInsightsJavaScript(TelemetryConfiguration)*@
+</head>
+<body class="top-navigation pace-done md-skin">
+    <partial name="Shared/_JsImports" />
+
+    <!-- Wrapper-->
+    <div id="wrapper">
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg">
+            <!--Header-->
+            <partial name="Shared/_SiteNavigation" />
+            <!-- Main view  -->
+            @RenderBody()
+
+            <!-- Footer -->
+            <partial name="Shared/_Footer" />
+        </div>
+        <!-- End page wrapper-->
+
+    </div>
+    <!-- End wrapper-->
+
+
+
+    @RenderSection("scripts", required: false)
+
+
+
+</body>
+</html>

@@ -1,34 +1,24 @@
-﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Startup.cs">
+﻿<Properties StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml" Line="14" Column="50" />
-      <File FileName="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml.cs" Line="60" Column="35" />
-      <File FileName="PowerBankAdmin/Pages/Admin/Costumers/Index.cshtml" Line="116" Column="10" />
-      <File FileName="PowerBankAdmin/Pages/Admin/Costumers/Index.cshtml.cs" Line="36" Column="13" />
-      <File FileName="PowerBankAdmin/Data/Repository/AppRepository.cs" Line="15" Column="48" />
-      <File FileName="PowerBankAdmin/Models/HolderModel.cs" Line="8" Column="36" />
-      <File FileName="PowerBankAdmin/Models/CostumerModel.cs" Line="22" Column="69" />
-      <File FileName="PowerBankAdmin/Models/PowerbankModel.cs" Line="7" Column="41" />
-      <File FileName="PowerBankAdmin/Pages/Admin/Holders/Add.cshtml" Line="2" Column="38" />
-      <File FileName="PowerBankAdmin/Pages/Costumer/Registration.cshtml" Line="19" Column="72" />
-      <File FileName="PowerBankAdmin/Pages/Costumer/Registration.cshtml.cs" Line="16" Column="58" />
-      <File FileName="PowerBankAdmin/Migrations/20190904160643_Holders.cs" Line="25" Column="38" />
-      <File FileName="PowerBankAdmin/wwwroot/js/site.js" Line="45" Column="5" />
-      <File FileName="PowerBankAdmin/Data/Interfaces/IHolderService.cs" Line="9" Column="147" />
-      <File FileName="PowerBankAdmin/Services/HolderService.cs" Line="13" Column="1" />
-      <File FileName="PowerBankAdmin/Startup.cs" Line="32" Column="46" />
+      <File FileName="PowerBankAdmin/wwwroot/js/site.js" Line="118" Column="1" />
+      <File FileName="PowerBankAdmin/Pages/Take/Index.cshtml" Line="38" Column="7" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="PowerBankAdmin" expanded="True">
-            <Node name="Solution Items" expanded="True" />
             <Node name="PowerBankAdmin" expanded="True">
-              <Node name="Data" expanded="True">
-                <Node name="Interfaces" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="Costumer" expanded="True" />
+                <Node name="Take" expanded="True">
+                  <Node name="Index.cshtml" expanded="True" selected="True" />
+                </Node>
               </Node>
-              <Node name="Services" expanded="True" />
-              <Node name="Startup.cs" selected="True" />
+              <Node name="wwwroot" expanded="True">
+                <Node name="js" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>
