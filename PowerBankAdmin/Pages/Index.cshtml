@@ -1,0 +1,20 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<h1>
+    Hi!
+    @if (Model.IsAuthorized())
+    {
+        <span>@Model.GetName()</span>
+    }
+</h1>
+<h5>You can Take device by pressing this beautifull big button</h5>
+<a class="btn btn-primary m-b btn-xl" href='@Url.Page("take/index")'>Take power bank</a>
+
+
+
+

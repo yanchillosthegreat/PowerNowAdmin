@@ -104,7 +104,7 @@ $(document).ready(function () {
                 submitPhoneCodeButton.ladda('stop');
                 switch (response.code) {
                     case 200:
-                        window.location.href = "/";
+                        window.location.href = "/take";
                         break;
                     default:
                         alert(response.message);

@@ -134,4 +134,10 @@ C:/Users/yanmoroz/source/repos/PowerBankAdmin/PowerBankAdmin/obj/Debug/netcoreap
 /Users/ymoroz/Projects/PowerNowAdmin/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/_ViewStart.cshtml.g.cs
 /Users/ymoroz/Projects/PowerNowAdmin/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Holders/Index.cshtml.g.cs
 /Users/ymoroz/Projects/PowerNowAdmin/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Powerbanks/Index.cshtml.g.cs
+<<<<<<< HEAD
 /Users/ymoroz/Projects/PowerNowAdmin/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Holders/Add.cshtml.g.cs
+=======
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Holders/Add.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Holders/Index.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Admin/Powerbanks/Index.cshtml.g.cs
+>>>>>>> 8e2f744... md skin everywere
