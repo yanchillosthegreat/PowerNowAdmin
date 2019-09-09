@@ -17,11 +17,7 @@
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-<<<<<<< Updated upstream
-          "/Users/ymoroz/.config/NuGet/NuGet.Config"
-=======
           "/Users/stanislav/.config/NuGet/NuGet.Config"
->>>>>>> Stashed changes
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -84,7 +80,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100-preview8-013656/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100-preview9-014004/RuntimeIdentifierGraph.json"
         }
       }
     }
