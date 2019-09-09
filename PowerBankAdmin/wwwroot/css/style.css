@@ -762,7 +762,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 }
 
 .btn {
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .float-e-margins .btn {
@@ -800,6 +800,36 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     .btn-danger.btn-outline:hover {
         color: #fff;
     }
+
+.btn-primary-orange {
+    background-color: #1F2124;
+    border-color: #F58319;
+    border-width: 2px;
+    color: #F58319;
+    font-size: 13pt;
+    font-family: 'Roboto';
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    height: 49px;
+    padding: 10px 12px;
+}
+
+.p-power-now-bold {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: #F58319;
+}
+
+.p-power-now-normal {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 17px;
+    color: #F58319;
+}
 
 .btn-primary {
     background-color: #1ab394;
@@ -4183,7 +4213,7 @@ video {
 }
 
 #page-wrapper {
-    padding: 0 15px;
+    padding: 0 0px;
     min-height: 568px;
     position: relative !important;
 }
