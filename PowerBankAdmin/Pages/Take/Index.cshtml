@@ -39,7 +39,7 @@
         <div class="animated fadeInRight text-center" id="timer-equipment-block">
             <div>
                 <input id="session-duration" type="hidden" value="@Model.SessionDuration" />
-                <p id="timer-text" class="p-power-now-normal"></p>
+                <pre id="timer-text" class="p-power-now-normal"></pre>
             </div>
         </div>
         <div class="row" style="padding: 0px 32px 0px 32px;">
@@ -121,7 +121,7 @@
                 seconds = pretty_time_string(seconds);
 
                 // Compose the string for display
-                var currentTimeString = hours + " : " + minutes + " : " + seconds;
+                var currentTimeString = hours + "  :  " + minutes + "  :  " + seconds;
 
                 return currentTimeString;
             }

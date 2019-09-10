@@ -830,6 +830,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     font-weight: 300;
     font-size: 17px;
     color: #F58319;
+    background-color: transparent;
+    border-width: 0;
 }
 
 .btn-primary {
