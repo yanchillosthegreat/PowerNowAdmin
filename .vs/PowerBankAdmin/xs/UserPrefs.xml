@@ -1,10 +1,38 @@
 ﻿<Properties StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Data/Interfaces/IHolderService.cs">
+    <Files>
+      <File FileName="PowerBankAdmin/Startup.cs" Line="18" Column="6" />
+      <File FileName="PowerBankAdmin/Strings.cs" />
+      <File FileName="PowerBankAdmin/Pages/Take/Index.cshtml.cs" />
+      <File FileName="PowerBankAdmin/Pages/Take/Index.cshtml" />
+      <File FileName="PowerBankAdmin/Models/PowerbankSessionModel.cs" />
+      <File FileName="PowerBankAdmin/Models/CostumerModel.cs" />
+      <File FileName="PowerBankAdmin/Models/PowerbankModel.cs" />
+      <File FileName="PowerBankAdmin/Data/Repository/AppRepository.cs" />
+      <File FileName="PowerBankAdmin/Services/HolderService.cs" />
+      <File FileName="PowerBankAdmin/Models/HolderModel.cs" />
+      <File FileName="PowerBankAdmin/Data/Interfaces/IHolderService.cs" Line="9" Column="20" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="PowerBankAdmin" expanded="True" selected="True">
-            <Node name="PowerBankAdmin" expanded="True" />
+          <Node name="PowerBankAdmin" expanded="True">
+            <Node name="PowerBankAdmin" expanded="True">
+              <Node name="Data" expanded="True">
+                <Node name="Interfaces" expanded="True">
+                  <Node name="IHolderService.cs" selected="True" />
+                </Node>
+                <Node name="Repository" expanded="True" />
+              </Node>
+              <Node name="Helpers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="Take" expanded="True">
+                  <Node name="Index.cshtml" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Services" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
