@@ -1,30 +1,12 @@
-<<<<<<< Updated upstream
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-*.swp
-=======
 ﻿*.swp
->>>>>>> Stashed changes
 *.*~
 project.lock.json
 .DS_Store
 *.pyc
-<<<<<<< Updated upstream
-nupkg/
-=======
->>>>>>> Stashed changes
 
 # Visual Studio Code
 .vscode
 
-<<<<<<< Updated upstream
-# Rider
-.idea
-
-=======
->>>>>>> Stashed changes
 # User-specific files
 *.suo
 *.user
@@ -42,16 +24,6 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-<<<<<<< Updated upstream
-[Oo]ut/
 msbuild.log
 msbuild.err
 msbuild.wrn
-
-# Visual Studio 2015
-.vs/
-=======
-msbuild.log
-msbuild.err
-msbuild.wrn
->>>>>>> Stashed changes
