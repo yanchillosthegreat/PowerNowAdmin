@@ -9,7 +9,6 @@ using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
-using PowerBankAdmin.Services;
 
 namespace PowerBankAdmin.Pages.Take
 {
@@ -37,7 +36,7 @@ namespace PowerBankAdmin.Pages.Take
             if (IsAuthorized())
             {
                 Session = await _holderService.LastSession(Costumer.Id);
-                if(Session != null && Session.IsActive)
+                if (Session != null && Session.IsActive)
                 {
                     SessionDuration = (DateTime.Now - Session.Start).TotalSeconds;
                 }
@@ -52,11 +51,11 @@ namespace PowerBankAdmin.Pages.Take
             if (string.IsNullOrEmpty(code))
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong code");
             var holder = await _appRepository.Holders.FirstOrDefaultAsync(x => x.LocalCode == code);
-            if(holder == null)
+            if (holder == null)
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "No such Holder");
 
             var result = await _holderService.ProvidePowerBank(Costumer.Id, holder.Id);
-            if(!result)
+            if (!result)
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
 
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
@@ -65,7 +64,7 @@ namespace PowerBankAdmin.Pages.Take
         public async Task<IActionResult> OnPostCheckAsync()
         {
             IdentifyCostumer();
-            if(!IsAuthorized())
+            if (!IsAuthorized())
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
             var session = await _appRepository.PowerbankSessions.FirstOrDefaultAsync(x => x.Costumer.Id == Costumer.Id && x.IsActive);
             var message = session == null ? "0" : "1"; // 1 - session is Active

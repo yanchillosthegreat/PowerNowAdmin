@@ -43,17 +43,12 @@
     <Content Remove="Pages\Shared\_ViewStart.cshtml" />
     <Content Remove="Pages\Shared\_RightSidebar.cshtml" />
     <Content Remove="Pages\Shared\_Imports.cshtml" />
-    <Content Remove="Pages\Take\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20190804002309_initial.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pages\Shared\_Layout.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </None>
-    <None Include="Pages\Take\Index.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
