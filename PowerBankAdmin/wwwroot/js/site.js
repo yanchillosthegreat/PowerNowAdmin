@@ -73,6 +73,7 @@ $(document).ready(function () {
                             elapsed_seconds = elapsed_seconds + 1;
                             timerText.text(get_elapsed_time_string(elapsed_seconds));
                         }, 1000);
+                        setInterval(check, 5000);
                         break;
                     default:
                         alert(response.message);
@@ -81,6 +82,38 @@ $(document).ready(function () {
             }
         });
     });
+
+    function check() {
+        var token = $('input[name="__RequestVerificationToken"]').val()
+        var request = $.ajax({
+            url: "/take?handler=check",
+            type: "POST",
+            dataType: "json",
+            data: {
+                __RequestVerificationToken: token
+            },
+            success: function (response) {
+                switch (response.code) {
+                    case 200:
+                        switch (response.message) {
+                            case "1":
+                                break;
+                            case "0":
+                                alert("Session is over");
+                                location.reload();
+                                break;
+                            default:
+                                alert(response.message);
+                                break;
+                        }
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+            }
 
 
     formAddHolder.on("submit", function (e) {
