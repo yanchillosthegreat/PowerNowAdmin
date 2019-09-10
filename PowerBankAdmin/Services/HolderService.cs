@@ -26,7 +26,7 @@ namespace PowerBankAdmin.Services
             var costumer = await _appRepository.Costumers.FirstOrDefaultAsync(x => x.Id == idCostumer);
             var holder = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).FirstOrDefaultAsync(x => x.Id == idHolder);
             if (costumer == null || holder == null) return false;
-            var powerBank = holder.Powerbanks.ToList().FirstOrDefault(x => x.Sessions.Count() == 0 || x.Sessions.All(x => !x.IsActive));
+            var powerBank = holder.Powerbanks.ToList().FirstOrDefault(x => x.Sessions.Count() == 0 || x.Sessions.All(y => !y.IsActive));
             if (powerBank == null) return false;
             var session = new PowerbankSessionModel
             {

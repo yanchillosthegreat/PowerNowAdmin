@@ -10,7 +10,7 @@ namespace PowerBankAdmin.Models
         public DateTime Start { get; set; }
         public DateTime Finish { get; set; }
 
-        public bool IsActive => Start < Finish;
+        public bool IsActive => Start > Finish;
 
     }
 }

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
+using PowerBankAdmin.Models;
 using PowerBankAdmin.Services;
 
 namespace PowerBankAdmin.Pages.Take
@@ -14,13 +16,15 @@ namespace PowerBankAdmin.Pages.Take
     public class IndexModel : BaseAuthCostumerPage
     {
         private readonly AppRepository _appRepository;
-        private readonly HolderService _holderService;
+        private readonly IHolderService _holderService;
 
+        [BindProperty]
+        public PowerbankSessionModel Session { get; set; }
         [BindProperty]
         public double SessionDuration { get; set; }
 
 
-        public IndexModel(AppRepository appRepository, HolderService holderService)
+        public IndexModel(IHolderService holderService, AppRepository appRepository)
         {
             _appRepository = appRepository;
             _holderService = holderService;
@@ -32,10 +36,10 @@ namespace PowerBankAdmin.Pages.Take
             IdentifyCostumer();
             if (IsAuthorized())
             {
-                var session = await _holderService.LastSession(Costumer.Id);
-                if(session != null && session.IsActive)
+                Session = await _holderService.LastSession(Costumer.Id);
+                if(Session != null && Session.IsActive)
                 {
-                    SessionDuration = (DateTime.Now - session.Start).TotalSeconds;
+                    SessionDuration = (DateTime.Now - Session.Start).TotalSeconds;
                 }
             }
         }
@@ -47,7 +51,7 @@ namespace PowerBankAdmin.Pages.Take
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
             if (string.IsNullOrEmpty(code))
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong code");
-            var holder = _appRepository.Holders.FirstOrDefaultAsync(x => x.LocalCode == code);
+            var holder = await _appRepository.Holders.FirstOrDefaultAsync(x => x.LocalCode == code);
             if(holder == null)
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "No such Holder");
 
