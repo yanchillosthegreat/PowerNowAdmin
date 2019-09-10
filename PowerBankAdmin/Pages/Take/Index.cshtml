@@ -5,34 +5,127 @@
 }
 
 <div class="container  animated fadeInDown">
-    @Html.AntiForgeryToken();
+    @Html.AntiForgeryToken()
     <h1>Получить Power Bank </h1>
-    <div class="animated fadeInRight" id="equipment-block">
-        <div class="ibox">
-            <div class="ibox-title">
-                <h3>Определим устройство</h3>
-            </div>
+    @if(!Model.Session?.IsActive ?? true)
+    {
+        <div class="animated fadeInRight" id="equipment-block">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h3>Определим устройство</h3>
+                </div>
 
-            <div class="ibox-content">
-                <form class="m-t" method="POST" id="enter-equipment-code-form">
-                    <span class="text-center text-danger">@Model.ErrorMessage</span>
-                    <div class="form-group">
-                        <input type="text" id="equipment-code-input" class="form-control" placeholder="Введите код" required="" data-mask="9-9-9-9">
-                    </div>
-                    <button type="submit" id="equipment-code-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
-                        Получить power bank
-                    </button>
-                </form>
-
-                <div class="google-map" id="map2" style="position: relative; overflow: hidden;">
+                <div class="ibox-content">
+                    <form class="m-t" method="POST" id="enter-equipment-code-form">
+                        <span class="text-center text-danger"></span>
+                        <div class="form-group">
+                            <input type="text" id="equipment-code-input" class="form-control" placeholder="Введите код" required="" data-mask="9_9_9_9">
+                        </div>
+                        <button type="submit" id="equipment-code-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
+                            Получить power bank
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="animated fadeInRight" id="timer-equipment-block" style="display: none;">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h3>Сессия активна</h3>
+                </div>
+                <div class="ibox-content">
+                    <h1 id="timer-text"></h1>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="animated fadeInRight" id="timer-equipment-block">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h3>Сессия активна</h3>
+                </div>
+                <div class="ibox-content">
+                    <input id="session-duration" type="hidden" value="@Model.SessionDuration" />
+                    <h1 id="timer-text"></h1>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
 
-    <div class="animated fadeInRight" id="timer-equipment-block" style="display: none;">
-        <h3>Время пошло!</h3>
-        <h1 id="timer">00:00:00</h1>
-    </div>
+            $(document).ready(function(e){
+                var timerText = $("#timer-text");
 
+                var elapsed_seconds = parseInt($("#session-duration").val());
+                setInterval(function() {
+                    elapsed_seconds = elapsed_seconds + 1;
+                    timerText.text(get_elapsed_time_string(elapsed_seconds));
+                }, 1000);
+
+                setInterval(check, 5000);
+
+            });
+
+            function check() {
+                var token = $('input[name="__RequestVerificationToken"]').val()
+                var request = $.ajax({
+                    url: "/take?handler=check",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        __RequestVerificationToken: token
+                    },
+                    success: function (response) {
+                        switch (response.code) {
+                            case 200:
+                                switch (response.message) {
+                                    case "1":
+                                        break;
+                                    case "0":
+                                        alert("Session is over");
+                                        location.reload();
+                                        break;
+                                    default:
+                                        alert(response.message);
+                                        break;
+                                }
+                                break;
+                            default:
+                                alert(response.message);
+                                break;
+                        }
+                    }
+                });
+            }
+
+
+            function get_elapsed_time_string(total_seconds) {
+                function pretty_time_string(num) {
+                    return ( num < 10 ? "0" : "" ) + num;
+                }
+
+                var hours = Math.floor(total_seconds / 3600);
+                total_seconds = total_seconds % 3600;
+
+                var minutes = Math.floor(total_seconds / 60);
+                total_seconds = total_seconds % 60;
+
+                var seconds = Math.floor(total_seconds);
+
+                // Pad the minutes and seconds with leading zeros, if required
+                hours = pretty_time_string(hours);
+                minutes = pretty_time_string(minutes);
+                seconds = pretty_time_string(seconds);
+
+                // Compose the string for display
+                var currentTimeString = hours + ":" + minutes + ":" + seconds;
+
+                return currentTimeString;
+            }
+        </script>
+    }
+
+
+    
 </div>

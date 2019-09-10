@@ -15,7 +15,8 @@ namespace PowerBankAdmin.Models
 
         public IEnumerable<VerificationCodeModel> Verifications { get; set; }
         public IEnumerable<CostumerAuthorizationModel> Authorizations { get; set; }
-        public IEnumerable<PowerbankModel> Powerbanks { get; set; }
+        public IEnumerable<PowerbankSessionModel> Sessions { get; set; }
+
 
         public CostumerModel()
         {

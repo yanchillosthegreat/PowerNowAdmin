@@ -1,10 +1,28 @@
 ﻿<Properties StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Pages/Take/Index.cshtml.cs">
+    <Files>
+      <File FileName="PowerBankAdmin/Pages/Costumer/Index.cshtml.cs" Line="1" Column="1" />
+      <File FileName="PowerBankAdmin/Pages/Costumer/Index.cshtml" Line="6" Column="25" />
+      <File FileName="PowerBankAdmin/Pages/Take/Index.cshtml" Line="131" Column="7" />
+      <File FileName="PowerBankAdmin/Pages/Take/Index.cshtml.cs" Line="73" Column="6" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="PowerBankAdmin" expanded="True" selected="True">
-            <Node name="PowerBankAdmin" expanded="True" />
+          <Node name="PowerBankAdmin" expanded="True">
+            <Node name="PowerBankAdmin" expanded="True">
+              <Node name="Pages" expanded="True">
+                <Node name="Costumer" expanded="True">
+                  <Node name="Index.cshtml" expanded="True" />
+                  <Node name="Registration.cshtml" expanded="True" />
+                </Node>
+                <Node name="Take" expanded="True">
+                  <Node name="Index.cshtml" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Services" expanded="True" />
+              <Node name="wwwroot" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
