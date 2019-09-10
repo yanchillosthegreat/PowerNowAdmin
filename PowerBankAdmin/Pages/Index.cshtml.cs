@@ -13,5 +13,7 @@ namespace PowerBankAdmin.Pages
         {
             IdentifyCostumer();
         }
+
+
     }
 }

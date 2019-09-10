@@ -4,14 +4,13 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-
-<div class="wrapper-content" style="width: 321px; margin: auto;">
+<div class="middle-box">
     @Html.AntiForgeryToken()
     <div class="row" style="padding: 0px 0px 79px 0px;">
-            <div class="col-md-12">
-                <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 158px; height: 74px; margin:auto" />
-            </div>
+        <div class="col-md-12">
+            <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 158px; height: 74px; margin:auto" />
         </div>
+    </div>
     <div class="row" style="padding: 0px 32px 50px 32px;">
         <div class="col text-center">
             <a class="btn btn-primary-orange m-b" style="width: 219px" href='@Url.Page("take/index")'>взять power now</a>
@@ -100,7 +99,7 @@
                         </td>
                         <td></td>
                         <td>
-                            <span>Верни POWER NOW</span>
+                            <span>Верни POWER NOW</span><br/>
                             <span style="font-weight: bold;">в свободную ячейку</span>
                         </td>
                     </tr>
@@ -109,30 +108,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <img src="~/css/patterns/city_1.png" class="img-responsive" style="width: 100%; height: auto;" />
-        </div>
+        <img src="~/css/patterns/city_1.png" class="img-responsive" style="width: 100%; height: 209px;" />
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-    @*<h1>
-            Hi!
-            @if (Model.IsAuthorized())
-            {
-                <span>@Model.GetName()</span>
-            }
-        </h1>
-        <h5>You can Take device by pressing this beautifull big button</h5>
-        <a class="btn btn-primary m-b btn-xl" href='@Url.Page("take/index")'>Take power bank</a>*@
-
-
-
-

@@ -4,37 +4,51 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="middle-box text-center loginscreen  animated fadeInDown">
+<div class="middle-box">
     @Html.AntiForgeryToken()
-    <div>
-        <h1 class="logo-name">PN</h1>
+    <div class="row" style="padding: 0px 0px 35px 0px;">
+        <div class="text-center">
+            <p class="p-power-now-bold">АВТОРИЗАЦИЯ</p>
+        </div>
     </div>
-    <h3>Регистрация по смс</h3>
-    <div class="animated fadeInRight" id="phone-block">
-        <form class="m-t" method="POST" id="enter-phone-form">
-            <span class="text-center text-danger">@Model.ErrorMessage</span>
+    <div class="row" style="width: 219px; margin: auto;" id="phone-block">
+        <form method="POST" id="enter-phone-form">
             <div class="form-group">
-                <input type="tel" id="phone-input" asp-for="@Model.Costumer.Phone" class="form-control" placeholder="Phone" required="" data-mask="+7 (999) 999-9999">
+                <input type="tel" id="phone-input" asp-for="@Model.Costumer.Phone"
+                       class="form-control" placeholder="Номер телефона" required=""
+                       data-mask="+7 (999) 999 99 99"
+                       style="border-bottom-color: #F58319; border-width: 0px;
+                              border-bottom-width: 2px; background-color: transparent;
+                              text-align: center">
             </div>
-            <button type="submit" id="phone-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
+            <button type="submit" id="phone-submit" class="ladda-button btn btn-primary-orange full-width m-b"
+                    data-style="zoom-in">
                 Получить SMS
             </button>
         </form>
     </div>
-
-    <div class="animated fadeInRight" id="phone-code-block" style="display: none;">
+    <div class="animated fadeInRight" id="phone-code-block" style="display: none; width: 219px; margin: auto;">
         <form class="m-t" method="POST" id="enter-phone-code-form">
             <span class="text-center text-danger">@Model.ErrorMessage</span>
             <div class="form-group">
-                <input type="tel" id="phone-verification-input" asp-for="@Model.Costumer.Phone" class="form-control hidden" placeholder="Code" required="">
+                <input type="tel" id="phone-verification-input" asp-for="@Model.Costumer.Phone"
+                       class="form-control hidden" placeholder="Code" required=""
+                       style="border-bottom-color: #F58319; border-width: 0px;
+                              border-bottom-width: 2px; background-color: transparent;
+                              text-align: center; color: red">
             </div>
             <div class="form-group">
-                <input type="text" asp-for="@Model.VerificationCode" class="form-control" placeholder="Code" required="">
+                <input type="text" asp-for="@Model.VerificationCode" class="form-control" placeholder="Code"
+                       required="" style="border-bottom-color: #F58319; border-width: 0px;
+                              border-bottom-width: 2px; background-color: transparent;
+                              text-align: center">
             </div>
-            <button type="submit" id="phone-code-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
+            <button type="submit" id="phone-code-submit" class="ladda-button btn btn-primary-orange full-width m-b" data-style="zoom-in">
                 Проверить код
             </button>
         </form>
     </div>
-
+    <div class="row" style="margin-top: 204px">
+        <img src="~/css/patterns/city_1.png" class="img-responsive" style="width: 100%; height: 209px;" />
+    </div>
 </div>
