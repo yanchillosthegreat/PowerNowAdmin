@@ -4,55 +4,57 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="container  animated fadeInDown">
+<div class="middle-box animated fadeInDown">
     @Html.AntiForgeryToken()
-    <h1>Получить Power Bank </h1>
     @if(!Model.Session?.IsActive ?? true)
     {
-        <div class="animated fadeInRight" id="equipment-block">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h3>Определим устройство</h3>
-                </div>
-
-                <div class="ibox-content">
-                    <form class="m-t" method="POST" id="enter-equipment-code-form">
-                        <span class="text-center text-danger"></span>
-                        <div class="form-group">
-                            <input type="text" id="equipment-code-input" class="form-control" placeholder="Введите код" required="" data-mask="9_9_9_9">
-                        </div>
-                        <button type="submit" id="equipment-code-submit" class="ladda-button btn btn-primary full-width m-b" data-style="zoom-in">
-                            Получить power bank
-                        </button>
-                    </form>
-                </div>
-            </div>
+        <div class="row text-center">
+                <p class="p-power-now-bold">ВВЕДИ НОМЕР АВТОМАТА</p>
         </div>
-        <div class="animated fadeInRight" id="timer-equipment-block" style="display: none;">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h3>Сессия активна</h3>
+        <div class="row" style="width: 219px; margin: auto;">
+            <form class="m-t" method="POST" id="enter-equipment-code-form">
+                <span class="text-center text-danger"></span>
+                <div class="form-group">
+                    <input type="text" id="equipment-code-input" class="form-control" placeholder="X X X X"
+                           required="" data-mask="9_9_9_9"
+                           style="border-bottom-color: #F58319; border-width: 0px;
+                              border-bottom-width: 2px; background-color: transparent;
+                              text-align: center">
                 </div>
-                <div class="ibox-content">
-                    <h1 id="timer-text"></h1>
-                </div>
-            </div>
+                <button type="submit" id="equipment-code-submit"
+                        class="ladda-button btn btn-primary-orange full-width m-b"
+                        data-style="zoom-in">
+                    Продолжить
+                </button>
+            </form>
         </div>
     }
     else
     {
-        <div class="animated fadeInRight" id="timer-equipment-block">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h3>Сессия активна</h3>
-                </div>
-                <div class="ibox-content">
-                    <input id="session-duration" type="hidden" value="@Model.SessionDuration" />
-                    <h1 id="timer-text"></h1>
-                </div>
+        <div class="row" style="padding: 0px 0px 79px 0px;">
+            <div class="col-md-12">
+                <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 158px; height: 74px; margin:auto" />
             </div>
         </div>
-        <script type="text/javascript">
+        <div class="animated fadeInRight text-center" id="timer-equipment-block">
+            <div>
+                <input id="session-duration" type="hidden" value="@Model.SessionDuration" />
+                <p id="timer-text" class="p-power-now-normal"></p>
+            </div>
+        </div>
+        <div class="row" style="padding: 0px 32px 0px 32px;">
+            <div class="col text-center">
+                <a class="btn btn-primary-orange m-b" style="width: 219px" href='@Url.Page("take/index")'>ценовые условия</a>
+            </div>
+        </div>
+        <div class="row" style="padding: 0px 0px 0px 0px;">
+            <div class="col-md-12">
+                <img src="~/css/patterns/powerbankImage.png" class="img-responsive rotatePowerbankImage" style="width: 223px; height: 231px; margin:auto" />
+            </div>
+        </div>
+    }
+
+    <script type="text/javascript">
 
             $(document).ready(function(e){
                 var timerText = $("#timer-text");
@@ -83,8 +85,8 @@
                                     case "1":
                                         break;
                                     case "0":
-                                        alert("Session is over");
-                                        location.reload();
+                                        //alert("Session is over");
+                                        //location.reload();
                                         break;
                                     default:
                                         alert(response.message);
@@ -119,13 +121,10 @@
                 seconds = pretty_time_string(seconds);
 
                 // Compose the string for display
-                var currentTimeString = hours + ":" + minutes + ":" + seconds;
+                var currentTimeString = hours + " : " + minutes + " : " + seconds;
 
                 return currentTimeString;
             }
         </script>
-    }
 
-
-    
 </div>

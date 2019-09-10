@@ -74,6 +74,7 @@ $(document).ready(function () {
                             timerText.text(get_elapsed_time_string(elapsed_seconds));
                         }, 1000);
                         setInterval(check, 5000);
+                        location.reload();
                         break;
                     default:
                         alert(response.message);
