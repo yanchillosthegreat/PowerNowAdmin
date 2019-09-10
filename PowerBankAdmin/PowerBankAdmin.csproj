@@ -44,6 +44,8 @@
     <Content Remove="Pages\Shared\_RightSidebar.cshtml" />
     <Content Remove="Pages\Shared\_Imports.cshtml" />
     <Content Remove="Pages\Take\Index.cshtml" />
+    <Content Remove="wwwroot\css\patterns\logo.png" />
+    <Content Remove="wwwroot\css\patterns\cardInHandIcon1.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20190804002309_initial.cs" />
@@ -57,5 +59,13 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
+    <None Include="wwwroot\css\patterns\logo.png" />
+    <None Include="wwwroot\css\patterns\cardInHandIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\**">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 </Project>
