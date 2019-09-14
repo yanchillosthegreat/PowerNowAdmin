@@ -50,6 +50,33 @@ $(document).ready(function () {
     var takeTimerBlock = $("#timer-equipment-block");
     var timerText = $("#timer-text");
 
+    //Costumer page
+    var changeCostumerDataForm = $("costumer-data-form");
+    var changeCostumerDataButton = $("change-costumer-data-button").ladda();
+
+    changeCostumerDataForm.on("submit", function (e) {
+        e.preventDefault();
+        changeCostumerDataButton.ladda("start");
+        var dataForm = changeCostumerDataForm.serialize();
+        var request = $.ajax({
+            url: "/costumer",
+            type: "PUT",
+            dataType: "json",
+            data: dataForm,
+            success: function (response) {
+                changeCostumerDataButton.ladda("stop");
+                switch (response.code) {
+                    case 200:
+                        alert("Данные успешно изменены");
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+            });
+    });
+
     enterHolderCodeForm.on("submit", function (e) {
         e.preventDefault();
         enterHolderCodeSubmit.ladda("start");

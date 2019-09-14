@@ -33,6 +33,7 @@
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_Navigation.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_SiteNavigation.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Shared/_TopNavbar.cshtml.g.cs
+/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/Take/Index.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/_ViewImports.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/Razor/Pages/_ViewStart.cshtml.g.cs
 /Users/stanislav/Projects/powernow/PowerBankAdmin/obj/Debug/netcoreapp2.2/PowerBankAdmin.RazorTargetAssemblyInfo.cache
