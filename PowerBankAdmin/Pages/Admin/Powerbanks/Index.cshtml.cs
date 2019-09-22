@@ -16,6 +16,14 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
     {
         [BindProperty]
         public IEnumerable<PowerbankModel> Powerbanks { get; set; }
+        [BindProperty]
+        public IEnumerable<HolderModel> Holders { get; set; }
+
+        [BindProperty]
+        public PowerbankModel PowerbankToAdd { get; set; }
+        //TODO: Find How to link object in select
+        [BindProperty]
+        public int PowerbankToAddHolderId { get; set; }
 
         private AppRepository _appRepository;
         private IHolderService _holderService;
@@ -30,6 +38,7 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
         {
             IdentifyUser();
             Powerbanks = await _appRepository.Powerbanks.Include(x => x.Sessions).ThenInclude(x => x.Costumer).ToListAsync();
+            Holders = await _appRepository.Holders.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostStopAsync(int? id)
@@ -42,6 +51,49 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
 
+        public async Task<IActionResult> OnDeleteAsync(int? id)
+        {
+            if (id == null || id <= 0) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode);
 
+            var powerbankToRemove = await _appRepository.Powerbanks.FirstOrDefaultAsync(x => x.Id == id);
+            if (powerbankToRemove == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode);
+
+            _appRepository.Powerbanks.Remove(powerbankToRemove);
+            await _appRepository.SaveChangesAsync();
+            return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (string.IsNullOrEmpty(PowerbankToAdd?.Code))
+            {
+                return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Не указаны необходимые параметры");
+            }
+            if (!await FixPowerBank(PowerbankToAddHolderId))
+            {
+                return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Powerbank с таким кодом уже существует");
+            }
+
+            await _appRepository.Powerbanks.AddAsync(PowerbankToAdd);
+            await _appRepository.SaveChangesAsync();
+            var newRowHtml = BuildHtmlHolderRow();
+            return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, newRowHtml);
+        }
+
+        private string BuildHtmlHolderRow()
+        {
+            return $"<tr id=\"{PowerbankToAdd.Id}\"> <td> {PowerbankToAdd.Id} </td> <td> {PowerbankToAdd.Code} </td> <td> {PowerbankToAdd.Holder?.LocalCode} </td> <td> </td> <td> <span class=\"badge badge-warning\">Finished</span> </td><td> <button class=\"button btn-xs btn-warning\" onclick=\"stopSession({PowerbankToAdd.Id})\">stop</button> <button class=\"button btn-xs btn-warning\" onclick=\"deletePowerbank({PowerbankToAdd.Id})\">x</button></td></tr>";
+        }
+
+        private async Task<bool> FixPowerBank(int holderId)
+        {
+            var powerbankToCheck = await _appRepository.Powerbanks.FirstOrDefaultAsync(x => x.Code == PowerbankToAdd.Code);
+            if (powerbankToCheck != null) return false;
+            var holder = await _appRepository.Holders.FirstOrDefaultAsync(x => x.Id == holderId);
+            if (holder == null) return false;
+            PowerbankToAdd.Holder = holder;
+            return true;
+
+        }
     }
 }

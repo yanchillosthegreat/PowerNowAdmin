@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
@@ -23,11 +24,13 @@ namespace PowerBankAdmin.Pages.Costumer
         public void OnGet()
         {
             IdentifyCostumer();
-            Sessions = _appRepository.PowerbankSessions.Where(x => x.Costumer.Id == Costumer.Id);
+            Sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).Where(x => x.Costumer.Id == Costumer.Id);
         }
 
         public async Task<IActionResult> OnPutAsync()
         {
+            var costumerToEdit = await _appRepository.Costumers.FirstOrDefaultAsync(x => x.Id == Costumer.Id);
+            if (costumerToEdit == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode);
             _appRepository.Entry(Costumer).Property(x => x.Name).IsModified = true;
             _appRepository.Entry(Costumer).Property(x => x.Email).IsModified = true;
             await _appRepository.SaveChangesAsync();

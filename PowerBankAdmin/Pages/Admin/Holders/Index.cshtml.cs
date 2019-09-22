@@ -73,7 +73,6 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             if (holderToCheck != null) return false;
             holderToCheck = await _appRepository.Holders.FirstOrDefaultAsync(x => x.Code == HolderToAdd.Code);
             return holderToCheck == null;
-                
         }
     }
 }

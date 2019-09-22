@@ -43,6 +43,11 @@ $(document).ready(function () {
     var submitAddHolder = $("#add-holder-submit-button").ladda();
     var holdersTable = $("#holders-table");
 
+    //Powerbanks page
+    var formAddPowerbank = $("#add-powerbank-form");
+    var submitAddPowerbank = $("#add-powerbank-submit-button").ladda();
+    var powerbanksTable = $("#powerbank-table");
+
     //Take page
     var enterHolderCodeForm = $("#enter-equipment-code-form");
     var enterHolderCodeSubmit = $("#equipment-code-submit").ladda();
@@ -51,8 +56,31 @@ $(document).ready(function () {
     var timerText = $("#timer-text");
 
     //Costumer page
-    var changeCostumerDataForm = $("costumer-data-form");
-    var changeCostumerDataButton = $("change-costumer-data-button").ladda();
+    var changeCostumerDataForm = $("#costumer-data-form");
+    var changeCostumerDataButton = $("#change-costumer-data-button").ladda();
+
+    formAddPowerbank.on("submit", function (e) {
+        e.preventDefault();
+        submitAddPowerbank.ladda("start");
+        var formData = formAddPowerbank.serialize();
+        var request = $.ajax({
+            url: "/admin/powerbanks",
+            type: "POST",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                submitAddPowerbank.ladda('stop');
+                switch (response.code) {
+                    case 200:
+                        powerbanksTable.append(response.message);
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+    });
 
     changeCostumerDataForm.on("submit", function (e) {
         e.preventDefault();

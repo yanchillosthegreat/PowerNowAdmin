@@ -30,7 +30,7 @@
                                     {
                                         <tr id="@session.Id">
                                             <td>@session.Id</td>
-                                            <td>@session.Powerbank.Code</td>
+                                            <td>@session.Powerbank?.Code</td>
                                             <td>@session.Start</td>
                                             <td>@session.Finish</td>
                                             <td>
@@ -71,7 +71,8 @@
                     <h5>Изменение данных пользователя</h5>
                 </div>
                 <div class="ibox-content">
-                    <form id="costumer-data-form">
+                    <form id="costumer-data-form" method="PUT">
+                        <input type="hidden" asp-for="Costumer.Id" value="@Model.Costumer.Id"/>
                         <div class="row form-group">
                             <div class="col-form-label col-md-2">
                                 <label>Имя</label>
