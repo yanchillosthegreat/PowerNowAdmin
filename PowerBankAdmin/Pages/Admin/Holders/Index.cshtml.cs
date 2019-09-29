@@ -64,7 +64,7 @@ namespace PowerBankAdmin.Pages.Admin.Holders
 
         private string BuildHtmlHolderRow()
         {
-            return $"<tr id=\"{HolderToAdd.Id}\"> <td> {HolderToAdd.Id} </td> <td> {HolderToAdd.LocalCode} </td> <td> {HolderToAdd.Code} </td><td> <button class=\"button btn-xs btn-danger\" onclick=\"deleteHolder({HolderToAdd.Id})\">x</button></td></tr>";
+            return $"<tr id=\"{HolderToAdd.Id}\"> <td> {HolderToAdd.Id} </td> <td> {HolderToAdd.LocalCode} </td> <td> {HolderToAdd.Code} </td> <td> {HolderToAdd.OwnerName} </td> <td> {HolderToAdd.OwnerAddress} </td> <td> <button class=\"button btn-xs btn-danger\" onclick=\"deleteHolder({HolderToAdd.Id})\">x</button></td></tr>";
         }
 
         private async Task<bool> CheckHolder()

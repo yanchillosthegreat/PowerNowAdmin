@@ -1,8 +1,4 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 0px;
-}
-
+﻿
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -34,4 +30,49 @@ textarea {
     .carousel-caption {
         display: none;
     }
+}
+
+.pb-style{
+    color: #f58319;
+    background: #1f2124;
+}
+
+.form-control[disabled].pb-style{
+    color: #f58319;
+    background: #1f2124;
+}
+
+input.pb-style{
+    background: #1f2124;
+    border-width: 0;
+    border-bottom-width: 2px;
+    border-bottom-color: #f58319;
+    margin-bottom: 10px;
+}
+
+.pb-button-style{
+    background: #1f2124;
+    border-color: #f58319;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+p.pb-text-grey-style{
+    font-size: 17px;
+    font-weight: lighter;
+    color: #7d7d7d;
+}
+
+p.pb-text-orange-style{
+    font-size: 17px;
+    font-weight: lighter;
+    color: #f58319;
+}
+
+.right{
+    text-align: right;
+}
+
+.pb-hr-grey-style{
+    border-color: #7d7d7d;
 }

@@ -4,108 +4,76 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 @Html.AntiForgeryToken()
-    <h1>Личный кабинет</h1>
+    <h1>Профиль</h1>
     <div class="row">
-        <div class="col-md-6">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>История</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="row" style="min-height: 100px">
-                        <div class="table-responsive">
-                            <table id="sessions-table" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>PbId</th>
-                                        <th>Start</th>
-                                        <th>Finish</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{var i = 0;}
-                                    @foreach (var session in Model.Sessions)
-                                    {
-                                        <tr id="@session.Id">
-                                            <td>@session.Id</td>
-                                            <td>@session.Powerbank?.Code</td>
-                                            <td>@session.Start</td>
-                                            <td>@session.Finish</td>
-                                            <td>
-                                                @if(session?.IsActive ?? false)
-                                                {
-                                                    <span class="badge badge-primary">Active</span>
-
-                                                }else
-                                                {
-                                                    <span class="badge badge-warning">Finished</span>
-                                                }
-
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+        <div class="col-md-12">
+            <div class="ibox pb-style" >
+                <div class="ibox-title pb-style">
+                    <h5>Личные данные</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h5>Счет</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="row" style="min-height: 100px">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="ibox" style="margin-bottom: 60px">
-                <div class="ibox-title">
-                    <h5>Изменение данных пользователя</h5>
-                </div>
-                <div class="ibox-content">
+                <div class="ibox-content pb-style">
                     <form id="costumer-data-form" method="PUT">
                         <input type="hidden" asp-for="Costumer.Id" value="@Model.Costumer.Id"/>
                         <div class="row form-group">
-                            <div class="col-form-label col-md-2">
-                                <label>Имя</label>
-                            </div> 
-                            <div class="col-md-10">
-                                <input asp-for="Costumer.Name" class="form-control" value="@Model.Costumer.Name"/>
+                            <div class="col-md-12">
+                                <input asp-for="Costumer.Name" class="form-control pb-style" value="@Model.Costumer.Name" placeholder="Имя пользователя"/>
                             </div>
                         </div>
                         <div class="row form-group">
-                            <div class="col-form-label col-md-2">
-                                <label>Телефон</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input asp-for="Costumer.Phone" class="form-control" value="@Model.Costumer.Phone" data-mask="+7 (999) 999 99 99" disabled/>
+                            <div class="col-md-12">
+                                <input asp-for="Costumer.Phone" class="form-control pb-style" value="@Model.Costumer.Phone" data-mask="+7 (999) 999 99 99" disabled/>
                             </div>
                         </div>
                         <div class="row form-group">
-                            <div class="col-form-label col-md-2">
-                                <label>e-mail</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input asp-for="Costumer.Email" class="form-control" value="@Model.Costumer.Email"/>
+                            <div class="col-md-12">
+                                <input asp-for="Costumer.Email" class="form-control pb-style" value="@Model.Costumer.Email" placeholder="E-mail"/>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-2"></div>
                             <div class="col-md-10">
-                                <input type="submit" id="change-costumer-data-button" class="form-control button btn-block btn-success ladda-button" value="Изменить данные"/>
+                                <input type="submit" id="change-costumer-data-button" class="form-control button btn-block btn-success ladda-button pb-button-style" value="Изменить данные"/>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="ibox pb-style">
+                <div class="ibox-title pb-style">
+                    <h5>История</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content pb-style">
+                        @foreach (var session in Model.Sessions)
+                        {
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <p class="pb-text-orange-style m-b-xxs">@session.Powerbank.Holder.OwnerName</p>
+                                    <p class="pb-text-grey-style">@session.Powerbank.Holder.OwnerAddress</p>
+                                </div>
+                                <div class="col-xs-4 right">
+                                    <p class="pb-text-orange-style m-b-xxs">@session.SessionDuration</p>
+                                    <p class="pb-text-grey-style">99р</p>
+                                </div>
+                            </div>
+                            <hr class="pb-hr-grey-style" />
+                        }
+                        
+                </div>
+            </div>
+        </div>
+        
+        
     </div>
 

@@ -1,26 +1,27 @@
 ﻿<Properties StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Pages/Shared/_Layout.cshtml">
+    <Files>
+      <File FileName="PowerBankAdmin/wwwroot/css/site.css" Line="78" Column="2" />
+      <File FileName="PowerBankAdmin/Pages/Costumer/Index.cshtml" Line="65" Column="49" />
+      <File FileName="PowerBankAdmin/Pages/Costumer/Index.cshtml.cs" Line="16" Column="40" />
+      <File FileName="PowerBankAdmin/Models/PowerbankSessionModel.cs" Line="23" Column="1" />
+      <File FileName="PowerBankAdmin/Pages/Index.cshtml" Line="7" Column="32" />
+      <File FileName="PowerBankAdmin/Pages/Shared/_Layout.cshtml" Line="22" Column="54" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="PowerBankAdmin" expanded="True">
-            <Node name="PowerBankAdmin" expanded="True">
+            <Node name="PowerBankAdmin" expanded="True" selected="True">
+              <Node name="Models" expanded="True" />
               <Node name="Pages" expanded="True">
-                <Node name="Admin" expanded="True">
-                  <Node name="Holders" expanded="True">
-                    <Node name="Index.cshtml" expanded="True" selected="True" />
-                  </Node>
-                  <Node name="Powerbanks" expanded="True">
-                    <Node name="Index.cshtml" expanded="True" />
-                  </Node>
-                </Node>
                 <Node name="Costumer" expanded="True">
                   <Node name="Index.cshtml" expanded="True" />
                 </Node>
+                <Node name="Shared" expanded="True" />
               </Node>
-              <Node name="Services" expanded="True" />
               <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True" />
+                <Node name="css" expanded="True" />
               </Node>
             </Node>
           </Node>

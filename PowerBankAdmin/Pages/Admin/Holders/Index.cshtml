@@ -28,6 +28,22 @@
                                 <input type="text" class="form-control" asp-for="@Model.HolderToAdd.Code" data-mask="99999999" required=""/>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Owner Name
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.OwnerName"  required=""/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Owner Address
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.OwnerAddress"  required=""/>
+                            </div>
+                        </div>
                         <button id="add-holder-submit-button" type="submit" class="btn btn-sm btn-success ladda-button">Добавить!</button>
                     </form>
                 </div>
@@ -47,6 +63,9 @@
                                         <th>Id</th>
                                         <th>LocalCode</th>
                                         <th>Code</th>
+                                        <th>OwnerName</th>
+                                        <th>OwnerAddress</th>
+                                        <th>Code</th>
                                         <th></th>
 
                                     </tr>
@@ -59,6 +78,8 @@
                                             <td>@holder.Id</td>
                                             <td>@holder.LocalCode</td>
                                             <td>@holder.Code</td>
+                                            <td>@holder.OwnerName</td>
+                                            <td>@holder.OwnerAddress</td>
                                             <td>
                                                 <button class="button btn-xs btn-danger" onclick="deleteHolder(@holder.Id)">x</button>
                                             </td>

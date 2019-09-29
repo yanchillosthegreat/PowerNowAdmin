@@ -33,6 +33,15 @@ namespace PowerBankAdmin.Data.Repository
                 .HasOne(x => x.Costumer)
                 .WithMany(x => x.Authorizations)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PowerbankSessionModel>()
+                .HasOne(x => x.Powerbank)
+                .WithMany(x => x.Sessions)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PowerbankModel>()
+                .HasOne(x => x.Holder)
+                .WithMany(x => x.Powerbanks)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

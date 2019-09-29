@@ -9,26 +9,34 @@
     <partial name="Shared/_CssImports" />
     @*Html.ApplicationInsightsJavaScript(TelemetryConfiguration)*@
 </head>
-<body class="top-navigation pace-done md-skin" style="background-color: #1F2124; margin-bottom: 60px">
+<body class="top-navigation pace-done md-skin" style="background-color: #1a1e20;">
     <partial name="Shared/_JsImports" />
 
     <!-- Wrapper-->
-    <div id="wrapper">
+    <div class="wrapper" style="padding: 0; min-height:100%; margin-bottom: -200px;">
         <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg">
+        <div  class="gray-bg">
             <!--Header-->
             <partial name="Shared/_SiteNavigation" />
             <!-- Main view  -->
-            @RenderBody()
-
-            <!-- Footer -->
-            @*<partial name="Shared/_Footer" />*@
+            <div class="container animated fadeInDown">
+                <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4 offset-sm-4 col-xs-12">
+                    @RenderBody()
+                </div>
+            </div>
+            </div>
+            
+            
         </div>
+        
         <!-- End page wrapper-->
-
+        <div class="push" style="height: 200px;"></div>
     </div>
     <!-- End wrapper-->
-
+    <!-- Footer -->
+    <partial name="Shared/_Footer" />
 
 
     @RenderSection("scripts", required: false)

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBankAdmin.Data.Repository;
 
 namespace PowerBankAdmin.Migrations
 {
     [DbContext(typeof(AppRepository))]
-    partial class AppRepositoryModelSnapshot : ModelSnapshot
+    [Migration("20190925211025_HolderAdress")]
+    partial class HolderAdress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,8 +202,7 @@ namespace PowerBankAdmin.Migrations
                 {
                     b.HasOne("PowerBankAdmin.Models.HolderModel", "Holder")
                         .WithMany("Powerbanks")
-                        .HasForeignKey("HolderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("HolderId");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.PowerbankSessionModel", b =>
@@ -212,8 +213,7 @@ namespace PowerBankAdmin.Migrations
 
                     b.HasOne("PowerBankAdmin.Models.PowerbankModel", "Powerbank")
                         .WithMany("Sessions")
-                        .HasForeignKey("PowerbankId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PowerbankId");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.VerificationCodeModel", b =>

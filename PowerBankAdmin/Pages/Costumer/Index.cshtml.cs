@@ -24,7 +24,7 @@ namespace PowerBankAdmin.Pages.Costumer
         public void OnGet()
         {
             IdentifyCostumer();
-            Sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).Where(x => x.Costumer.Id == Costumer.Id);
+            Sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).ThenInclude(x => x.Holder).Where(x => x.Costumer.Id == Costumer.Id);
         }
 
         public async Task<IActionResult> OnPutAsync()

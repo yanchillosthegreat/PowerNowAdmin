@@ -28,9 +28,8 @@ namespace PowerBankAdmin
             services.AddTransient<ISmsService, Data.Moq.SmsService>();
             services.AddTransient<IHolderService, Services.HolderService>();
             var connection = Configuration.GetConnectionString("ProdConnection");
-            var a = new Moq.Mock<AppRepository>();
-            services.AddDbContext<AppRepository>(options => options.UseInMemoryDatabase("local"));
-            //services.AddDbContext<AppRepository>(options => options.UseSqlServer(connection));
+            //services.AddDbContext<AppRepository>(options => options.UseInMemoryDatabase("local"));
+            services.AddDbContext<AppRepository>(options => options.UseSqlServer(connection));
             services.AddMvc();
         }
 
