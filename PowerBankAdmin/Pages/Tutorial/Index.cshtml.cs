@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PowerBankAdmin.Pages
+namespace PowerBankAdmin.Pages.Tutorial
 {
     public class IndexModel : BaseAuthCostumerPage
     {
         public void OnGet()
         {
-            IdentifyCostumer();
+            var a = 5;
         }
     }
 }

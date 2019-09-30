@@ -10,7 +10,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 380px;
 }
 
 /* Carousel */
@@ -75,4 +75,16 @@ p.pb-text-orange-style{
 
 .pb-hr-grey-style{
     border-color: #7d7d7d;
+}
+
+.pb-button-shadow{
+    box-shadow: 0 0 10px rgba(160,89,88,0.5), 0 0 10px rgba(160,89,88,0.5) inset;
+}
+
+.pb-input-style{
+    border-bottom-color: #F58319 !important;
+    border-width: 0px;
+    border-bottom-width: 2px;
+    background-color: transparent;
+    text-align: center
 }

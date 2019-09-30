@@ -4,107 +4,20 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="animated fadeInDown">
+<div class="row">
     @Html.AntiForgeryToken()
-    <div class="row p-h-lg" >
-        <div class="col-md-12">
-            <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 158px; height: 74px; margin:auto" />
-        </div>
+
+    <div class="col-md-12 p-lg">
+        <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 167px; height: 78px; margin:auto" />
     </div>
-    <div class="row" style="padding: 0px 32px 50px 32px;">
-        <div class="col text-center">
-            <a class="btn btn-primary-orange m-b" style="width: 219px" href='@Url.Page("take/index")'>взять power now</a>
-        </div>
+
+    <div class="row h-150"></div>
+
+    <div class="col-md-12 m-l-md m-r-md">
+        <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("take/index")'>взять powerbank</a>
     </div>
-    <div class="row" style="padding: 0px 32px 20px 32px;">
-        <div class="col-md-12">
-            <p class="p-power-now-bold">Как взять Power Now?</p>
-            <p class="p-power-now-normal">(в нашем пауер банке все виды разъёмов для зарядки)</p>
-        </div>
-    </div>
-    <div class="row" style="padding: 0px 32px 50px 32px;">
-        <div class="col-md-12">
-            <table width="100%">
-                <colgroup>
-                    <col span="1" style="width: 53px;">
-                    <col span="1" style="width: 51px;">
-                    <col span="1" style="width: 53px;">
-                    <col span="1" style="width: 41px;">
-                    <col span="1" style="width: 53px;">
-                </colgroup>
-                <tbody style="color: #F58319;">
-                    <tr>
-                        <td>
-                            <img src="~/css/patterns/cardInHandIcon.png" class="img-responsive" style="width: 24px; height: 35px;" />
-                        </td>
-                        <td></td>
-                        <td>
-                            <img src="~/css/patterns/cardInHandIcon.png" class="img-responsive" style="width: 24px; height: 35px;" />
-                        </td>
-                        <td></td>
-                        <td>
-                            <img src="~/css/patterns/cardInHandIcon.png" class="img-responsive" style="width: 24px; height: 35px;" />
-                        </td>
-                    </tr>
-                    <tr style="height: 16px;"/>
-                    <tr>
-                        <td>
-                            <span>Введи номер</span>
-                            <span style="font-weight: bold;">автомата</span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>Оплати любой</span>
-                            <span style="font-weight: bold;">картой</span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>Возьми с собой</span>
-                            <span style="font-weight: bold;">POWER NOW</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row" style="padding: 0px 32px 20px 32px;">
-        <div class="col-md-12">
-            <p class="p-power-now-bold">Как вернуть Power Now?</p>
-            <p class="p-power-now-normal">(наши пауэр банки можно вернуть без лишних хлопот)</p>
-        </div>
-    </div>
-    <div class="row" style="padding: 0px 32px 20px 32px;">
-        <div class="col-md-12">
-            <table width="100%">
-                <colgroup>
-                    <col span="1" style="width: 53px;">
-                    <col span="1" style="width: 47px;">
-                    <col span="1" style="width: 116px;">
-                </colgroup>
-                <tbody style="color: #F58319;">
-                    <tr>
-                        <td>
-                            <img src="~/css/patterns/cardInHandIcon.png" class="img-responsive" style="width: 24px; height: 35px;" />
-                        </td>
-                        <td></td>
-                        <td>
-                            <img src="~/css/patterns/cardInHandIcon.png" class="img-responsive" style="width: 24px; height: 35px;" />
-                        </td>
-                    </tr>
-                    <tr style="height: 16px;"/>
-                    <tr>
-                        <td>
-                            <span>Убери</span>
-                            <span style="font-weight: bold;">провод в ячейку</span>
-                        </td>
-                        <td></td>
-                        <td>
-                            <span>Верни POWER NOW</span><br/>
-                            <span style="font-weight: bold;">в свободную ячейку</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
+    <div class="col-md-12 m-l-md m-r-md m-t-md">
+        <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("tutorial/index")'>как это работает?</a>
     </div>
 </div>

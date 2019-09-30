@@ -4,15 +4,18 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="middle-box animated fadeInDown">
+<div class="row">
     @Html.AntiForgeryToken()
     @if(!Model.Session?.IsActive ?? true)
     {
-        <div class="row text-center">
+        <div class="middle-box">
+            <div class="text-center m-t-lg m-b-lg">
                 <p class="p-power-now-bold">ВВЕДИ НОМЕР АВТОМАТА</p>
+            </div>
         </div>
-        <div class="row" style="width: 219px; margin: auto;">
-            <form class="m-t" method="POST" id="enter-equipment-code-form">
+
+        <div class="col-md-12 m-l-md m-r-md">
+            <form method="POST" id="enter-equipment-code-form">
                 <span class="text-center text-danger"></span>
                 <div class="form-group">
                     <input type="text" id="equipment-code-input" class="form-control" placeholder="X X X X"
@@ -22,7 +25,7 @@
                               text-align: center">
                 </div>
                 <button type="submit" id="equipment-code-submit"
-                        class="ladda-button btn btn-primary-orange full-width m-b"
+                        class="ladda-button btn btn-primary-orange full-width m-b m-t-lg"
                         data-style="zoom-in">
                     Продолжить
                 </button>
@@ -31,7 +34,7 @@
     }
     else
     {
-        <div class="row" style="padding: 0px 0px 79px 0px;">
+        <div class="col-md-12 p-lg">
             <div class="col-md-12">
                 <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 158px; height: 74px; margin:auto" />
             </div>

@@ -38,6 +38,7 @@
     <Folder Include="Pages\Take\" />
     <Folder Include="Pages\Admin\Holders\" />
     <Folder Include="Pages\Admin\Powerbanks\" />
+    <Folder Include="Pages\Tutorial\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20190804002309_initial.cs" />
+    <Compile Remove="Pages\Costumer\Tutorial.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pages\Shared\_Layout.cshtml">

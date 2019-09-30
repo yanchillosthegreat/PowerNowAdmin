@@ -29,7 +29,8 @@ namespace PowerBankAdmin.Services
                 "/",
                 "/costumer/registration",
                 "/costumer",
-                "/take"
+                "/take",
+                "/tutorial"
             };
         }
 
