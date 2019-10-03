@@ -8,13 +8,13 @@
     @Html.AntiForgeryToken()
     @if(!Model.Session?.IsActive ?? true)
     {
-        <div class="middle-box">
+        <div class="row">
             <div class="text-center m-t-lg m-b-lg">
-                <p class="p-power-now-bold">ВВЕДИ НОМЕР АВТОМАТА</p>
+                <p class="p-power-now-bold-13">ВВЕДИ НОМЕР АВТОМАТА</p>
             </div>
         </div>
 
-        <div class="col-md-12 m-l-md m-r-md">
+        <div class="col-md-12">
             <form method="POST" id="enter-equipment-code-form">
                 <span class="text-center text-danger"></span>
                 <div class="form-group">
@@ -25,7 +25,7 @@
                               text-align: center">
                 </div>
                 <button type="submit" id="equipment-code-submit"
-                        class="ladda-button btn btn-primary-orange full-width m-b m-t-lg"
+                        class="ladda-button btn btn-primary-orange full-width m-b m-t-lg pb-button-shadow"
                         data-style="zoom-in">
                     Продолжить
                 </button>
@@ -45,12 +45,12 @@
                 <pre id="timer-text" class="p-power-now-normal"></pre>
             </div>
         </div>
-        <div class="row" style="padding: 0px 32px 0px 32px;">
+        <div class="row">
             <div class="col text-center">
                 <a class="btn btn-primary-orange m-b" style="width: 219px" href='@Url.Page("take/index")'>ценовые условия</a>
             </div>
         </div>
-        <div class="row" style="padding: 0px 0px 0px 0px;">
+        <div class="row">
             <div class="col-md-12">
                 <img src="~/css/patterns/powerbankImage.png" class="img-responsive rotatePowerbankImage" style="width: 223px; height: 231px; margin:auto" />
             </div>

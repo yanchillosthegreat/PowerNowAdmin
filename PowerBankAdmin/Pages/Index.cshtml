@@ -7,17 +7,20 @@
 <div class="row">
     @Html.AntiForgeryToken()
 
-    <div class="col-md-12 p-lg">
-        <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 167px; height: 78px; margin:auto" />
+    <div class="row m-t-lg m-b-xl">
+        <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 167px; height: 78px; margin: auto" />
     </div>
 
-    <div class="row h-150"></div>
+    <div class="row m-t-lg m-b-xl">
 
-    <div class="col-md-12 m-l-md m-r-md">
-        <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("take/index")'>взять powerbank</a>
     </div>
 
-    <div class="col-md-12 m-l-md m-r-md m-t-md">
-        <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("tutorial/index")'>как это работает?</a>
+    <div class="row">
+        <div class="col-12 m-b-md m-t-lg">
+            <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("take/index")'>взять powerbank</a>
+        </div>
+        <div class="col-12">
+            <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("tutorial/index")'>как это работает?</a>
+        </div>
     </div>
 </div>

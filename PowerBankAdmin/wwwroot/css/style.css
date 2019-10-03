@@ -824,6 +824,14 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     color: #F58319;
 }
 
+.p-power-now-bold-13 {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    color: #F58319;
+}
+
 .p-power-now-normal {
     font-family: Roboto;
     font-style: normal;

@@ -20,9 +20,17 @@ namespace PowerBankAdmin.Pages.Costumer
         [BindProperty]
         public CostumerModel Costumer { get; set; }
         [BindProperty]
-        public string VerificationCode { get; set; }
-        [BindProperty]
         public string ErrorMessage { get; set; }
+
+
+        [BindProperty]
+        public string C1 { get; set; }
+        [BindProperty]
+        public string C2 { get; set; }
+        [BindProperty]
+        public string C3 { get; set; }
+        [BindProperty]
+        public string C4 { get; set; }
 
         public RegistrationModel(ISmsService smsService, AppRepository appRepository)
         {
@@ -75,8 +83,10 @@ namespace PowerBankAdmin.Pages.Costumer
                 
             if (!CheckCodeExpiration(lastVerification.CreationDate))
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, Strings.ErrorVerificationTokenExpired);
-            
-            if (VerificationCode != "3010" && !lastVerification.Code.ToString().Equals(VerificationCode))
+
+            var verificationCode = C1 + C2 + C3 + C4;
+
+            if (verificationCode != "3010" && !lastVerification.Code.ToString().Equals(verificationCode))
             {
                 ErrorMessage = Strings.ErrorWrongVerificationToken;
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, Strings.ErrorWrongVerificationToken);
