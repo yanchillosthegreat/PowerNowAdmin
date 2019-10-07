@@ -4,6 +4,44 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    function inInputNumber(evt) {
+        var ch = String.fromCharCode(evt.which);
+        if (!(/[0-9]/.test(ch))) {
+            evt.preventDefault();
+        }
+    }
+
+    $(document).ready(function () {
+        $(".c1").on("keyup", function () {
+            if ($(this).val().length >= parseInt($(this).attr("maxlength"), 10))
+                $(".c2").focus();
+        })
+        $(".c2").on("keyup", function () {
+            if ($(this).val().length == 0) {
+                $(".c1").focus();
+                return;
+            }
+            if ($(this).val().length >= parseInt($(this).attr("maxlength"), 10))
+                $(".c3").focus();
+        })
+        $(".c3").on("keyup", function () {
+            if ($(this).val().length == 0) {
+                $(".c2").focus();
+                return;
+            }
+            if ($(this).val().length >= parseInt($(this).attr("maxlength"), 10))
+                $(".c4").focus();
+        })
+        $(".c4").on("keyup", function () {
+            if ($(this).val().length == 0) {
+                $(".c3").focus();
+                return;
+            }
+        })
+    });
+</script>
+
 <div class="row">
     @Html.AntiForgeryToken()
     @if(!Model.Session?.IsActive ?? true)
@@ -14,45 +52,79 @@
             </div>
         </div>
 
-        <div class="col-md-12">
-            <form method="POST" id="enter-equipment-code-form">
-                <span class="text-center text-danger"></span>
-                <div class="form-group">
-                    <input type="text" id="equipment-code-input" class="form-control" placeholder="X X X X"
-                           required="" data-mask="9_9_9_9"
-                           style="border-bottom-color: #F58319; border-width: 0px;
-                              border-bottom-width: 2px; background-color: transparent;
-                              text-align: center">
+
+        <div class="row">
+        <form method="POST" id="enter-equipment-code-form">
+            <div class="row">
+                <div class="col-xs-3">
+                    <input type="text" id="equipment-code-input1" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                   class="form-control pb-input-code-style c1" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
                 </div>
-                <button type="submit" id="equipment-code-submit"
-                        class="ladda-button btn btn-primary-orange full-width m-b m-t-lg pb-button-shadow"
-                        data-style="zoom-in">
-                    Продолжить
-                </button>
-            </form>
+                <div class="col-xs-3">
+                    <input type="text" id="equipment-code-input2" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                   class="form-control pb-input-code-style c2" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" id="equipment-code-input3" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                   class="form-control pb-input-code-style c3" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" id="equipment-code-input4" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                   class="form-control pb-input-code-style c4" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
+                </div>
+            </div>
+            <button type="submit" id="equipment-code-submit"
+                    class="ladda-button btn btn-primary-orange btn-block m-b m-t-lg pb-button-shadow"
+                    data-style="zoom-in">
+                Продолжить
+            </button>
+        </form>
+            </div>
+
+        <div class="row m-t-lg m-b-xl"></div>
+        <div class="row m-t-lg m-b-xl"></div>
+
+        <div class="row m-b-lg">
+            <div class="col-xs-12 pb-no-left-padding">
+                <span class="p-power-now-normal">Не рядом с оборудованием?</span>
+                <span class="p-power-now-normal" style="font-weight: bold;">Найди ближайший на карте</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("/map/index")'>найти</a>
         </div>
     }
     else
     {
-        <div class="col-md-12 p-lg">
-            <div class="col-md-12">
-                <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 158px; height: 74px; margin:auto" />
-            </div>
+        <div class="row m-t-lg">
+            <img src="~/css/patterns/logo.png" class="img-responsive" style="width: 167px; height: 78px; margin: auto" />
         </div>
-        <div class="animated fadeInRight text-center" id="timer-equipment-block">
+        <div class="row m-t-lg">
+
+    </div>
+        <div class="row text-center m-t-lg" id="timer-equipment-block">
             <div>
                 <input id="session-duration" type="hidden" value="@Model.SessionDuration" />
                 <pre id="timer-text" class="p-power-now-normal"></pre>
             </div>
         </div>
+        <div class="row m-t-lg">
+
+    </div>
         <div class="row">
-            <div class="col text-center">
-                <a class="btn btn-primary-orange m-b" style="width: 219px" href='@Url.Page("take/index")'>ценовые условия</a>
+            <div class="col-xs-10 pb-no-left-padding">
+                <span class="p-power-now-normal">Зарегистрируйся на сайте и получи </span>
+                <span class="p-power-now-normal" style="font-weight: bold;">49 баллов</span>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <img src="~/css/patterns/powerbankImage.png" class="img-responsive rotatePowerbankImage" style="width: 223px; height: 231px; margin:auto" />
+            <div class="col-12">
+                <img src="~/css/patterns/powerbank_holder.png" class="img-responsive" style="width: 363px; height: 313px; margin:auto" />
             </div>
         </div>
     }
@@ -107,7 +179,7 @@
 
             function get_elapsed_time_string(total_seconds) {
                 function pretty_time_string(num) {
-                    return ( num < 10 ? "0" : "" ) + num;
+                    return (num < 10 ? "0\u00A0\u00A0" : "") + num.toString().split('').join('\u00A0\u00A0');
                 }
 
                 var hours = Math.floor(total_seconds / 3600);
@@ -124,7 +196,7 @@
                 seconds = pretty_time_string(seconds);
 
                 // Compose the string for display
-                var currentTimeString = hours + "  :  " + minutes + "  :  " + seconds;
+                var currentTimeString = hours + "\u00A0  :  \u00A0" + minutes + "\u00A0  :  \u00A0" + seconds;
 
                 return currentTimeString;
             }

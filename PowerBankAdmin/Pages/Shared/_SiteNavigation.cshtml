@@ -8,7 +8,19 @@
             <a href="@Url.Page("/index")" class="navbar-brand">PowerNow</a>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav navbar-right">  
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                        <a class="m-l-sm" href="@Url.Page("/info/prices")">Тарифы</a>
+                    </li>
+                <li>
+                        <a class="m-l-sm" href="@Url.Page("/info/about")">Об устройстве</a>
+                    </li>
+                <li>
+                        <a class="m-l-sm" href="@Url.Page("/info/help")">Помощь</a>
+                    </li>
+                <li>
+                        <a class="m-l-sm" href="@Url.Page("/info/cooperation")">Сотрудничество</a>
+                    </li>
                 @if(Model.IsAuthorized())
                 {
                     <li>

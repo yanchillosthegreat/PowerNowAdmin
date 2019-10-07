@@ -115,7 +115,10 @@ $(document).ready(function () {
             dataType: "json",
             data: {
                 __RequestVerificationToken: token,
-                code: $("#equipment-code-input").val()
+                c1: $("#equipment-code-input1").val(),
+                c2: $("#equipment-code-input2").val(),
+                c3: $("#equipment-code-input3").val(),
+                c4: $("#equipment-code-input4").val()
             },
             success: function (response) {
                 enterHolderCodeSubmit.ladda("stop");

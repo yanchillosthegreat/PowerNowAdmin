@@ -102,3 +102,60 @@ p.pb-text-orange-style{
 .pb-no-left-padding {
     padding-left: 0px
 }
+
+.pb-text-13 {
+    font-size: 13px;
+    font-weight: lighter;
+    color: #f58319;
+}
+
+.pb-text-13-bold {
+    font-size: 13px;
+    font-weight: bold;
+    color: #f58319;
+}
+
+.pb-text-17-bold {
+    font-size: 17px;
+    font-weight: bold;
+    color: #f58319;
+}
+
+.pb-text-17-light {
+    font-size: 17px;
+    font-weight: lighter;
+    color: #f58319;
+}
+
+.pb-text-20-bold {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f58319;
+}
+
+.pb-text-20-light {
+    font-size: 20px;
+    font-weight: lighter;
+    color: #f58319;
+}
+
+.pb-text-13-light {
+    font-size: 13px;
+    font-weight: lighter;
+}
+
+.pb-grey-style{
+    color: #7d7d7d;
+}
+
+.pb-orange-style{
+    color: #f58319;
+}
+
+.rotate11 {
+  transform:          rotate(11deg);
+  -ms-transform:      rotate(11deg);
+  -moz-transform:     rotate(11deg);
+  -webkit-transform:  rotate(11deg);
+  -o-transform:       rotate(11deg);
+}

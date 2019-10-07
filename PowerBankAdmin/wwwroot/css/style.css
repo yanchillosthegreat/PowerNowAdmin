@@ -902,8 +902,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     .btn-success:active:hover,
     .btn-success.active:hover,
     .btn-success.active:focus {
-        background-color: #1a7bb9;
-        border-color: #1a7bb9;
+        background-color: #f58319;
+        border-color: #f58319;
         color: #FFFFFF;
     }
 
@@ -928,8 +928,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
         fieldset[disabled] .btn-success:focus,
         fieldset[disabled] .btn-success:active,
         fieldset[disabled] .btn-success.active {
-            background-color: #1f90d8;
-            border-color: #1f90d8;
+            background-color: #f58319;
+            border-color: #f58319;
         }
 
 .btn-info {
@@ -9899,8 +9899,8 @@ body.md-skin {
 .md-skin.top-navigation .nav .open > a,
 .md-skin.top-navigation .nav .open > a:hover,
 .md-skin.top-navigation .nav .open > a:focus {
-    color: #1ab394;
-    background: #ffffff;
+    color: #f58319;
+    background: #1f2124;
 }
 
 .md-skin.top-navigation .nav > li.active a {

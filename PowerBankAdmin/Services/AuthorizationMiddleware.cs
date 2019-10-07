@@ -30,7 +30,12 @@ namespace PowerBankAdmin.Services
                 "/costumer/registration",
                 "/costumer",
                 "/take",
-                "/tutorial"
+                "/tutorial",
+                "/map",
+                "/info/help",
+                "/info/about",
+                "/info/prices",
+                "/info/cooperation"
             };
         }
 

@@ -5,18 +5,39 @@
 }
 
 <script type="text/javascript">
+    function inInputNumber(evt) {
+        var ch = String.fromCharCode(evt.which);
+        if (!(/[0-9]/.test(ch))) {
+            evt.preventDefault();
+        }
+    }
+
     $(document).ready(function () {
         $(".c1").on("keyup", function () {
             if ($(this).val().length >= parseInt($(this).attr("maxlength"), 10))
                 $(".c2").focus();
         })
         $(".c2").on("keyup", function () {
+            if ($(this).val().length == 0) {
+                $(".c1").focus();
+                return;
+            }
             if ($(this).val().length >= parseInt($(this).attr("maxlength"), 10))
                 $(".c3").focus();
         })
         $(".c3").on("keyup", function () {
+            if ($(this).val().length == 0) {
+                $(".c2").focus();
+                return;
+            }
             if ($(this).val().length >= parseInt($(this).attr("maxlength"), 10))
                 $(".c4").focus();
+        })
+        $(".c4").on("keyup", function () {
+            if ($(this).val().length == 0) {
+                $(".c3").focus();
+                return;
+            }
         })
     });
 </script>
@@ -54,19 +75,23 @@
             <div class="row col-12">
                 <div class="col-xs-3">
                     <input type="text" asp-for="@Model.C1" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c1" placeholder="X" required="">
+                   class="form-control pb-input-code-style c1" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
                 </div>
                 <div class="col-xs-3">
                     <input type="text" asp-for="@Model.C2" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c2" placeholder="X" required="">
+                   class="form-control pb-input-code-style c2" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
                 </div>
                 <div class="col-xs-3">
                     <input type="text" asp-for="@Model.C3" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c3" placeholder="X" required="">
+                   class="form-control pb-input-code-style c3" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
                 </div>
                 <div class="col-xs-3">
                     <input type="text" asp-for="@Model.C4" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c4" placeholder="X" required="">
+                   class="form-control pb-input-code-style c4" placeholder="X" required=""
+                           onkeypress="inInputNumber(event)">
                 </div>
             </div>
             <button type="submit" id="phone-code-submit"

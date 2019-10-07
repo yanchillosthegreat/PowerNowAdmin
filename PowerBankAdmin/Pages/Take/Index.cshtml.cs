@@ -43,8 +43,11 @@ namespace PowerBankAdmin.Pages.Take
             }
         }
 
-        public async Task<IActionResult> OnPostTakeAsync(string code)
+        public async Task<IActionResult> OnPostTakeAsync(string c1, string c2, string c3, string c4)
         {
+
+            var code = string.Format("{0}_{1}_{2}_{3}", c1, c2, c3, c4);
+
             IdentifyCostumer();
             if (!IsAuthorized())
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");

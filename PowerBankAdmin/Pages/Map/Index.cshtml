@@ -1,0 +1,140 @@
+﻿@page
+@model Pages.Map.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#footer").hide();
+    });
+
+    ymaps.ready(init);
+ 
+    function init() {
+        var myMap = new ymaps.Map("map", {
+            center: [55.76, 37.64],
+            zoom: 12,
+            controls: [
+                'zoomControl'
+            ]
+        });
+
+        myMap.events.add('click', function (e) {
+            $('.modal').hide();
+        });
+
+        var placemark = new ymaps.Placemark([55.76, 37.64]);
+        myMap.geoObjects.add(placemark);
+
+        placemark.events.add('click', function (e) {
+            $("#myModal").show();
+        });
+
+        placemark = new ymaps.Placemark([55.75, 37.63]);
+        myMap.geoObjects.add(placemark);
+
+        placemark.events.add('click', function (e) {
+            $("#myModal").show();
+        });
+    }
+</script>
+
+<style>
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 0; /* Sit on top */
+  margin-top: 500px;
+  height: 350px; /* Full height */
+  width: 275px;
+  background: #1F2124;
+  opacity: 0.95;
+}
+
+</style>
+
+<div class="row">
+    <div class="row">
+        <div class="text-center m-t-lg m-b-lg">
+            <p class="p-power-now-bold-13">КАРТА С ПАУЕР БАНКАМИ</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row">
+            <div class="row" id="map" style="height: 800px"></div>
+        </div>
+    </div>
+</div>
+
+    <div id="myModal" class="modal row">
+        <div class="col-12 m-t-md m-b-lg">
+            <div class="col-xs-2">
+                <img src="~/css/patterns/pin.png" style="width: 18px; height: 26px;" />
+            </div>
+            <div class="col-xs-8">
+                <p class="pb-text-13">Ул. Маросейка, 4/2с1 Кофемания</p>
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        <div class="col-12 m-t-lg">
+            <div class="col-xs-2">
+                
+            </div>
+            <div class="col-xs-8">
+                <p class="pb-text-13">Аппарат находится рядом с барной стойкой</p>
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        <div class="col-12">
+            <div class="col-xs-2">
+                <img src="~/css/patterns/clock.png" style="width: 18px; height: 18px;" />
+            </div>
+            <div class="col-xs-8">
+                <p class="pb-text-13-bold" style="margin-top: 2px;">Открыто до 00:00</p>
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        <div class="col-12 row m-t-lg">
+            <div class="col-xs-1">
+
+            </div>
+            <div class="col-xs-9">
+                <span class="pb-text-13" style="margin-left: -14px;">С полной зарядкой: </span>
+                <span class="pb-text-13-bold">5</span>
+            </div>
+        </div>
+
+        <div class="col-12 row">
+            <div class="col-xs-1">
+
+            </div>
+            <div class="col-xs-9">
+                <span class="pb-text-13" style="margin-left: -14px;">Свободные слоты: </span>
+                <span class="pb-text-13-bold">3</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="m-b-md m-t-lg">
+                <a class="btn btn-primary-orange btn-block pb-button-shadow" style="width: 245px; margin: auto" href='@Url.Page("/take/index")'>получить</a>
+            </div>
+        </div>
+
+    </div>

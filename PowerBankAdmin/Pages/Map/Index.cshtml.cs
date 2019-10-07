@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PowerBankAdmin.Pages.Tutorial
+namespace PowerBankAdmin.Pages.Map
 {
     public class IndexModel : BaseAuthCostumerPage
     {
