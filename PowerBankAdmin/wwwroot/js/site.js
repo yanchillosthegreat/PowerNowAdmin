@@ -36,7 +36,8 @@ $(document).ready(function () {
     var phoneInput = $('#phone-input');
     var phoneVerificationInput = $('#phone-verification-input');
     var logOutForm = $("#logout-form");
-
+    var cardForm = $("#enter-card-form");
+    var submitCardCodeButton = $('#card-submit').ladda();
 
     //Holders page
     var formAddHolder = $("#add-holder-form");
@@ -261,6 +262,30 @@ $(document).ready(function () {
                 switch (response.code) {
                     case 200:
                         window.location.href = "/take";
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+    });
+
+    cardForm.on("submit", function (e) {
+        e.preventDefault();
+        submitCardCodeButton.ladda('start');
+        var formData = cardForm.serialize();
+
+        var request = $.ajax({
+            url: "/costumer/addcard?handler=card",
+            type: "POST",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                submitCardCodeButton.ladda('stop');
+                switch (response.code) {
+                    case 200:
+                        window.location.href = "/costumer/index";
                         break;
                     default:
                         alert(response.message);

@@ -1,0 +1,101 @@
+﻿@page
+@model Pages.Costumer.AddCardModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="row">
+        <div class="text-center m-t-lg">
+            <p class="p-power-now-bold-13">ОПЛАТА</p>
+        </div>
+    </div>
+
+    <div class="row m-b-lg"></div>
+
+    <div class="row m-b-lg">
+        <div>
+            <span class="pb-text-17-light">Баллы </span>
+            <span class="pb-text-17-bold">0</span>
+            <p>У Вас нет баллов (зарегистрируйтесь на сайте)</p>
+        </div>
+    </div>
+
+    <div class="row m-b-sm">
+        <div>
+            <span class="pb-text-17-light">Сумма к оплате: </span>
+            <span class="pb-text-17-bold">1  ₽</span><br/>
+            <span class="pb-text-17-light">Номер заказа: </span>
+            <span class="pb-text-17-bold">29_1</span><br/>
+            <span class="pb-text-17-light">Описание платежа: </span>
+        </div>
+    </div>
+
+    <div class="row m-b-lg">
+        <form method="POST" id="enter-card-form">
+            <div class="col-12" style="height: 162px; border: 2px solid #7D7D7D; border-radius: 15px">
+                <div class="row m-t-sm">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <input type="text" id="cardnumber-input" asp-for="@Model.CardNumber"
+                               class="form-control pb-input-style-left m-t-xs" placeholder="№ карты" required=""
+                               data-mask="9999 9999 9999 9999">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-xs-offset-1">
+                        <input type="text" id="birthdate-input" style="max-width: 44px;" asp-for="@Model.Birthdate"
+                               class="form-control pb-input-style-left m-t-xs" placeholder="мм/гг" required=""
+                               data-mask="99/99">
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-5">
+                        <input type="text" id="cvv-input" asp-for="@Model.CVV"
+                               class="form-control pb-input-style-left m-t-xs" placeholder="CVV" required=""
+                               data-mask="999">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <input type="text" id="name-input" asp-for="@Model.FullName"
+                               class="form-control pb-input-style-left m-t-xs" placeholder="Имя держателя карты" required="">
+                    </div>
+                </div>
+            </div>
+            <div class="row col-12 m-t-sm">
+                <div class="col-xs-12">
+                    <p class="pb-grey-style pb-text-13">Сервис спишет 2 рубля для привязки карты</p>
+                </div>
+            </div>
+            <div class="row col-12 m-t-sm">
+                <div class="col-xs-1">
+                    <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="col-xs-10">
+                    <p class="pb-orange-style pb-text-13" style="padding-top: 2px;">Отправить уведомление по e-mail</p>
+                </div>
+            </div>
+            <div class="row col-12 m-t-sm">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <button type="submit" id="card-submit"
+                    class="ladda-button btn btn-primary-orange full-width pb-button-shadow"
+                    data-style="zoom-in">
+                        Оплатить
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+            <div class="row col-12 m-t-lg m-b-lg">
+            <div class="col-xs-12">
+                <img src="~/css/patterns/card_logos.png" class="img-responsive" style="width: 159px; height: 21px; margin: auto" />
+            </div>
+        </div>
+        <div class="row col-12 m-b-lg">
+            <div>
+                <p>В случае если Ваш банк поддерживает технологию безопасного проведения интернет-платежей Verified By Visa или MasterCard Secure Code, для проведения платежа также может потребоваться ввод специального пароля. Способы и возможность получения паролей для совершения интернет-платежей Вы можете уточнить в банке, выпустившем карту.</p><br />
+                <p>Настоящий сайт поддерживает 256-битное шифрование. Конфиденциальность сообщаемой персональной информации обеспечивается ПАО "Сбербанк России". Введенная информация не будет предоставлена третьим лицам за исключением случаев, предусмотренных законодательством РФ. Проведение платежей по банковским картам осуществляется в строгом соответствии с требованиями платежных систем Visa Int. и MasterCard Europe Sprl.</p>
+            </div>
+        </div>
+</div>

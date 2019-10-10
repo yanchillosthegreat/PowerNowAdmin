@@ -18,7 +18,11 @@ namespace PowerBankAdmin.Services
         public CostumerAuthorizationMiddleware(RequestDelegate next)
         {
             _next = next;
-            _restrictedPages = new List<string> { "/take" }; //add here pages that shouldn't work without auth
+            _restrictedPages = new List<string> {
+                "/take",
+                "/costumer/index",
+                "/costumer/addcard"
+            }; //add here pages that shouldn't work without auth
         }
 
         public async Task Invoke(HttpContext httpContext)
