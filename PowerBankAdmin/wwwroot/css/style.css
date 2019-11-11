@@ -682,7 +682,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 
 .top-navigation .navbar-brand {
     background: #1b1e21;
-    color: #f58319;
+    color: #16bdf0;
     padding: 15px 25px;
 }
 
@@ -718,7 +718,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 
 .navbar-toggle {
     background-color: #1b1e21;
-    color: #f58319;
+    color: #16bdf0;
     padding: 6px 12px;
     font-size: 14px;
 }
@@ -804,9 +804,9 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 
 .btn-primary-orange {
     background-color: #1F2124;
-    border-color: #F58319;
+    border-color: #16bdf0;
     border-width: 2px;
-    color: #F58319;
+    color: #16bdf0;
     font-size: 13pt;
     font-family: 'Roboto';
     font-weight: bold;
@@ -821,7 +821,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
-    color: #F58319;
+    color: #16bdf0;
 }
 
 .p-power-now-bold-13 {
@@ -829,7 +829,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     font-style: normal;
     font-weight: bold;
     font-size: 13px;
-    color: #F58319;
+    color: #16bdf0;
 }
 
 .p-power-now-normal {
@@ -837,7 +837,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     font-style: normal;
     font-weight: 300;
     font-size: 17px;
-    color: #F58319;
+    color: #16bdf0;
     background-color: transparent;
     border-width: 0;
 }
@@ -902,8 +902,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     .btn-success:active:hover,
     .btn-success.active:hover,
     .btn-success.active:focus {
-        background-color: #f58319;
-        border-color: #f58319;
+        background-color: #16bdf0;
+        border-color: #16bdf0;
         color: #FFFFFF;
     }
 
@@ -928,8 +928,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
         fieldset[disabled] .btn-success:focus,
         fieldset[disabled] .btn-success:active,
         fieldset[disabled] .btn-success.active {
-            background-color: #f58319;
-            border-color: #f58319;
+            background-color: #16bdf0;
+            border-color: #16bdf0;
         }
 
 .btn-info {
@@ -1210,7 +1210,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 .progress,
 .progress-bar {
     box-shadow: none;
-    color: #F58319;
+    color: #16bdf0;
 }
 
 .btn-outline {
@@ -9899,7 +9899,7 @@ body.md-skin {
 .md-skin.top-navigation .nav .open > a,
 .md-skin.top-navigation .nav .open > a:hover,
 .md-skin.top-navigation .nav .open > a:focus {
-    color: #f58319;
+    color: #16bdf0;
     background: #1f2124;
 }
 

@@ -33,12 +33,12 @@ textarea {
 }
 
 .pb-style{
-    color: #f58319;
+    color: #16bdf0;
     background: #1f2124;
 }
 
 .form-control[disabled].pb-style{
-    color: #f58319;
+    color: #16bdf0;
     background: #1f2124;
 }
 
@@ -46,13 +46,13 @@ input.pb-style{
     background: #1f2124;
     border-width: 0;
     border-bottom-width: 2px;
-    border-bottom-color: #f58319;
+    border-bottom-color: #16bdf0;
     margin-bottom: 10px;
 }
 
 .pb-button-style{
     background: #1f2124;
-    border-color: #f58319;
+    border-color: #16bdf0;
     border-radius: 5px;
     margin-top: 10px;
 }
@@ -66,7 +66,7 @@ p.pb-text-grey-style{
 p.pb-text-orange-style{
     font-size: 17px;
     font-weight: lighter;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .right{
@@ -78,11 +78,11 @@ p.pb-text-orange-style{
 }
 
 .pb-button-shadow{
-    box-shadow: 0 0 10px rgba(160,89,88,0.5), 0 0 10px rgba(160,89,88,0.5) inset;
+    box-shadow: 0 0 10px rgba(22,189,240,0.5), 0 0 10px rgba(22,189,240,0.5) inset;
 }
 
 .pb-input-style {
-    border-bottom-color: #F58319 !important;
+    border-bottom-color: #16bdf0 !important;
     border-width: 0px;
     border-bottom-width: 2px;
     background-color: transparent;
@@ -91,7 +91,7 @@ p.pb-text-orange-style{
 }
 
 .pb-input-style-left {
-    border-bottom-color: #F58319 !important;
+    border-bottom-color: #16bdf0 !important;
     border-width: 0px;
     border-bottom-width: 2px;
     background-color: transparent;
@@ -101,12 +101,13 @@ p.pb-text-orange-style{
 }
 
 .pb-input-code-style{
-    border-bottom-color: #F58319 !important;
+    border-bottom-color: #16bdf0 !important;
     border-width: 0px;
     border-bottom-width: 2px;
     background-color: transparent;
     text-align: center;
     font-size: 20px;
+    color: #16bdf0;
 }
 
 .pb-no-left-padding {
@@ -116,43 +117,43 @@ p.pb-text-orange-style{
 .pb-text-13 {
     font-size: 13px;
     font-weight: lighter;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .pb-text-13-bold {
     font-size: 13px;
     font-weight: bold;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .pb-text-17-bold {
     font-size: 17px;
     font-weight: bold;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .pb-text-17-normal {
     font-size: 17px;
     font-weight: normal;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .pb-text-17-light {
     font-size: 17px;
     font-weight: lighter;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .pb-text-20-bold {
     font-size: 20px;
     font-weight: bold;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .pb-text-20-light {
     font-size: 20px;
     font-weight: lighter;
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .pb-text-13-light {
@@ -165,7 +166,7 @@ p.pb-text-orange-style{
 }
 
 .pb-orange-style{
-    color: #f58319;
+    color: #16bdf0;
 }
 
 .rotate11 {
@@ -208,7 +209,7 @@ p.pb-text-orange-style{
   height: 20px;
   width: 20px;
   background-color: transparent;
-  border: 1px solid #f58319;
+  border: 1px solid #16bdf0;
   border-radius: 5px;
 }
 
@@ -240,7 +241,7 @@ p.pb-text-orange-style{
   top: 3px;
   width: 5px;
   height: 10px;
-  border: solid #f58319;
+  border: solid #16bdf0;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);

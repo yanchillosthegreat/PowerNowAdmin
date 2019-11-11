@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
@@ -12,6 +14,12 @@ using PowerBankAdmin.Models;
 
 namespace PowerBankAdmin.Pages.Take
 {
+    public class RegisterDoResponse
+    {
+        public string OrderId { get; set; }
+        public string FormUrl { get; set; }
+    }
+
     public class IndexModel : BaseAuthCostumerPage
     {
         private readonly AppRepository _appRepository;
@@ -43,9 +51,9 @@ namespace PowerBankAdmin.Pages.Take
             }
         }
 
-        public async Task<IActionResult> OnPostTakeAsync(string c1, string c2, string c3, string c4)
+        [HttpPost]
+        public async Task<IActionResult> OnPost(string c1, string c2, string c3, string c4)
         {
-
             var code = string.Format("{0}_{1}_{2}_{3}", c1, c2, c3, c4);
 
             IdentifyCostumer();
@@ -61,7 +69,18 @@ namespace PowerBankAdmin.Pages.Take
             if (!result)
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
 
-            return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
+            var _httpClient = new WebClient();
+            var random = new Random();
+            var orderNumber = random.Next(15000, 16000);
+            var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&password=power-now&orderNumber={orderNumber}&amount=100&returnUrl=http://power-now.ru/take";
+            var responseText = _httpClient.DownloadString(new Uri(urlString));
+
+            JsonSerializer serializer = new JsonSerializer();
+            RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
+
+            return Redirect(response.FormUrl);
+
+            //return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
 
         public async Task<IActionResult> OnPostCheckAsync()

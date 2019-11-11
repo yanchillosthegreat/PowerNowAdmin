@@ -106,42 +106,42 @@ $(document).ready(function () {
             });
     });
 
-    enterHolderCodeForm.on("submit", function (e) {
-        e.preventDefault();
-        enterHolderCodeSubmit.ladda("start");
-        var token = $('input[name="__RequestVerificationToken"]').val()
-        var request = $.ajax({
-            url: "/take?handler=take",
-            type: "POST",
-            dataType: "json",
-            data: {
-                __RequestVerificationToken: token,
-                c1: $("#equipment-code-input1").val(),
-                c2: $("#equipment-code-input2").val(),
-                c3: $("#equipment-code-input3").val(),
-                c4: $("#equipment-code-input4").val()
-            },
-            success: function (response) {
-                enterHolderCodeSubmit.ladda("stop");
-                switch (response.code) {
-                    case 200:
-                        takeHolderBlock.hide();
-                        takeTimerBlock.show();
-                        var elapsed_seconds = 0;
-                        setInterval(function() {
-                            elapsed_seconds = elapsed_seconds + 1;
-                            timerText.text(get_elapsed_time_string(elapsed_seconds));
-                        }, 1000);
-                        setInterval(check, 5000);
-                        location.reload();
-                        break;
-                    default:
-                        alert(response.message);
-                        break;
-                }
-            }
-        });
-    });
+    //enterHolderCodeForm.on("submit", function (e) {
+    //    e.preventDefault();
+    //    enterHolderCodeSubmit.ladda("start");
+    //    var token = $('input[name="__RequestVerificationToken"]').val()
+    //    var request = $.ajax({
+    //        url: "/take?handler=take",
+    //        type: "POST",
+    //        dataType: "json",
+    //        data: {
+    //            __RequestVerificationToken: token,
+    //            c1: $("#equipment-code-input1").val(),
+    //            c2: $("#equipment-code-input2").val(),
+    //            c3: $("#equipment-code-input3").val(),
+    //            c4: $("#equipment-code-input4").val()
+    //        },
+    //        success: function (response) {
+    //            enterHolderCodeSubmit.ladda("stop");
+    //            switch (response.code) {
+    //                case 200:
+    //                    takeHolderBlock.hide();
+    //                    takeTimerBlock.show();
+    //                    var elapsed_seconds = 0;
+    //                    setInterval(function() {
+    //                        elapsed_seconds = elapsed_seconds + 1;
+    //                        timerText.text(get_elapsed_time_string(elapsed_seconds));
+    //                    }, 1000);
+    //                    setInterval(check, 5000);
+    //                    location.reload();
+    //                    break;
+    //                default:
+    //                    alert(response.message);
+    //                    break;
+    //            }
+    //        }
+    //    });
+    //});
 
     function check() {
         var token = $('input[name="__RequestVerificationToken"]').val()
