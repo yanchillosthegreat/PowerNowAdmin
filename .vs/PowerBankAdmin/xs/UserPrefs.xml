@@ -1,10 +1,16 @@
 ﻿<Properties StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Pages/Costumer/AddCard.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/wwwroot/js/site.js">
     <Files>
-      <File FileName="PowerBankAdmin/Pages/Costumer/AddCard.cshtml" Line="44" Column="34" IsPinned="True" />
-      <File FileName="PowerBankAdmin/wwwroot/css/style.css" />
-      <File FileName="PowerBankAdmin/wwwroot/css/site.css" />
-      <File FileName="PowerBankAdmin/Pages/Index.cshtml" />
+      <File FileName="PowerBankAdmin/Pages/Shared/_Layout.cshtml" Line="35" Column="69" />
+      <File FileName="PowerBankAdmin/Pages/Shared/_SiteNavigation.cshtml" Line="2" Column="61" />
+      <File FileName="PowerBankAdmin/wwwroot/css/site.css" Line="319" Column="1" />
+      <File FileName="PowerBankAdmin/wwwroot/css/style.css" Line="4276" Column="13" />
+      <File FileName="PowerBankAdmin/Pages/Costumer/Registration.cshtml" Line="45" Column="24" />
+      <File FileName="PowerBankAdmin/Pages/Costumer/Registration.cshtml.cs" Line="44" Column="47" />
+      <File FileName="PowerBankAdmin/Pages/Shared/_Footer.cshtml" Line="5" Column="1" />
+      <File FileName="PowerBankAdmin/Pages/Shared/_Navigation.cshtml" Line="1" Column="1" />
+      <File FileName="PowerBankAdmin/wwwroot/js/script.js" Line="271" Column="1" />
+      <File FileName="PowerBankAdmin/wwwroot/js/site.js" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,22 +19,15 @@
             <Node name="PowerBankAdmin" expanded="True">
               <Node name="Pages" expanded="True">
                 <Node name="Costumer" expanded="True">
-                  <Node name="AddCard.cshtml" expanded="True" selected="True" />
-                  <Node name="Index.cshtml" expanded="True" />
                   <Node name="Registration.cshtml" expanded="True" />
                 </Node>
-                <Node name="Info" expanded="True" />
                 <Node name="Shared" expanded="True" />
-                <Node name="Take" expanded="True">
-                  <Node name="Index.cshtml" expanded="True" />
-                </Node>
               </Node>
-              <Node name="Services" expanded="True" />
               <Node name="wwwroot" expanded="True">
-                <Node name="css" expanded="True">
-                  <Node name="patterns" expanded="True" />
+                <Node name="css" expanded="True" />
+                <Node name="js" expanded="True">
+                  <Node name="site.js" selected="True" />
                 </Node>
-                <Node name="js" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -38,9 +37,12 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.PowerBankAdmin PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.ItemProperties.PowerBankAdmin PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/stanislav/Projects/powernow/PowerBankAdmin/kk0fkxsy.32y~" relfile="PowerBankAdmin/kk0fkxsy.32y~" line="29" column="1" />
+      <Breakpoint file="/Users/stanislav/Projects/powernow/PowerBankAdmin/kk0fkxsy.32y~" relfile="PowerBankAdmin/kk0fkxsy.32y~" line="44" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

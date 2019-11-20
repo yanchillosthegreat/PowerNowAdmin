@@ -1,27 +1,22 @@
 ﻿@model Pages.BaseAuthCostumerPage
-<div class="row border-bottom white-bg">
-    <nav class="navbar navbar-static-top" role="navigation">
-        <div class="navbar-header">
-            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                <i class="fa fa-reorder"></i>
-            </button>
-            <a href="@Url.Page("/index")" class="navbar-brand">PowerNow</a>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar">
+    <nav class="navbar-default navbar-static-side fadeInDown" role="navigation">
+        
+        <div class="sidebar-collapse" id="navbar">
+            <a class="close-canvas-menu"><i class="fa fa-bars"></i></a>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/prices")">Тарифы</a>
-                    </li>
+                    <a class="m-l-sm" href="@Url.Page("/info/prices")">Тарифы</a>
+                </li>
                 <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/about")">Об устройстве</a>
-                    </li>
+                    <a class="m-l-sm" href="@Url.Page("/info/about")">Об устройстве</a>
+                </li>
                 <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/help")">Помощь</a>
-                    </li>
+                    <a class="m-l-sm" href="@Url.Page("/info/help")">Помощь</a>
+                </li>
                 <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/cooperation")">Сотрудничество</a>
-                    </li>
-                @if(Model.IsAuthorized())
+                    <a class="m-l-sm" href="@Url.Page("/info/cooperation")">Сотрудничество</a>
+                </li>
+                @if (Model.IsAuthorized())
                 {
                     <li>
                         <a class="m-l-sm" href="@Url.Page("/costumer/index")">@Model.GetName()</a>
@@ -32,14 +27,14 @@
                             <button class="btn btn-warning btn-sm m-l-lg" type="submit"><i class="fa fa-sign-out"></i> Log out</button>
                         </form>
                     </li>
-                
-                }else
+
+                }
+                else
                 {
-                <li>
-                    <a href="@Url.Page("/costumer/registration")"><i class="fa fa-sign-in"></i> Log in</a>
-                </li>
+                    <li>
+                        <a href="@Url.Page("/costumer/registration")"><i class="fa fa-sign-in"></i> Log in</a>
+                    </li>
                 }
             </ul>
-         </div>
+        </div>
     </nav>
-</div>

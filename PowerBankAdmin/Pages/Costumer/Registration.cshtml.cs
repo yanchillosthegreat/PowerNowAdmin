@@ -41,13 +41,11 @@ namespace PowerBankAdmin.Pages.Costumer
 
         public void OnGet()
         {
-            
+            ViewData["Title"] = "авторизация";
         }
 
         public async Task<IActionResult> OnPostPhoneAsync()
         {
-            var result = await SMSService.getInstance().SendSMSTest();
-
             var randomValue = PhoneRandomValue();
             if (!String.IsNullOrEmpty(Costumer.Phone))
             {

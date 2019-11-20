@@ -25,7 +25,7 @@ namespace PowerBankAdmin
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ISmsService, Data.Moq.SmsService>();
+            services.AddSingleton<ISmsService, Services.SMSService>();
             services.AddTransient<IHolderService, Services.HolderService>();
             var connection = Configuration.GetConnectionString("ProdConnection");
             //services.AddDbContext<AppRepository>(options => options.UseInMemoryDatabase("local"));

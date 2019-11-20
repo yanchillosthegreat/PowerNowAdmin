@@ -13282,23 +13282,23 @@
     ]
   },
   "packageFolders": {
-    "/Users/ymoroz/.nuget/packages/": {},
+    "/Users/stanislav/.nuget/packages/": {},
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ymoroz/Projects/PowerNowAdmin/PowerBankAdmin/PowerBankAdmin.csproj",
+      "projectUniqueName": "/Users/stanislav/Projects/powernow/PowerBankAdmin/PowerBankAdmin.csproj",
       "projectName": "PowerBankAdmin",
-      "projectPath": "/Users/ymoroz/Projects/PowerNowAdmin/PowerBankAdmin/PowerBankAdmin.csproj",
-      "packagesPath": "/Users/ymoroz/.nuget/packages/",
-      "outputPath": "/Users/ymoroz/Projects/PowerNowAdmin/PowerBankAdmin/obj/",
+      "projectPath": "/Users/stanislav/Projects/powernow/PowerBankAdmin/PowerBankAdmin.csproj",
+      "packagesPath": "/Users/stanislav/.nuget/packages/",
+      "outputPath": "/Users/stanislav/Projects/powernow/PowerBankAdmin/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/ymoroz/.config/NuGet/NuGet.Config"
+        "/Users/stanislav/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
@@ -13365,7 +13365,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100-preview3-014645/RuntimeIdentifierGraph.json"
       }
     }
   }

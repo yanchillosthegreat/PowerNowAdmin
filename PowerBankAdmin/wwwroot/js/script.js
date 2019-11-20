@@ -1,29 +1,43 @@
 ﻿/*
  *
  *   INSPINIA - Responsive Admin Theme
- *   version 2.6.2
+ *   version 2.9.3
  *
  */
 
 
 $(document).ready(function () {
 
+    // Fast fix bor position issue with Propper.js
+    // Will be fixed in Bootstrap 4.1 - https://github.com/twbs/bootstrap/pull/24092
+    Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false;
+
+
 
     // Add body-small class if window less than 768px
-    if ($(this).width() < 769) {
+    if (window.innerWidth < 769) {
         $('body').addClass('body-small')
     } else {
         $('body').removeClass('body-small')
     }
+    var contentHeight = $("#top-header").height() + $("#content").height() +  300;
+    if (contentHeight < $(window).height()) {
+        $("#page-wrapper").css('min-height', $(window).height());
+    }
+    else {
+        $("#page-wrapper").css('min-height', contentHeight);
+    }
 
-    // MetsiMenu
-    $('#side-menu').metisMenu();
+    $('.footer').toggleClass('hidden');
+    // MetisMenu
+    var sideMenu = $('#side-menu').metisMenu();
 
     // Collapse ibox function
-    $('.collapse-link').on('click', function () {
+    $('.collapse-link').on('click', function (e) {
+        e.preventDefault();
         var ibox = $(this).closest('div.ibox');
         var button = $(this).find('i');
-        var content = ibox.find('div.ibox-content');
+        var content = ibox.children('.ibox-content');
         content.slideToggle(200);
         button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
         ibox.toggleClass('').toggleClass('border-bottom');
@@ -34,13 +48,15 @@ $(document).ready(function () {
     });
 
     // Close ibox function
-    $('.close-link').on('click', function () {
+    $('.close-link').on('click', function (e) {
+        e.preventDefault();
         var content = $(this).closest('div.ibox');
         content.remove();
     });
 
     // Fullscreen ibox function
-    $('.fullscreen-link').on('click', function () {
+    $('.fullscreen-link').on('click', function (e) {
+        e.preventDefault();
         var ibox = $(this).closest('div.ibox');
         var button = $(this).find('i');
         $('body').toggleClass('fullscreen-ibox-mode');
@@ -52,7 +68,8 @@ $(document).ready(function () {
     });
 
     // Close menu in canvas mode
-    $('.close-canvas-menu').on('click', function () {
+    $('.close-canvas-menu').on('click', function (e) {
+        e.preventDefault();
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     });
@@ -64,7 +81,8 @@ $(document).ready(function () {
     });
 
     // Open close right sidebar
-    $('.right-sidebar-toggle').on('click', function () {
+    $('.right-sidebar-toggle').on('click', function (e) {
+        e.preventDefault();
         $('#right-sidebar').toggleClass('sidebar-open');
     });
 
@@ -76,8 +94,9 @@ $(document).ready(function () {
     });
 
     // Open close small chat
-    $('.open-small-chat').on('click', function () {
-        $(this).children().toggleClass('fa-comments').toggleClass('fa-remove');
+    $('.open-small-chat').on('click', function (e) {
+        e.preventDefault();
+        $(this).children().toggleClass('fa-comments').toggleClass('fa-times');
         $('.small-chat-box').toggleClass('active');
     });
 
@@ -96,8 +115,11 @@ $(document).ready(function () {
         return false;
     });
 
+
+
     // Minimalize menu
-    $('.navbar-minimalize').on('click', function () {
+    $('.navbar-minimalize').on('click', function (event) {
+        event.preventDefault();
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
 
@@ -110,40 +132,6 @@ $(document).ready(function () {
     });
 
 
-    // Full height of sidebar
-    function fix_height() {
-        var heightWithoutNavbar = $("body > #wrapper").height() - 61;
-        $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
-
-        var navbarHeigh = $('nav.navbar-default').height();
-        var wrapperHeigh = $('#page-wrapper').height();
-
-        if (navbarHeigh > wrapperHeigh) {
-            $('#page-wrapper').css("min-height", navbarHeigh + "px");
-        }
-
-        if (navbarHeigh < wrapperHeigh) {
-            $('#page-wrapper').css("min-height", $(window).height() + "px");
-        }
-
-        if ($('body').hasClass('fixed-nav')) {
-            $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
-        }
-
-    }
-
-    fix_height();
-
-    // Fixed Sidebar
-    $(window).bind("load", function () {
-        if ($("body").hasClass('fixed-sidebar')) {
-            $('.sidebar-collapse').slimScroll({
-                height: '100%',
-                railOpacity: 0.9
-            });
-        }
-    });
-
     // Move right sidebar top after scroll
     $(window).scroll(function () {
         if ($(window).scrollTop() > 0 && !$('body').hasClass('fixed-nav')) {
@@ -153,32 +141,39 @@ $(document).ready(function () {
         }
     });
 
-    $(window).bind("load resize scroll", function () {
-        if (!$("body").hasClass('body-small')) {
-            fix_height();
-        }
-    });
-
     $("[data-toggle=popover]")
         .popover();
 
     // Add slimscroll to element
     $('.full-height-scroll').slimscroll({
         height: '100%'
-    });
-
-    
+    })
 });
-
 
 // Minimalize menu when screen is less than 768px
 $(window).bind("resize", function () {
-    if ($(this).width() < 769) {
+    if (window.innerWidth < 769) {
         $('body').addClass('body-small')
     } else {
         $('body').removeClass('body-small')
     }
 });
+
+// Fixed Sidebar
+$(window).bind("load", function () {
+    if ($("body").hasClass('fixed-sidebar')) {
+        $('.sidebar-collapse').slimScroll({
+            height: '100%',
+            railOpacity: 0.9
+        });
+    }
+});
+
+
+// check if browser support HTML5 local storage
+function localStorageSupport() {
+    return (('localStorage' in window) && window['localStorage'] !== null)
+}
 
 // Local Storage functions
 // Set proper body class and plugins based on user configuration
@@ -228,11 +223,6 @@ $(document).ready(function () {
         }
     }
 });
-
-// check if browser support HTML5 local storage
-function localStorageSupport() {
-    return (('localStorage' in window) && window['localStorage'] !== null)
-}
 
 // For demo purpose - animation css script
 function animationHover(element, animation) {

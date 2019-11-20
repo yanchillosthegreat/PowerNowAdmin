@@ -7,6 +7,14 @@ namespace PowerBankAdmin.Data.Moq
 {
     public class SmsService : ISmsService
     {
+        public async Task<bool> SendFreeSms()
+        {
+            return await Task.Run(() =>
+            {
+                Thread.Sleep(200);
+                return true;
+            });
+        }
 
         public async Task<bool> SendSms(string Phone, string Text)
         {

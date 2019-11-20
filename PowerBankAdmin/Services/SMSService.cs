@@ -1,27 +1,59 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using PowerBankAdmin.Data.Interfaces;
 
 namespace PowerBankAdmin.Services
 {
-    public class MicrosecondEpochConverter : DateTimeConverterBase
-    {
-        private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public class SMSService : ISmsService
+    {
+        public async Task<bool> SendSms(string Phone, string Text)
         {
-            writer.WriteRawValue(((DateTime)value - _epoch).TotalMilliseconds + "000");
+            var sign = "SMS Aero";
+            var channel = "DIRECT";
+
+            var url = $"https://gate.smsaero.ru/v2/sms/send?number={Phone}&text={Text}&sign={sign}&channel={channel}";
+            var result = await SendRequest(url);
+            return result.Success;
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public async Task<bool> SendFreeSms()
         {
-            if (reader.Value == null) { return null; }
-            return _epoch.AddMilliseconds((long)reader.Value / 1000d);
+            var url = "https://gate.smsaero.ru/v2/sms/testsend?number=79057015196&text=Test&sign=BIZNES&channel=DIRECT";
+            var result = await SendRequest(url);
+            return result.Success;
+        }
+
+
+        private async Task<SendSMSResponse> SendRequest(string url)
+        {
+            var uri = new Uri(url);
+            var request = WebRequest.Create(uri);
+            request.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            request.Headers.Add(HttpRequestHeader.Authorization, "Basic bWlyem9raGFzaGltb3ZtQGdtYWlsLmNvbTpoMFRRUWFDZFRvNUFOanlpQ0ZGZlNXNXdIRXNo");
+
+            var response = await request.GetResponseAsync();
+            var responceObject = new SendSMSResponse();
+
+            using (Stream dataStream = response.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(dataStream);
+                string responseFromServer = await reader.ReadToEndAsync();
+                responceObject = JsonConvert.DeserializeObject<SendSMSResponse>(responseFromServer);
+            }
+            return responceObject;
         }
     }
+
+
+
+
 
     public class SendSMSResponse
     {
@@ -49,66 +81,20 @@ namespace PowerBankAdmin.Services
         public DateTime DateSend { get; set; }
     }
 
-    public class SMSService
+
+    public class MicrosecondEpochConverter : DateTimeConverterBase
     {
-        private static SMSService _instance;
-        private static object syncRoot = new object();
+        private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        private HttpClient _httpClient;
-
-        public SMSService()
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            _httpClient = new HttpClient();
+            writer.WriteRawValue(((DateTime)value - _epoch).TotalMilliseconds + "000");
         }
 
-        public static SMSService getInstance()
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (_instance == null)
-            {
-                lock (syncRoot)
-                {
-                    if (_instance == null)
-                        _instance = new SMSService();
-                }
-            }
-
-            return _instance;
-        }
-
-        public void SendSMS(string code, string phoneNumber)
-        {
-            var login = "mirzokhashimovm@gmail.com";
-            var apiKey = "h0TQQaCdTo5ANjyiCFFfSW5wHEsh";
-            var sign = "SMS Aero";
-            var channel = "DIRECT";
-
-            var urlString = $"https://{login}:{apiKey}@gate.smsaero.ru/v2/sms/send?number={phoneNumber}&text={code}&sign={sign}&channel={channel}";
-            //var response = _httpClient.DownloadString(urlString);
-
-            //JsonSerializer serializer = new JsonSerializer();
-            //RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
-        }
-
-        public async Task<bool> SendSMSTest()
-        {
-            var login = "mirzokhashimovm@gmail.com";
-            var apiKey = "h0TQQaCdTo5ANjyiCFFfSW5wHEsh";
-            var sign = "BIZNES";
-            var channel = "DIRECT";
-
-            //var urlString = $"https://{login}:{apiKey}@gate.smsaero.ru/v2/sms/testsend?number=79057015196&text=Test&sign={sign}&channel={channel}";
-            var urlString = "https://mirzokhashimovm%40gmail.com%3Ah0TQQaCdTo5ANjyiCFFfSW5wHEsh%40gate.smsaero.ru/v2/sms/testsend?number=79057015196&text=Test&sign=BIZNES&channel=DIRECT";
-            //var responseString = _httpClient.DownloadString(urlString);
-
-
-            var baseUri = new Uri("https://mirzokhashimovm%40gmail.com%3Ah0TQQaCdTo5ANjyiCFFfSW5wHEsh%40gate.smsaero.ru");
-            var endpoint = new Uri("/v2/sms/testsend?number=79057015196&text=Test&sign=BIZNES&channel=DIRECT");
-
-                var responseString = await _httpClient.GetAsync(new Uri(baseUri, endpoint));
-
-            //var response = JsonConvert.DeserializeObject<SendSMSResponse>(responseString);
-
-            return responseString.IsSuccessStatusCode;
+            if (reader.Value == null) { return null; }
+            return _epoch.AddMilliseconds((long)reader.Value / 1000d);
         }
     }
 }

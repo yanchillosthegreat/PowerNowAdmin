@@ -11,38 +11,45 @@
     <partial name="Shared/_CssImports" />
     @*Html.ApplicationInsightsJavaScript(TelemetryConfiguration)*@
 </head>
-<body class="top-navigation pace-done md-skin" style="background-color: #1a1e20;">
+<body class="canvas-menu md-skin" style="background-color: #1a1e20;">
+
     <partial name="Shared/_JsImports" />
 
-    <!-- Wrapper-->
-    <div class="wrapper" style="padding: 0; min-height:100%; margin-bottom: -200px;">
-        <!-- Page wraper -->
-        <div  class="gray-bg">
-            <!--Header-->
-            <partial name="Shared/_SiteNavigation" />
+    <div id="wrapper">
+        <partial name="Shared/_SiteNavigation" />
+
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom" id="top-header">
+                <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn" href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <p class="page-title text-center">@ViewData["Title"]</p>
+                </nav>
+
+            </div>
+
+
             <!-- Main view  -->
-            <div class="container animated fadeInDown
-                        col-lg-2 col-lg-offset-5
-                        col-md-2 col-md-offset-5
-                        col-sm-2 col-sm-offset-5
-                        col-xs-8 col-xs-offset-2">
-                <div class="row">
+            <div class="wrapper wrapper-content  animated fadeInDown
+                            col-lg-2 col-lg-offset-5
+                            col-md-2 col-md-offset-5
+                            col-sm-2 col-sm-offset-5
+                            col-xs-8 col-xs-offset-2 container" id="content">
+                <div class="row justify-content-md-center">
                     @RenderBody()
                 </div>
             </div>
+            <!-- Footer -->
+            <partial name="Shared/_Footer" />
         </div>
-    </div>
+        @RenderSection("scripts", required: false)
 
-    <!-- End page wrapper-->
-    <div class="push" style="height: 200px;"></div>
-    <!-- End wrapper-->
-    <!-- Footer -->
-    <partial name="Shared/_Footer" />
-
-
-    @RenderSection("scripts", required: false)
-
-
+        <script>$('body.canvas-menu .sidebar-collapse').slimScroll({
+                height: '100%',
+                railOpacity: 0.9
+            });</script>
 
 </body>
 </html>
