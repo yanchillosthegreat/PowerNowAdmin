@@ -10,6 +10,7 @@ using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
+using PowerBankAdmin.Services;
 
 namespace PowerBankAdmin.Pages.Costumer
 {
@@ -45,6 +46,8 @@ namespace PowerBankAdmin.Pages.Costumer
 
         public async Task<IActionResult> OnPostPhoneAsync()
         {
+            var result = await SMSService.getInstance().SendSMSTest();
+
             var randomValue = PhoneRandomValue();
             if (!String.IsNullOrEmpty(Costumer.Phone))
             {
