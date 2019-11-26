@@ -41,7 +41,7 @@
                                 Owner Address
                             </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.OwnerAddress"  required=""/>
+                                <select id="adres-select" class="form-control" asp-for="@Model.HolderToAdd.OwnerAddress" required=""></select>
                             </div>
                         </div>
                         <button id="add-holder-submit-button" type="submit" class="btn btn-sm btn-success ladda-button">Добавить!</button>
@@ -97,7 +97,28 @@
 </div>
 <script type="text/javascript">
 
-        $(document).ready(function(){
+    $(document).ready(function () {
+
+        $('#adres-select').select2({
+            ajax: {
+                url: "/admin/holders?handler=addresssuggest",
+                dataType: "json",
+                data: function (params) {
+                    var query = {
+                        search: params.term
+                    }
+                    return query;
+                },
+                delay: 500,
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+
+
             $('#holders-table').DataTable({
                 pageLength: 10,
                 responsive: true,

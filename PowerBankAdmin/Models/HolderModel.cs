@@ -10,6 +10,8 @@ namespace PowerBankAdmin.Models
         public string LocalCode { get; set; }
         public string OwnerName { get; set; }
         public string OwnerAddress { get; set; }
+        public string OwnerLatitude { get; set; }
+        public string OwnerLongitude { get; set; }
         public IEnumerable<PowerbankModel> Powerbanks { get; set; }
 
         public HolderModel()

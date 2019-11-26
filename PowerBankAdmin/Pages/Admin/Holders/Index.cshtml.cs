@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
@@ -14,6 +16,7 @@ namespace PowerBankAdmin.Pages.Admin.Holders
     public class IndexModel : BaseAuthedPageModel
     {
         private readonly AppRepository _appRepository;
+        private readonly IGeocodeService _geocode;
 
         [BindProperty]
         public IEnumerable<HolderModel> Holders { get; set; }
@@ -21,9 +24,10 @@ namespace PowerBankAdmin.Pages.Admin.Holders
         public HolderModel HolderToAdd { get; set; }
 
 
-        public IndexModel(AppRepository appRepository)
+        public IndexModel(AppRepository appRepository, IGeocodeService geocode)
         {
             _appRepository = appRepository;
+            _geocode = geocode;
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -33,6 +37,24 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             return Page();
         }
 
+        public async Task<IActionResult> OnGetAddresssuggestAsync(string search)
+        {
+            var adresses = await _geocode.AutosuggestAddress(search);
+            var sel2l = new List<Select2Obj>();
+            if(adresses != null)
+            {
+                foreach(var ad in adresses)
+                {
+                    sel2l.Add(new Select2Obj {Id = ad.FormattedAddress, Text = ad.FormattedAddress });
+                }
+            }
+            return new JsonResult(sel2l);
+        }
+        class Select2Obj
+        {
+            public string Id { get; set; }
+            public string Text { get; set; }
+        };
         public async Task<IActionResult> OnPostAsync()
         {
             if(!string.IsNullOrEmpty(HolderToAdd?.LocalCode) && string.IsNullOrEmpty(HolderToAdd?.Code))
@@ -43,11 +65,23 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             {
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Холдер с таким кодом уже существует");
             }
-
+            if (!await CalculateCoords())
+            {
+                return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Неверный адрес, не удалось определить координаты");
+            }
             await _appRepository.Holders.AddAsync(HolderToAdd);
             await _appRepository.SaveChangesAsync();
             var newRowHtml = BuildHtmlHolderRow();
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, newRowHtml);
+        }
+
+        private async Task<bool> CalculateCoords()
+        {
+            var cords = await _geocode.Geocode(HolderToAdd.OwnerAddress);
+            if (String.IsNullOrEmpty(cords.latitude)) return false;
+            HolderToAdd.OwnerLatitude = cords.latitude;
+            HolderToAdd.OwnerLongitude = cords.longitude;
+            return true;
         }
 
         public async Task<IActionResult> OnDeleteAsync(int? id)

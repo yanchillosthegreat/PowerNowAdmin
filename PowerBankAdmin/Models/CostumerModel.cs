@@ -10,12 +10,15 @@ namespace PowerBankAdmin.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
+        public string BindId { get; set; }
+        public string Card { get; set; }
         public CostumerStatus CostumerStatus { get; set; }
         
 
         public IEnumerable<VerificationCodeModel> Verifications { get; set; }
         public IEnumerable<CostumerAuthorizationModel> Authorizations { get; set; }
         public IEnumerable<PowerbankSessionModel> Sessions { get; set; }
+        public IEnumerable<TransactionModel> Transaction { get; set; }
 
 
         public CostumerModel()

@@ -27,6 +27,8 @@ namespace PowerBankAdmin
         {
             services.AddSingleton<ISmsService, Services.SMSService>();
             services.AddTransient<IHolderService, Services.HolderService>();
+            services.AddTransient<IGeocodeService, Services.GeocodeService>();
+
             var connection = Configuration.GetConnectionString("ProdConnection");
             //services.AddDbContext<AppRepository>(options => options.UseInMemoryDatabase("local"));
             services.AddDbContext<AppRepository>(options => options.UseSqlServer(connection));
