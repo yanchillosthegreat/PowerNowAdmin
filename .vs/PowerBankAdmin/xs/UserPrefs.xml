@@ -11,17 +11,15 @@
       <File FileName="PowerBankAdmin/Models/UserModel.cs" Line="6" Column="18" />
       <File FileName="PowerBankAdmin/Services/GeocodeService.cs" Line="39" Column="1" />
       <File FileName="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml" Line="113" Column="50" />
-      <File FileName="PowerBankAdmin/Pages/Shared/_AdminLayout.cshtml" Line="22" Column="48" />
+      <File FileName="PowerBankAdmin/Pages/Shared/_AdminLayout.cshtml" Line="27" Column="32" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="PowerBankAdmin" expanded="True">
-            <Node name="PowerBankAdmin" expanded="True">
+            <Node name="PowerBankAdmin" expanded="True" selected="True">
               <Node name="Pages" expanded="True">
-                <Node name="Shared" expanded="True">
-                  <Node name="_AdminLayout.cshtml" selected="True" />
-                </Node>
+                <Node name="Shared" expanded="True" />
               </Node>
             </Node>
           </Node>

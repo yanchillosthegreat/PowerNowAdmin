@@ -35,7 +35,8 @@ namespace PowerBankAdmin.Services
                 "/info/help",
                 "/info/about",
                 "/info/prices",
-                "/info/cooperation"
+                "/info/cooperation",
+                "/info/agreement"
             };
         }
 

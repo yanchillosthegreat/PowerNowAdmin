@@ -1,4 +1,4 @@
-Ôªøusing System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PowerBankAdmin.Pages.Info
 {
-    public class AboutModel : BaseAuthCostumerPage
+    public class AgreementModel : BaseAuthCostumerPage
     {
         public void OnGet()
         {
             IdentifyCostumer();
-            ViewData["Title"] = "–û–ë –£–°–¢–†–û–ô–°–¢–í–ï";
+            ViewData["Title"] = "œŒÀ‹«Œ¬¿“≈À‹— Œ≈ —Œ√À¿ÿ≈Õ»≈";
         }
     }
 }

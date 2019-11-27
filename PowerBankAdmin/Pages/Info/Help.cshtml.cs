@@ -12,6 +12,8 @@ namespace PowerBankAdmin.Pages.Info
         public void OnGet()
         {
             IdentifyCostumer();
+            ViewData["Title"] = "помощь";
+            ViewData["HideFooter"] = true;
         }
     }
 }
