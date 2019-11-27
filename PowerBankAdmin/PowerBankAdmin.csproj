@@ -40,7 +40,6 @@
     <Folder Include="Pages\Admin\Powerbanks\" />
     <Folder Include="Pages\Tutorial\" />
     <Folder Include="Pages\Map\" />
-    <Folder Include="Pages\Info\" />
   </ItemGroup>
 
   <ItemGroup>
