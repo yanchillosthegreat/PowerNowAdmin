@@ -1,41 +1,34 @@
 ﻿<Properties StartupConfiguration="{BE3377D9-BC5E-4C9B-8012-7A3F13A8F0B4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PowerBankAdmin/Pages/Shared/_AdminLayout.cshtml">
     <Files>
-      <File FileName="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml.cs" Line="42" Column="50" />
+      <File FileName="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml.cs" Line="72" Column="1" />
       <File FileName="PowerBankAdmin/Helpers/JsonHelper.cs" Line="8" Column="37" />
       <File FileName="PowerBankAdmin/Services/AuthorizationMiddleware.cs" Line="62" Column="1" />
       <File FileName="PowerBankAdmin/Pages/Admin/Auth/Login.cshtml.cs" Line="38" Column="19" />
       <File FileName="PowerBankAdmin/Data/Repository/AppRepository.cs" Line="9" Column="27" />
-      <File FileName="PowerBankAdmin/Startup.cs" Line="34" Column="15" />
+      <File FileName="PowerBankAdmin/Startup.cs" Line="44" Column="16" />
       <File FileName="PowerBankAdmin/appsettings.json" Line="13" Column="2" />
       <File FileName="PowerBankAdmin/Models/UserModel.cs" Line="6" Column="18" />
-      <File FileName="PowerBankAdmin/Services/GeocodeService.cs" Line="55" Column="1" />
-      <File FileName="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml" Line="112" Column="27" />
+      <File FileName="PowerBankAdmin/Services/GeocodeService.cs" Line="39" Column="1" />
+      <File FileName="PowerBankAdmin/Pages/Admin/Holders/Index.cshtml" Line="113" Column="50" />
+      <File FileName="PowerBankAdmin/Pages/Shared/_AdminLayout.cshtml" Line="22" Column="48" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="PowerBankAdmin" expanded="True">
             <Node name="PowerBankAdmin" expanded="True">
-              <Node name="Data" expanded="True">
-                <Node name="Repository" expanded="True" />
-              </Node>
-              <Node name="Migrations" expanded="True" />
-              <Node name="Models" expanded="True" />
               <Node name="Pages" expanded="True">
-                <Node name="Admin" expanded="True">
-                  <Node name="Auth" expanded="True">
-                    <Node name="Login.cshtml" expanded="True" />
-                  </Node>
-                  <Node name="Holders" expanded="True">
-                    <Node name="Index.cshtml" expanded="True" selected="True" />
-                  </Node>
+                <Node name="Shared" expanded="True">
+                  <Node name="_AdminLayout.cshtml" selected="True" />
                 </Node>
               </Node>
-              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
@@ -49,7 +42,6 @@
     <BreakpointStore>
       <Breakpoint file="/Users/stanislav/Projects/powernow/PowerBankAdmin/kk0fkxsy.32y~" relfile="PowerBankAdmin/kk0fkxsy.32y~" line="29" column="1" />
       <Breakpoint file="/Users/stanislav/Projects/powernow/PowerBankAdmin/kk0fkxsy.32y~" relfile="PowerBankAdmin/kk0fkxsy.32y~" line="44" column="1" />
-      <Breakpoint file="/Users/stanislav/Projects/powernow/PowerBankAdmin/Services/GeocodeService.cs" relfile="PowerBankAdmin/Services/GeocodeService.cs" line="39" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

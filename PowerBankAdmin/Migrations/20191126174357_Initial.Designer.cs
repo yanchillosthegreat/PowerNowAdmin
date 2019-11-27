@@ -10,8 +10,8 @@ using PowerBankAdmin.Data.Repository;
 namespace PowerBankAdmin.Migrations
 {
     [DbContext(typeof(AppRepository))]
-    [Migration("20190925211025_HolderAdress")]
-    partial class HolderAdress
+    [Migration("20191126174357_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,10 @@ namespace PowerBankAdmin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("BindId");
+
+                    b.Property<string>("Card");
+
                     b.Property<int>("CostumerStatus");
 
                     b.Property<string>("Email");
@@ -93,6 +97,10 @@ namespace PowerBankAdmin.Migrations
                     b.Property<string>("LocalCode");
 
                     b.Property<string>("OwnerAddress");
+
+                    b.Property<string>("OwnerLatitude");
+
+                    b.Property<string>("OwnerLongitude");
 
                     b.Property<string>("OwnerName");
 
@@ -139,6 +147,25 @@ namespace PowerBankAdmin.Migrations
                     b.HasIndex("PowerbankId");
 
                     b.ToTable("PowerbankSessions");
+                });
+
+            modelBuilder.Entity("PowerBankAdmin.Models.TransactionModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount");
+
+                    b.Property<int?>("CostumerModelId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostumerModelId");
+
+                    b.ToTable("TransactionModel");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.UserModel", b =>
@@ -202,7 +229,8 @@ namespace PowerBankAdmin.Migrations
                 {
                     b.HasOne("PowerBankAdmin.Models.HolderModel", "Holder")
                         .WithMany("Powerbanks")
-                        .HasForeignKey("HolderId");
+                        .HasForeignKey("HolderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.PowerbankSessionModel", b =>
@@ -213,7 +241,15 @@ namespace PowerBankAdmin.Migrations
 
                     b.HasOne("PowerBankAdmin.Models.PowerbankModel", "Powerbank")
                         .WithMany("Sessions")
-                        .HasForeignKey("PowerbankId");
+                        .HasForeignKey("PowerbankId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PowerBankAdmin.Models.TransactionModel", b =>
+                {
+                    b.HasOne("PowerBankAdmin.Models.CostumerModel")
+                        .WithMany("Transaction")
+                        .HasForeignKey("CostumerModelId");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.VerificationCodeModel", b =>
