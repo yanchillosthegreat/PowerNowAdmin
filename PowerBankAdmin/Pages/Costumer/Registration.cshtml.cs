@@ -42,6 +42,7 @@ namespace PowerBankAdmin.Pages.Costumer
         public void OnGet()
         {
             ViewData["Title"] = "авторизация";
+            ViewData["City"] = "/css/patterns/city_2.png";
         }
 
         public async Task<IActionResult> OnPostPhoneAsync()

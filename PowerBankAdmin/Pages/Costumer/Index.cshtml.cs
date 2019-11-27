@@ -24,6 +24,8 @@ namespace PowerBankAdmin.Pages.Costumer
         public void OnGet()
         {
             IdentifyCostumer();
+            ViewData["Title"] = "ПРОФИЛЬ";
+            ViewData["City"] = "/css/patterns/city_1.png";
             Sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).ThenInclude(x => x.Holder).Where(x => x.Costumer.Id == Costumer.Id);
         }
 

@@ -12,6 +12,7 @@ namespace PowerBankAdmin.Pages.Tutorial
         public void OnGet()
         {
             IdentifyCostumer();
+            ViewData["City"] = "/css/patterns/city_1.png";
         }
     }
 }

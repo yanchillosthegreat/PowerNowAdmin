@@ -41,6 +41,9 @@ namespace PowerBankAdmin.Pages.Take
         public async Task OnGetAsync()
         {
             IdentifyCostumer();
+
+            ViewData["City"] = "/css/patterns/city_3.png";
+
             if (IsAuthorized())
             {
                 Session = await _holderService.LastSession(Costumer.Id);

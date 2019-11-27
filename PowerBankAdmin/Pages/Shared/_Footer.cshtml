@@ -1,4 +1,10 @@
-﻿<div class="footer animated fadeInDown hidden" id="footer">
-    <div style="background: url(/css/patterns/city_1.png) #1a1e20 bottom; height: 222px"></div>
-</div>
+﻿@if (ViewData["HideFooter"] == null)
+{
+    <div class="footer animated fadeInDown hidden" id="footer">
+        <div style="background: url(@ViewData["City"]) #1a1e20 bottom; height: 222px;); background-repeat: repeat-x;"></div>
+    </div>
+}
+else
+{
 
+}

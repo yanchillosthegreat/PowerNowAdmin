@@ -22,7 +22,8 @@ namespace PowerBankAdmin.Pages.Costumer
         public void OnGet()
         {
 			IdentifyCostumer();
-		}
+            ViewData["Title"] = "ОПЛАТА";
+        }
 
         public async Task<IActionResult> OnPostCardAsync()
         {

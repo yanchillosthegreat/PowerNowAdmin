@@ -12,6 +12,8 @@ namespace PowerBankAdmin.Pages.Map
         public void OnGet()
         {
             IdentifyCostumer();
+            ViewData["Title"] = "КАРТА С ПАУЕР БАНКАМИ";
+            ViewData["City"] = "/css/patterns/city_3.png";
         }
     }
 }
