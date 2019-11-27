@@ -14,6 +14,8 @@ project.lock.json
 *.sln.docstates
 
 # Build results
+.vs/
+PowerBankAdmin/obj/Debug
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
