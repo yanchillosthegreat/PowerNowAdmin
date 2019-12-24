@@ -58,11 +58,10 @@ $(document).ready(function () {
 
     //Costumer page
     var changeCostumerDataForm = $("#costumer-data-form");
-    var changeCostumerDataButton = $("#change-costumer-data-button").ladda();
+    var changeCostumerDataButton = $("#change-costumer-data-button");
 
     formAddPowerbank.on("submit", function (e) {
         e.preventDefault();
-        submitAddPowerbank.ladda("start");
         var formData = formAddPowerbank.serialize();
         var request = $.ajax({
             url: "/admin/powerbanks",
@@ -70,7 +69,6 @@ $(document).ready(function () {
             dataType: "json",
             data: formData,
             success: function (response) {
-                submitAddPowerbank.ladda('stop');
                 switch (response.code) {
                     case 200:
                         powerbanksTable.append(response.message);
@@ -85,7 +83,6 @@ $(document).ready(function () {
 
     changeCostumerDataForm.on("submit", function (e) {
         e.preventDefault();
-        changeCostumerDataButton.ladda("start");
         var dataForm = changeCostumerDataForm.serialize();
         var request = $.ajax({
             url: "/costumer",
@@ -93,7 +90,6 @@ $(document).ready(function () {
             dataType: "json",
             data: dataForm,
             success: function (response) {
-                changeCostumerDataButton.ladda("stop");
                 switch (response.code) {
                     case 200:
                         alert("Данные успешно изменены");
@@ -105,43 +101,6 @@ $(document).ready(function () {
             }
             });
     });
-
-    //enterHolderCodeForm.on("submit", function (e) {
-    //    e.preventDefault();
-    //    enterHolderCodeSubmit.ladda("start");
-    //    var token = $('input[name="__RequestVerificationToken"]').val()
-    //    var request = $.ajax({
-    //        url: "/take?handler=take",
-    //        type: "POST",
-    //        dataType: "json",
-    //        data: {
-    //            __RequestVerificationToken: token,
-    //            c1: $("#equipment-code-input1").val(),
-    //            c2: $("#equipment-code-input2").val(),
-    //            c3: $("#equipment-code-input3").val(),
-    //            c4: $("#equipment-code-input4").val()
-    //        },
-    //        success: function (response) {
-    //            enterHolderCodeSubmit.ladda("stop");
-    //            switch (response.code) {
-    //                case 200:
-    //                    takeHolderBlock.hide();
-    //                    takeTimerBlock.show();
-    //                    var elapsed_seconds = 0;
-    //                    setInterval(function() {
-    //                        elapsed_seconds = elapsed_seconds + 1;
-    //                        timerText.text(get_elapsed_time_string(elapsed_seconds));
-    //                    }, 1000);
-    //                    setInterval(check, 5000);
-    //                    location.reload();
-    //                    break;
-    //                default:
-    //                    alert(response.message);
-    //                    break;
-    //            }
-    //        }
-    //    });
-    //});
 
     function check() {
         var token = $('input[name="__RequestVerificationToken"]').val()
@@ -178,7 +137,6 @@ $(document).ready(function () {
 
     formAddHolder.on("submit", function (e) {
         e.preventDefault();
-        submitAddHolder.ladda("start");
         var formData = formAddHolder.serialize();
         var request = $.ajax({
             url: "/admin/holders",
@@ -186,7 +144,6 @@ $(document).ready(function () {
             dataType: "json",
             data: formData,
             success: function (response) {
-                submitAddHolder.ladda('stop');
                 switch (response.code) {
                     case 200:
                         holdersTable.append(response.message);
@@ -223,7 +180,6 @@ $(document).ready(function () {
 
     formPhone.on("submit", function (e) {
         e.preventDefault();
-        submitPhoneButton.ladda('start');
         var formData = formPhone.serialize();
 
         var request = $.ajax({
@@ -232,7 +188,6 @@ $(document).ready(function () {
             dataType: "json",
             data: formData,
             success: function (response) {
-                submitPhoneButton.ladda('stop');
                 switch (response.code) {
                     case 200:
                         phoneVerificationInput.val(phoneInput.val());
@@ -249,7 +204,6 @@ $(document).ready(function () {
 
     formCode.on("submit", function (e) {
         e.preventDefault();
-        submitPhoneCodeButton.ladda('start');
         var formData = formCode.serialize();
 
         var request = $.ajax({
@@ -258,7 +212,6 @@ $(document).ready(function () {
             dataType: "json",
             data: formData,
             success: function (response) {
-                submitPhoneCodeButton.ladda('stop');
                 switch (response.code) {
                     case 200:
                         window.location.href = "/take";
@@ -273,7 +226,6 @@ $(document).ready(function () {
 
     cardForm.on("submit", function (e) {
         e.preventDefault();
-        submitCardCodeButton.ladda('start');
         var formData = cardForm.serialize();
 
         var request = $.ajax({
@@ -282,7 +234,6 @@ $(document).ready(function () {
             dataType: "json",
             data: formData,
             success: function (response) {
-                submitCardCodeButton.ladda('stop');
                 switch (response.code) {
                     case 200:
                         window.location.href = "/costumer/index";

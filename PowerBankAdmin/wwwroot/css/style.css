@@ -239,9 +239,9 @@ h5 {
 
 .minimalize-styl-2 {
     padding: 4px 12px;
-    margin: 14px 5px 5px 20px;
+    margin: 14px 20px 5px 20px;
     font-size: 14px;
-    float: left;
+    float: right;
 }
 
 .navbar-form-custom {
@@ -815,6 +815,16 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     height: 49px;
     padding: 10px 12px;
 }
+
+    .btn-primary-orange:hover {
+        background-color: #16BDF0;
+        color: #1C0C29;
+    }
+
+    .btn-primary-orange:active   {
+        background-color: #16BDF0;
+        color: #1C0C29;
+    }
 
 .p-power-now-bold {
     font-family: Roboto;
@@ -9985,7 +9995,7 @@ body.md-skin {
 
     .navbar-header {
         display: inline;
-        float: left;
+        float: right;
     }
 
     .sidebard-panel {

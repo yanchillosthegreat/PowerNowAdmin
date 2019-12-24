@@ -10,11 +10,11 @@
 <div class="row m-b-lg">
     <div class="col-12">
         <div class="col-xs-2">
-            <img src="~/css/patterns/pin.png" class="left" style="width: 18px; height: 26px;" />
+            <img src="~/css/patterns/person_icon.png" class="left" style="width: 32px; height: 32px;" />
         </div>
         <div class="col-xs-10">
             <p class="pb-text-17-bold">@Model.Costumer.Name</p>
-            <span class="pb-text-13">Баллы </span><span class="pb-text-13-bold">229</span>
+            <span class="pb-text-13">Баллы </span><span class="pb-text-13-bold">0</span>
         </div>
     </div>
 </div>
@@ -25,7 +25,7 @@
             <div class="ibox-title pb-style">
                 <div class="row">
                     <div class="col-xs-2">
-                        <img src="~/css/patterns/personal_data.png" style="width: 15px; height: 16px; margin-top: 4px;" />
+                        <img src="~/css/patterns/personal_data.png" style="width: 19px; height: 19px; margin-top: 4px;" />
                     </div>
                     <div class="col-xs-8">
                         <span class="pb-text-17-normal">Личные данные</span>
@@ -70,7 +70,7 @@
             <div class="ibox-title pb-style">
                 <div class="row">
                     <div class="col-xs-2">
-                        <img src="~/css/patterns/history.png" style="width: 15px; height: 16px; margin-top: 4px;" />
+                        <img src="~/css/patterns/history.png" style="width: 19px; height: 19px; margin-top: 4px;" />
                     </div>
                     <div class="col-xs-8">
                         <span class="pb-text-17-normal">История</span>
@@ -106,7 +106,7 @@
             <div class="ibox-title pb-style">
                 <div class="row">
                     <div class="col-xs-2">
-                        <img src="~/css/patterns/cards.png" style="width: 15px; height: 16px; margin-top: 4px;" />
+                        <img src="~/css/patterns/cards.png" style="width: 19px; height: 19px; margin-top: 4px;" />
                     </div>
                     <div class="col-xs-8">
                         <span class="pb-text-17-normal">Счёт</span>
@@ -123,9 +123,12 @@
                         <div class="col-xs-2">
 
                         </div>
-                        <div class="col-xs-10">
-                            <a class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 82px; padding-top: 25px" href='@Url.Page("/costumer/addcard")'>добавить карту</a>
-                        </div>
+                        <form method="post">
+                            <div class="col-xs-10">
+                                <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" 
+                                        style="height: 82px; padding-top: 25px">добавить карту</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

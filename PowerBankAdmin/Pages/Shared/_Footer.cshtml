@@ -1,7 +1,9 @@
 ﻿@if (ViewData["HideFooter"] == null)
 {
     <div class="footer animated fadeInDown hidden" id="footer">
-        <div style="background: url(@ViewData["City"]) #1a1e20 bottom; height: 222px;); background-repeat: repeat-x;"></div>
+        <div class="col-md-offset-12 col-sm-offset-12 col-lg-offset-12">
+            <img src="@ViewData["City"]" style="width: 100%; height: 222px; border-color: transparent" />
+        </div>
     </div>
 }
 else

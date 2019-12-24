@@ -51,7 +51,8 @@ namespace PowerBankAdmin.Pages.Costumer
             if (!String.IsNullOrEmpty(Costumer.Phone))
             {
                 await SpecifyCostumer();
-                var smsWasSent = await SendSms(randomValue);
+                //var smsWasSent = await SendSms(randomValue);
+                var smsWasSent = true;
                 if (smsWasSent)
                 {
                     await InitCostumerWithCode(randomValue);

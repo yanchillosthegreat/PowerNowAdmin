@@ -25,7 +25,7 @@ namespace PowerBankAdmin.Pages.Costumer
         {
             IdentifyCostumer();
             ViewData["Title"] = "ПРОФИЛЬ";
-            ViewData["City"] = "/css/patterns/city_1.png";
+            ViewData["HideFooter"] = true;
             Sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).ThenInclude(x => x.Holder).Where(x => x.Costumer.Id == Costumer.Id);
         }
 
@@ -38,6 +38,5 @@ namespace PowerBankAdmin.Pages.Costumer
             await _appRepository.SaveChangesAsync();
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
-
     }
 }

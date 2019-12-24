@@ -2,7 +2,6 @@
     <nav class="navbar-default navbar-static-side fadeInDown" role="navigation">
         
         <div class="sidebar-collapse" id="navbar">
-            <a class="close-canvas-menu"><i class="fa fa-bars"></i></a>
             <img src="~/css/patterns/person_icon.png" class="img-responsive" style="width: 32px; height: 32px; margin: 32px 0px 20px 12px;" />
 
             @if (Model.IsAuthorized())
@@ -18,21 +17,21 @@
                 <a href="@Url.Page("/costumer/registration")" class="pb-text-12-bold pb-orange-style" style="margin: 0px 0px 0px 12px">Войти / регистрация</a>
             }
 
-                <ul class="nav navbar-nav navbar-right" style="margin-top: 149px">
+                <ul class="nav navbar-nav" style="margin-top: 149px">
                     <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/prices")">Тарифы</a>
+                        <a class="m-l-sm" style="color: #16BDF0" href="@Url.Page("/info/prices")">Тарифы</a>
                     </li>
                     <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/about")">Об устройстве</a>
+                        <a class="m-l-sm" style="color: #16BDF0" href="@Url.Page("/info/about")">Об устройстве</a>
                     </li>
                     <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/help")">Помощь</a>
+                        <a class="m-l-sm" style="color: #16BDF0" href="@Url.Page("/info/help")">Помощь</a>
                     </li>
                     <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/cooperation")">Сотрудничество</a>
+                        <a class="m-l-sm" style="color: #16BDF0" href="@Url.Page("/info/cooperation")">Сотрудничество</a>
                     </li>
                     <li>
-                        <a class="m-l-sm" href="@Url.Page("/info/agreement")">Пользовательское соглашение</a>
+                        <a class="m-l-sm" style="color: #16BDF0" href="@Url.Page("/info/agreement")">Пользовательское соглашение</a>
                     </li>
                     @*@if (Model.IsAuthorized())
         {

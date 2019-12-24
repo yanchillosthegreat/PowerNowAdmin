@@ -13,6 +13,7 @@ namespace PowerBankAdmin.Pages.Info
         {
             IdentifyCostumer();
             ViewData["Title"] = "онкэгнбюрекэяйне янцкюьемхе";
+            ViewData["HideFooter"] = true;
         }
     }
 }

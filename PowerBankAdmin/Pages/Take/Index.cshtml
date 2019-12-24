@@ -54,49 +54,58 @@
 
 
         <div class="row">
-        <form method="POST" id="enter-equipment-code-form">
-            <div class="row">
-                <div class="col-xs-3">
-                    <input type="text" name="c1" id="equipment-code-input1" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c1" placeholder="X" required=""
-                           onkeypress="inInputNumber(event)">
-                </div>
-                <div class="col-xs-3">
-                    <input type="text" name="c2" id="equipment-code-input2" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c2" placeholder="X" required=""
-                           onkeypress="inInputNumber(event)">
-                </div>
-                <div class="col-xs-3">
-                    <input type="text" name="c3" id="equipment-code-input3" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c3" placeholder="X" required=""
-                           onkeypress="inInputNumber(event)">
-                </div>
-                <div class="col-xs-3">
-                    <input type="text" name="c4" id="equipment-code-input4" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
-                   class="form-control pb-input-code-style c4" placeholder="X" required=""
-                           onkeypress="inInputNumber(event)">
-                </div>
+            <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
+                <form method="POST" id="enter-equipment-code-form">
+                    <div class="row col-12">
+                        <div class="col-xs-3">
+                            <input type="text" name="c1" id="equipment-code-input1" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                                   class="form-control pb-input-code-style c1" placeholder="X" required=""
+                                   onkeypress="inInputNumber(event)">
+                        </div>
+                        <div class="col-xs-3">
+                            <input type="text" name="c2" id="equipment-code-input2" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                                   class="form-control pb-input-code-style c2" placeholder="X" required=""
+                                   onkeypress="inInputNumber(event)">
+                        </div>
+                        <div class="col-xs-3">
+                            <input type="text" name="c3" id="equipment-code-input3" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                                   class="form-control pb-input-code-style c3" placeholder="X" required=""
+                                   onkeypress="inInputNumber(event)">
+                        </div>
+                        <div class="col-xs-3">
+                            <input type="text" name="c4" id="equipment-code-input4" maxLength="1" size="1" min="0" max="9" pattern="[0-9]"
+                                   class="form-control pb-input-code-style c4" placeholder="X" required=""
+                                   onkeypress="inInputNumber(event)">
+                        </div>
+                    </div>
+
+                    <div class="row" style="height: 36px">
+
+                    </div>
+
+                    <button type="submit" id="equipment-code-submit"
+                            class="ladda-button btn btn-primary-orange btn-block pb-button-shadow"
+                            m-b m-t-lg data-style="zoom-in">
+                        Продолжить
+                    </button>
+                </form>
             </div>
-            <button type="submit" id="equipment-code-submit"
-                    class="ladda-button btn btn-primary-orange btn-block m-b m-t-lg pb-button-shadow"
-                    data-style="zoom-in">
-                Продолжить
-            </button>
-        </form>
-            </div>
+        </div>
 
         <div class="row m-t-lg m-b-xl"></div>
         <div class="row m-t-lg m-b-xl"></div>
 
         <div class="row m-b-lg">
-            <div class="col-xs-12 pb-no-left-padding">
+            <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
                 <span class="p-power-now-normal">Не рядом с оборудованием?</span>
                 <span class="p-power-now-normal" style="font-weight: bold;">Найди ближайший на карте</span>
             </div>
         </div>
 
         <div class="row">
-            <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("/map/index")'>найти</a>
+            <div class="col-md-offset-1 col-md-10 col-xs-offset-1 col-xs-10">
+                <a class="btn btn-primary-orange btn-block pb-button-shadow" href='@Url.Page("/map/index")'>найти</a>
+            </div>
         </div>
     }
     else
