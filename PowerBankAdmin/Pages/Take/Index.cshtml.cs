@@ -14,6 +14,21 @@ using PowerBankAdmin.Models;
 
 namespace PowerBankAdmin.Pages.Take
 {
+
+    public class GetBindingsResponse
+    {
+        public string ErrorCode { get; set; }
+        public string ErorMessage { get; set; }
+        public List<SberbankBinding> Bindings { get; set; }
+    }
+
+    public class SberbankBinding
+    {
+        public string BindingId { get; set; }
+        public string MaskedPan { get; set; }
+        public string ExpiryDate { get; set; }
+    }
+
     public class RegisterDoResponse
     {
         public string OrderId { get; set; }

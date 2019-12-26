@@ -52,6 +52,12 @@ namespace PowerBankAdmin.Services
                 return;
             }
 
+            if (httpContext.Request.Path.StartsWithSegments(new PathString("/api")))
+            {
+                await _next(httpContext);
+                return;
+            }
+
             var authToken = httpContext.Request.Cookies[Strings.CookieAuthToken];
             if (authToken == null)
             {
