@@ -24,6 +24,8 @@ namespace PowerBankAdmin.Data.Interfaces
         /// </summary>
         /// <param name="idPowerBank">ID PB</param>
         /// <returns>true, если получилось</returns>
-        Task<bool> ReleasePowerBank(int idPowerBank); 
+        Task<bool> ReleasePowerBank(int idPowerBank);
+
+        Task<bool> CanProvidePowerBank(int idHolder);
     }
 }

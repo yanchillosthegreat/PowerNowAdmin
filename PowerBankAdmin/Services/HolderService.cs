@@ -16,6 +16,23 @@ namespace PowerBankAdmin.Services
             _appRepository = appRepository;
         }
 
+        public async Task<bool> CanProvidePowerBank(int idHolder)
+        {
+            var holder = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).FirstOrDefaultAsync(x => x.Id == idHolder);
+            if (holder == null)
+            {
+                return false;
+            }
+
+            var powerBank = holder.Powerbanks.ToList().FirstOrDefault(x => x.Sessions.Count() == 0 || x.Sessions.All(y => !y.IsActive));
+            if (powerBank == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<PowerbankSessionModel> LastSession(int idClient)
         {
             return await _appRepository.PowerbankSessions.LastOrDefaultAsync(x => x.IsActive && x.Costumer.Id == idClient);

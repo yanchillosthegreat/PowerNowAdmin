@@ -42,8 +42,6 @@ namespace PowerBankAdmin.Pages.Take
 
         [BindProperty]
         public PowerbankSessionModel Session { get; set; }
-        [BindProperty]
-        public double SessionDuration { get; set; }
 
 
         public IndexModel(IHolderService holderService, AppRepository appRepository)
@@ -62,10 +60,7 @@ namespace PowerBankAdmin.Pages.Take
             if (IsAuthorized())
             {
                 Session = await _holderService.LastSession(Costumer.Id);
-                if (Session != null && Session.IsActive)
-                {
-                    SessionDuration = (DateTime.Now - Session.Start).TotalSeconds;
-                }
+                // REDIRECT
             }
         }
 
@@ -83,22 +78,30 @@ namespace PowerBankAdmin.Pages.Take
             if (holder == null)
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "No such Holder");
 
-            var result = await _holderService.ProvidePowerBank(Costumer.Id, holder.Id);
+            var result = await _holderService.CanProvidePowerBank(holder.Id);
             if (!result)
+            {
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
+            }
 
-            var _httpClient = new WebClient();
-            var random = new Random();
-            var orderNumber = random.Next(15000, 16000);
-            var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&password=power-now&orderNumber={orderNumber}&amount=100&returnUrl=http://power-now.ru/take";
-            var responseText = _httpClient.DownloadString(new Uri(urlString));
+            return RedirectToPage("SelectTariff");
 
-            JsonSerializer serializer = new JsonSerializer();
-            RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
+                //var result = await _holderService.ProvidePowerBank(Costumer.Id, holder.Id);
+                //if (!result)
+                //    return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
 
-            return Redirect(response.FormUrl);
+                //var _httpClient = new WebClient();
+                //var random = new Random();
+                //var orderNumber = random.Next(15000, 16000);
+                //var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&password=power-now&orderNumber={orderNumber}&amount=100&returnUrl=http://power-now.ru/take";
+                //var responseText = _httpClient.DownloadString(new Uri(urlString));
 
-            //return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
+                //JsonSerializer serializer = new JsonSerializer();
+                //RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
+
+                //return Redirect(response.FormUrl);
+
+            return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
 
         public async Task<IActionResult> OnPostCheckAsync()
