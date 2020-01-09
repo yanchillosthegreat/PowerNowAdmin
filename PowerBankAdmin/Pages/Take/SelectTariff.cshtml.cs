@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -46,6 +47,35 @@ namespace PowerBankAdmin.Pages.Take
             ViewData["HideFooter"] = true;
         }
 
+        public void TakePowerbank()
+        {
+            var borrowRequest = new BorrowRequest
+            {
+                EquipmentSn = "1800008823",
+                PackageType = "171",
+                Position = "1",
+                DeviceType = "8",
+                DeviceVersion = "1",
+                SessionId = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()
+            };
+
+            WebRequest request = WebRequest.Create("https://dry-wildwood-23355.herokuapp.com/operation");
+            request.ContentType = "application/json";
+            request.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string body = JsonConvert.SerializeObject(borrowRequest);
+                streamWriter.Write(body);
+            }
+
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+            }
+        }
+
         public async Task<IActionResult> OnPostAddCardAsync()
         {
             var _httpClient = new WebClient();
@@ -59,5 +89,48 @@ namespace PowerBankAdmin.Pages.Take
 
             return Redirect(response.FormUrl);
         }
+    }
+
+
+
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+    public class BaseRequest
+    {
+        [JsonProperty(PropertyName = "equipmentSn")]
+        public string EquipmentSn { get; set; }
+
+        [JsonProperty(PropertyName = "deviceType")]
+        public string DeviceType { get; set; }
+
+        [JsonProperty(PropertyName = "deviceVersion")]
+        public string DeviceVersion { get; set; }
+
+        [JsonProperty(PropertyName = "sessionId")]
+        public string SessionId { get; set; }
+
+        [JsonProperty(PropertyName = "signature")]
+        public string Signature { get; set; }
+
+        [JsonProperty(PropertyName = "packageType")]
+        public string PackageType { get; set; }
+    }
+
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+    public class BorrowRequest : BaseRequest
+    {
+        [JsonProperty(PropertyName = "position")]
+        public string Position { get; set; }
+
+        [JsonProperty(PropertyName = "powerBankSn")]
+        public string PowerBankSn { get; set; }
+    }
+
+    public class FooRequest
+    {
+        [JsonProperty(PropertyName = "ciphertext")]
+        public string CipherText { get; set; }
+
+        [JsonProperty(PropertyName = "clientId")]
+        public string ClientId { get; set; }
     }
 }

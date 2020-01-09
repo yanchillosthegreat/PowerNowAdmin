@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Requests\" />
     <Folder Include="Pages\Shared\" />
     <Folder Include="Services\" />
-    <Folder Include="Models\" />
     <Folder Include="Data\" />
     <Folder Include="Data\Moq\" />
     <Folder Include="Data\Repository\" />
