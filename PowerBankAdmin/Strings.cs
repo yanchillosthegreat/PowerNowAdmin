@@ -23,5 +23,24 @@ namespace PowerBankAdmin
         public const string ErrorVerificationTokenExpired = "Ваш проверочный код протух, попробуйте еще раз";
         public const string ErrorWrongVerificationToken = "Не верный проверочный код, попробуйте еще раз";
 
+
+
+
+        //Urls
+        public const string SberPostBindings = "https://3dsec.sberbank.ru/payment/rest/getBindings.do";
+        public const string SberGetRegister = "https://3dsec.sberbank.ru/payment/rest/register.do";
+        public const string SberPostPayment = "https://3dsec.sberbank.ru/payment/rest/paymentOrderBinding.do";
+
+
+        //Credentials
+        public const string SberApiLogin = "power-now-api";
+        public const string SberApiPassword = "power-now";
+
+
+        //Actions
+        public const string GoToClientPage = "client";
+        public const string GoToTakePage = "take";
+
+
     }
 }

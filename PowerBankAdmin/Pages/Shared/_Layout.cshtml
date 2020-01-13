@@ -37,26 +37,27 @@
 
 
             <!-- Main view  -->
-            <div class="wrapper wrapper-content  animated fadeInDown
-                            col-lg-4 col-lg-offset-4
-                            col-md-4 col-md-offset-4
-                            col-sm-4 col-sm-offset-4
-                            col-xs-8 col-xs-offset-2 container" id="content">
-                <div class="row justify-content-md-center">
-                    @RenderBody()
-                </div>
+            <div class="wrapper animated fadeInDown container" id="content">
+                @RenderBody()
+                
             </div>
             <!-- Footer -->
-            <div class="row">
+            <div style="position:absolute; width: 100%">
                 <partial name="Shared/_Footer" />
             </div>
         </div>
         @RenderSection("scripts", required: false)
 
-        <script>$('body.canvas-menu .sidebar-collapse').slimScroll({
+        <script>
+            $('body.canvas-menu .sidebar-collapse').slimScroll({
                 height: '100%',
                 railOpacity: 0.9
-            });</script>
+            });
+
+
+            $("#content").height($(window).height() - $("#top-header").height())
+
+        </script>
 
 </body>
 </html>

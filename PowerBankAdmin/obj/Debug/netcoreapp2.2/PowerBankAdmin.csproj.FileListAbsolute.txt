@@ -100,3 +100,4 @@ C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreap
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\PowerBankAdmin.csproj.CopyComplete
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Info\Agreement.g.cshtml.cs
 C:\Users\yanmoroz\source\repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Take\SelectTariff.g.cshtml.cs
+C:\Users\yanmoroz\source\repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Acquiring\Index.g.cshtml.cs

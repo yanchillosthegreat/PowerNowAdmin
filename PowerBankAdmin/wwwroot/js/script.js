@@ -20,13 +20,13 @@ $(document).ready(function () {
     } else {
         $('body').removeClass('body-small')
     }
-    var contentHeight = $("#top-header").height() + $("#content").height() +  300;
+    /*var contentHeight = $("#top-header").height() + $("#content").height() +  300;
     if (contentHeight < $(window).height()) {
         $("#page-wrapper").css('min-height', $(window).height());
     }
     else {
         $("#page-wrapper").css('min-height', contentHeight);
-    }
+    }*/
 
     $('.footer').toggleClass('hidden');
     // MetisMenu

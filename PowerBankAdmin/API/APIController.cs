@@ -49,9 +49,9 @@ namespace PowerBankAdmin.API
                     new CostumerModel { Name = "Not Authorized" };
 
                 var costumerToEdit = _appRepository.Costumers.FirstOrDefault(x => x.Id == Costumer.Id);
-                costumerToEdit.BindId = binding.BindingId;
+                //costumerToEdit.BindId = binding.BindingId;
                 costumerToEdit.Card = binding.MaskedPan;
-                _appRepository.Entry(Costumer).Property(x => x.BindId).IsModified = true;
+                //_appRepository.Entry(Costumer).Property(x => x.BindId).IsModified = true;
                 _appRepository.Entry(Costumer).Property(x => x.Card).IsModified = true;
                 await _appRepository.SaveChangesAsync();
             }

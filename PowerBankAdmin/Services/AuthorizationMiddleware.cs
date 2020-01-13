@@ -52,7 +52,7 @@ namespace PowerBankAdmin.Services
                 return;
             }
 
-            if (httpContext.Request.Path.StartsWithSegments(new PathString("/api")))
+            if (httpContext.Request.Path.StartsWithSegments(new PathString("/acquiring")))
             {
                 await _next(httpContext);
                 return;

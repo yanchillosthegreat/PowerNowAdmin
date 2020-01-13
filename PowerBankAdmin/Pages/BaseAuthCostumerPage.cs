@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
 
@@ -30,11 +31,11 @@ namespace PowerBankAdmin.Pages
             return string.IsNullOrEmpty(Costumer.Name) ? Costumer.Phone : Costumer.Name;
         }
 
+
         public IActionResult OnPostLogOut()
         {
             Response.Cookies.Delete(Strings.CookieCostumerAuthToken);
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
-
         }
     }
 }

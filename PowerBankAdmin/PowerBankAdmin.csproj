@@ -40,7 +40,6 @@
     <Folder Include="Pages\Tutorial\" />
     <Folder Include="Pages\Map\" />
     <Folder Include="Pages\Info\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

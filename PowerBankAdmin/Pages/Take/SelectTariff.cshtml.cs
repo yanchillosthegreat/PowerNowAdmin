@@ -78,15 +78,17 @@ namespace PowerBankAdmin.Pages.Take
 
         public async Task<IActionResult> OnPostAddCardAsync()
         {
+            base.IdentifyCostumer();
             var _httpClient = new WebClient();
             var random = new Random();
             var orderNumber = random.Next(15000, 16000);
-            var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&clientId=777&password=power-now&orderNumber={orderNumber}&amount=1&returnUrl=http://power-now.ru/api/api";
-            var responseText = await _httpClient.DownloadStringTaskAsync(new Uri(urlString));
+            var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&clientId={Costumer.Id}&password=power-now&orderNumber={orderNumber}&amount=1&returnUrl=https://power-now.ru/acquiring/{Strings.GoToTakePage}"; 
+             var responseText = await _httpClient.DownloadStringTaskAsync(new Uri(urlString));
 
             JsonSerializer serializer = new JsonSerializer();
             RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
-
+            await Costumer.SetOrderId(_appRepository, response.OrderId);
+            await Costumer.SetCardStatus(_appRepository, CardsStatus.Progress);
             return Redirect(response.FormUrl);
         }
     }
