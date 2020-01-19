@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{holderCode?}"
 @model Pages.Take.SelectTariffModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
@@ -15,10 +15,8 @@
 </div>
 
 
-@if (Model.Session == null)
-{
 
-<div class="col-md-12 m-t-lg p-t-md" style="background-color: #242a2f87; border-radius: 8px 8px; padding-top:30px; padding-bottom:30px">
+<div id="tariff-selector-block" class="col-md-12 m-t-lg p-t-md" style="background-color: #242a2f87; border-radius: 8px 8px; padding-top:30px; padding-bottom:30px">
 
     <div class="container">
         <div class="col-xs-2">
@@ -33,7 +31,7 @@
             <p class="pb-text-17-normal">Выберите тариф</p>
         </div>
     </div>
-    <form method="post">
+    <form method="post" id="select-tariff-form">
 
         <div class="container">
             <style type="text/css">
@@ -50,6 +48,8 @@
                     position: absolute;
                     opacity: 0;
                     cursor: pointer;
+                    width: 100%;
+                    height: 100%;
                 }
                 .radiobutton input:checked ~ .btn {
                     background-color: #16BDF0;
@@ -89,14 +89,26 @@
 
             @if (Model.Costumer.CardBindings != null)
             {
+                var c = 0;
                 foreach (var cardBinding in Model.Costumer.CardBindings)
                 {
-                    <div class="col-md-12 m-b-md">
-                        <button class="btn btn-primary-orange btn-block pb-button-shadow"
-                                style="height: 49px; padding-top: 10px">
-                            @cardBinding.MaskedPan
-                        </button>
-                    </div>
+                    c++;
+                    if (c == 1)
+                    {
+                        <div class="col-xs-12 radiobutton m-b-sm">
+                            <input type="radio" name="card" checked="checked" />
+                            <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="col-xs-6 radiobutton">
+                            <input type="radio" name="card" />
+                            <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
+                        </div>
+
+                    }
                 }
                 <div class="col-md-12 m-b-md">
                     <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
@@ -120,12 +132,11 @@
         </form>
     </div>
 </div>
-}
-else
-{
+
+<div id="session-timer-block">
     <div class="row text-center m-t-lg" id="timer-equipment-block">
         <div>
-            <input id="session-duration" type="hidden" value="@Model.SessionDuration" />
+            <input id="session-duration" type="hidden" value="@ViewData["SessionDuration"]" />
             <pre id="timer-text" class="p-power-now-normal"></pre>
         </div>
     </div>
@@ -137,82 +148,22 @@ else
             <span class="p-power-now-normal" style="font-weight: bold;">49 баллов</span>
         </div>
     </div>
-    <div class="row m-t-lg">
-        <div class="col-12">
-            <img src="~/css/patterns/powerbank_holder.gif" class="img-responsive" style="width: 334px; height: 291px; margin:auto" />
-        </div>
-    </div>
-}
+</div>
+
 
 <script type="text/javascript">
-
-    $(document).ready(function (e) {
-        var timerText = $("#timer-text");
-
+    $(document).ready(function () {
+        var timerBlock = $("#session-timer-block");
+        var tariffBlock = $("#tariff-selector-block");
         var elapsed_seconds = parseInt($("#session-duration").val());
-        setInterval(function () {
-            elapsed_seconds = elapsed_seconds + 1;
-            timerText.text(get_elapsed_time_string(elapsed_seconds));
-        }, 1000);
-
-        setInterval(check, 5000);
-
-    });
-
-    function check() {
-        var token = $('input[name="__RequestVerificationToken"]').val()
-        var request = $.ajax({
-            url: "/take?handler=check",
-            type: "POST",
-            dataType: "json",
-            data: {
-                __RequestVerificationToken: token
-            },
-            success: function (response) {
-                switch (response.code) {
-                    case 200:
-                        switch (response.message) {
-                            case "1":
-                                break;
-                            case "0":
-                                //alert("Session is over");
-                                //location.reload();
-                                break;
-                            default:
-                                alert(response.message);
-                                break;
-                        }
-                        break;
-                    default:
-                        alert(response.message);
-                        break;
-                }
-            }
-        });
-    }
-
-
-    function get_elapsed_time_string(total_seconds) {
-        function pretty_time_string(num) {
-            return (num < 10 ? "0\u00A0\u00A0" : "") + num.toString().split('').join('\u00A0\u00A0');
+        if (elapsed_seconds > 0) {
+            timerBlock.show();
+            tariffBlock.hide();
+            startTimer();
         }
-
-        var hours = Math.floor(total_seconds / 3600);
-        total_seconds = total_seconds % 3600;
-
-        var minutes = Math.floor(total_seconds / 60);
-        total_seconds = total_seconds % 60;
-
-        var seconds = Math.floor(total_seconds);
-
-        // Pad the minutes and seconds with leading zeros, if required
-        hours = pretty_time_string(hours);
-        minutes = pretty_time_string(minutes);
-        seconds = pretty_time_string(seconds);
-
-        // Compose the string for display
-        var currentTimeString = hours + "\u00A0  :  \u00A0" + minutes + "\u00A0  :  \u00A0" + seconds;
-
-        return currentTimeString;
-    }
+        else {
+            timerBlock.hide();
+        }
+    });
+    
 </script>

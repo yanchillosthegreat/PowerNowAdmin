@@ -65,7 +65,7 @@ namespace PowerBankAdmin.Pages.Take
         }
 
         [HttpPost]
-        public async Task<IActionResult> OnPost(string c1, string c2, string c3, string c4)
+        public async Task<IActionResult> OnPostAsync(string c1, string c2, string c3, string c4)
         {
             var code = string.Format("{0}_{1}_{2}_{3}", c1, c2, c3, c4);
 
@@ -84,7 +84,7 @@ namespace PowerBankAdmin.Pages.Take
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
             }
 
-            return RedirectToPage("SelectTariff");
+            return RedirectToPage($"SelectTariff/{code}");
 
                 //var result = await _holderService.ProvidePowerBank(Costumer.Id, holder.Id);
                 //if (!result)

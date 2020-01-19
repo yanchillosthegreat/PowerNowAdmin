@@ -6,9 +6,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
+using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
 
 namespace PowerBankAdmin.Pages.Take
@@ -22,6 +24,8 @@ namespace PowerBankAdmin.Pages.Take
         public PowerbankSessionModel Session { get; set; }
         [BindProperty]
         public double SessionDuration { get; set; }
+        [BindProperty]
+        public string HolderCode { get; set; }
 
         public SelectTariffModel(IHolderService holderService, AppRepository appRepository)
         {
@@ -29,22 +33,35 @@ namespace PowerBankAdmin.Pages.Take
             _holderService = holderService;
         }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string holderCode)
         {
+            HolderCode = holderCode;
             IdentifyCostumer();
-
             if (IsAuthorized())
             {
-                //Session = await _holderService.LastSession(Costumer.Id);
-                //if (Session != null && Session.IsActive)
-                //{
-                //    SessionDuration = (DateTime.Now - Session.Start).TotalSeconds;
-                //}
-
-
+                Session = await _holderService.LastSession(Costumer.Id);
+                if (Session != null && Session.IsActive)
+                {
+                    ViewData["SessionDuration"] = (DateTime.Now - Session.Start).TotalSeconds;
+                }
             }
-
             ViewData["HideFooter"] = true;
+        }
+
+        public async Task<IActionResult> OnPostTariffAsync(string holderCode)
+        {
+            IdentifyCostumer();
+            HolderCode = holderCode;
+            return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
+        }
+        public async Task<IActionResult> OnPostCheckAsync()
+        {
+            IdentifyCostumer();
+            if (!IsAuthorized())
+                return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
+            var session = await _appRepository.PowerbankSessions.FirstOrDefaultAsync(x => x.Costumer.Id == Costumer.Id && x.IsActive);
+            var message = session == null ? "0" : "1"; // 1 - session is Active
+            return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, message);
         }
 
         public void TakePowerbank()

@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Requests\" />
+    <Folder Include="Pages\Equipment\" />
     <Folder Include="Pages\Shared\" />
     <Folder Include="Services\" />
     <Folder Include="Data\" />
