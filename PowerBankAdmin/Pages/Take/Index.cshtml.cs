@@ -84,7 +84,7 @@ namespace PowerBankAdmin.Pages.Take
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
             }
 
-            return RedirectToPage($"SelectTariff/{code}");
+            return Redirect($"/Take/SelectTariff/{holder.Id}");
 
                 //var result = await _holderService.ProvidePowerBank(Costumer.Id, holder.Id);
                 //if (!result)

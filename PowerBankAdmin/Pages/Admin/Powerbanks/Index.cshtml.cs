@@ -45,7 +45,8 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
         {
             if(id == null || id < 1)
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong id");
-            var result = await _holderService.ReleasePowerBank(id ?? 0);
+            var powerBank = await _appRepository.Powerbanks.Include(x => x.Holder).FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _holderService.ReleasePowerBank(powerBank.Code, powerBank.Holder.Code, 1);
             if(!result)
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpServerErrorCode, "Cant Stop Session");
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);

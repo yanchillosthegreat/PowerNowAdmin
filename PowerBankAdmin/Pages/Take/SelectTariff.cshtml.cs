@@ -25,7 +25,7 @@ namespace PowerBankAdmin.Pages.Take
         [BindProperty]
         public double SessionDuration { get; set; }
         [BindProperty]
-        public string HolderCode { get; set; }
+        public int? HolderId { get; set; }
 
         public SelectTariffModel(IHolderService holderService, AppRepository appRepository)
         {
@@ -33,9 +33,9 @@ namespace PowerBankAdmin.Pages.Take
             _holderService = holderService;
         }
 
-        public async Task OnGetAsync(string holderCode)
+        public async Task OnGetAsync(int? holderId)
         {
-            HolderCode = holderCode;
+            HolderId = holderId;
             IdentifyCostumer();
             if (IsAuthorized())
             {
@@ -48,10 +48,14 @@ namespace PowerBankAdmin.Pages.Take
             ViewData["HideFooter"] = true;
         }
 
-        public async Task<IActionResult> OnPostTariffAsync(string holderCode)
+        public async Task<IActionResult> OnPostTariffAsync(int? holderId, string tariff, string card)
         {
             IdentifyCostumer();
-            HolderCode = holderCode;
+            if(!IsAuthorized()) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
+
+            if(holderId == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong Data");
+            var result = await _holderService.ProvidePowerBank(Costumer.Id, holderId ?? 0, tariff, card);
+            if(!result) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpServerErrorCode, "Can't provide powerbank");
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
         public async Task<IActionResult> OnPostCheckAsync()

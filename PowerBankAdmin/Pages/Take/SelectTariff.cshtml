@@ -1,4 +1,4 @@
-﻿@page "{holderCode?}"
+﻿@page "{holderId:int?}"
 @model Pages.Take.SelectTariffModel
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
@@ -11,7 +11,7 @@
 
 <div style="position: absolute; z-index: -10; width: 100%; bottom:0; left: 0; right: 0">
     <img src="~/css/patterns/wave.png" style="width: 100%" />
-    <img src="~/css/patterns/powerbank_holder.gif" class="img-responsive" style="position:absolute; bottom: 0" />
+    <!--<img src="~/css/patterns/powerbank_holder.gif" class="img-responsive" style="position:absolute; bottom: 0" />-->
 </div>
 
 
@@ -32,49 +32,14 @@
         </div>
     </div>
     <form method="post" id="select-tariff-form">
-
+        <input type="hidden" name="holderId" value="@Model.HolderId" />
         <div class="container">
-            <style type="text/css">
-                .radiobutton {
-                    display: block;
-                    position: relative;
-                    cursor: pointer;
-                    -webkit-user-select: none;
-                    -moz-user-select: none;
-                    -ms-user-select: none;
-                    user-select: none;
-                }
-                .radiobutton input {
-                    position: absolute;
-                    opacity: 0;
-                    cursor: pointer;
-                    width: 100%;
-                    height: 100%;
-                }
-                .radiobutton input:checked ~ .btn {
-                    background-color: #16BDF0;
-                    color: #1C0C29;
-                }
-
-                .radiobutton .btn:after {
-                    content: "";
-                    position: absolute;
-                    display: none;
-                }
-
-                .radiobutton input:checked ~ .btn:after {
-                    display: block;
-                }
-
-
-
-            </style>
             <div class="col-xs-6 radiobutton">
-                <input type="radio" name="tarif" checked="checked"/>
+                <input type="radio" name="tariff" checked="checked" value="hour"/>
                 <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">49 ₽<br />за час</label>
             </div>
             <div class="col-xs-6 radiobutton">
-                <input type="radio" name="tarif"/>
+                <input type="radio" name="tariff" value="day"/>
                 <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">99 ₽<br />за сутки</label>
             </div>
         </div>
@@ -96,7 +61,7 @@
                     if (c == 1)
                     {
                         <div class="col-xs-12 radiobutton m-b-sm">
-                            <input type="radio" name="card" checked="checked" />
+                            <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId"/>
                             <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
                         </div>
 
@@ -104,7 +69,7 @@
                     else
                     {
                         <div class="col-xs-6 radiobutton">
-                            <input type="radio" name="card" />
+                            <input type="radio" name="card" value="@cardBinding.BindingId"/>
                             <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
                         </div>
 
@@ -116,7 +81,6 @@
                         выбрать
                     </button>
                 </div>
-
             }
         </div>
     </form>
@@ -152,6 +116,7 @@
 
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         var timerBlock = $("#session-timer-block");
         var tariffBlock = $("#tariff-selector-block");
@@ -164,6 +129,79 @@
         else {
             timerBlock.hide();
         }
+
+
+        function startTimer() {
+            var timerText = $("#timer-text");
+
+            var elapsed_seconds = parseInt($("#session-duration").val());
+            setInterval(function () {
+                elapsed_seconds = elapsed_seconds + 1;
+                timerText.text(get_elapsed_time_string(elapsed_seconds));
+            }, 1000);
+
+            setInterval(check, 5000);
+        }
+
+
+
+        function check() {
+            var token = $('input[name="__RequestVerificationToken"]').val()
+            var request = $.ajax({
+                url: "/take?handler=check",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    __RequestVerificationToken: token
+                },
+                success: function (response) {
+                    switch (response.code) {
+                        case 200:
+                            switch (response.message) {
+                                case "1":
+                                    break;
+                                case "0":
+                                    alert("Session is over");
+                                    location.reload();
+                                    break;
+                                default:
+                                    alert(response.message);
+                                    break;
+                            }
+                            break;
+                        default:
+                            alert(response.message);
+                            break;
+                    }
+                }
+            });
+        }
+
+
+        function get_elapsed_time_string(total_seconds) {
+            function pretty_time_string(num) {
+                return (num < 10 ? "0\u00A0\u00A0" : "") + num.toString().split('').join('\u00A0\u00A0');
+            }
+
+            var hours = Math.floor(total_seconds / 3600);
+            total_seconds = total_seconds % 3600;
+
+            var minutes = Math.floor(total_seconds / 60);
+            total_seconds = total_seconds % 60;
+
+            var seconds = Math.floor(total_seconds);
+
+            // Pad the minutes and seconds with leading zeros, if required
+            hours = pretty_time_string(hours);
+            minutes = pretty_time_string(minutes);
+            seconds = pretty_time_string(seconds);
+
+            // Compose the string for display
+            var currentTimeString = hours + "\u00A0  :  \u00A0" + minutes + "\u00A0  :  \u00A0" + seconds;
+
+            return currentTimeString;
+        }
     });
+
     
 </script>

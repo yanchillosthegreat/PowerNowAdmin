@@ -80,6 +80,7 @@ $(document).ready(function () {
                     case 200:
                         selectTariffBlock.hide();
                         sessionTimerBlock.show();
+                        $("#session-duration").val("1")
                         startTimer();
                         break;
                     default:
@@ -120,8 +121,8 @@ $(document).ready(function () {
                             case "1":
                                 break;
                             case "0":
-                                //alert("Session is over");
-                                //location.reload();
+                                alert("Session is over");
+                                location.reload();
                                 break;
                             default:
                                 alert(response.message);
@@ -160,6 +161,7 @@ $(document).ready(function () {
 
         return currentTimeString;
     }
+
     formAddPowerbank.on("submit", function (e) {
         e.preventDefault();
         var formData = formAddPowerbank.serialize();

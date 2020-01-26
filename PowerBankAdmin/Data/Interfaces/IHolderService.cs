@@ -12,7 +12,7 @@ namespace PowerBankAdmin.Data.Interfaces
         /// <param name="idCostumer">ID Пользователя</param>
         /// <param name="idHolder">ID Холдера</param>
         /// <returns>true, если получилось</returns>
-        Task<bool> ProvidePowerBank(int idCostumer, int idHolder);
+        Task<bool> ProvidePowerBank(int idCostumer, int holderCode, string tariff, string cardBindingId);
         /// <summary>
         /// Последняя сессия пользователя
         /// </summary>
@@ -22,9 +22,8 @@ namespace PowerBankAdmin.Data.Interfaces
         /// <summary>
         /// //Вызывать эту функцию, когда ответ от китайцев пришел, что сдали PB
         /// </summary>
-        /// <param name="idPowerBank">ID PB</param>
         /// <returns>true, если получилось</returns>
-        Task<bool> ReleasePowerBank(int idPowerBank);
+        Task<bool> ReleasePowerBank(string powerBankCode, string holderCode, int space);
 
         Task<bool> CanProvidePowerBank(int idHolder);
     }

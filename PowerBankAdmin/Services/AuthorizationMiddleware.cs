@@ -24,19 +24,7 @@ namespace PowerBankAdmin.Services
             _next = next;
             _pagesWithoutAuthCheck = new List<string>
             {
-                "/admin/auth/login",
-                "/index",
-                "/",
-                "/costumer/registration",
-                "/costumer",
-                "/take",
-                "/tutorial",
-                "/map",
-                "/info/help",
-                "/info/about",
-                "/info/prices",
-                "/info/cooperation",
-                "/info/agreement"
+                "/admin/auth/login"
             };
         }
 
@@ -51,8 +39,7 @@ namespace PowerBankAdmin.Services
                 await _next(httpContext);
                 return;
             }
-
-            if (httpContext.Request.Path.StartsWithSegments(new PathString("/acquiring")))
+            if (!httpContext.Request.Path.ToString().ToLower().StartsWith("/admin"))
             {
                 await _next(httpContext);
                 return;
