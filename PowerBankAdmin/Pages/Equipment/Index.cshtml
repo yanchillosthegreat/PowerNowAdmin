@@ -1,5 +1,7 @@
-﻿@page
+﻿@page "/equipment/{handler?}"
 @model Pages.Equipment.IndexModel
 @{
     Layout = null;
 }
+
+@Html.AntiForgeryToken()

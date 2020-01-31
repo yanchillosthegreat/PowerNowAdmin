@@ -10,6 +10,7 @@ using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
 using PowerBankAdmin.Pages.Take;
+using Yandex.Checkout.V3;
 
 namespace PowerBankAdmin.Pages.Costumer
 {
@@ -64,17 +65,45 @@ namespace PowerBankAdmin.Pages.Costumer
         public async Task<IActionResult> OnPostAddCardAsync()
         {
             base.IdentifyCostumer();
-            var _httpClient = new WebClient();
-            var random = new Random();
-            var orderNumber = random.Next(15000, 16000);
-            var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&clientId={Costumer.Id}&password=power-now&orderNumber={orderNumber}&amount=1&returnUrl=https://power-now.ru/acquiring/{Strings.GoToClientPage}";
-            var responseText = await _httpClient.DownloadStringTaskAsync(new Uri(urlString));
+            //var _httpClient = new WebClient();
+            //var random = new Random();
+            //var orderNumber = random.Next(15000, 16000);
+            //var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&clientId={Costumer.Id}&password=power-now&orderNumber={orderNumber}&amount=1&returnUrl=https://power-now.ru/acquiring/{Strings.GoToClientPage}";
+            //var responseText = await _httpClient.DownloadStringTaskAsync(new Uri(urlString));
 
-            JsonSerializer serializer = new JsonSerializer();
-            RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
-            await Costumer.SetOrderId(_appRepository, response.OrderId);
+            //JsonSerializer serializer = new JsonSerializer();
+            //RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
+            //await Costumer.SetOrderId(_appRepository, response.OrderId);
+            //await Costumer.SetCardStatus(_appRepository, CardsStatus.Progress);
+            //return Redirect(response.FormUrl);
+
+            var client = new Yandex.Checkout.V3.Client(
+shopId: "667169",
+secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+
+            var newPayment = new NewPayment
+            {
+                Amount = new Amount { Value = 100.00m, Currency = "RUB" },
+                SavePaymentMethod = true,
+                Confirmation = new Confirmation
+                {
+                    Type = ConfirmationType.Redirect,
+                    ReturnUrl = $"https://power-now.ru/costumer"
+                },
+                PaymentMethodData = new PaymentMethod
+                {
+                    Type = PaymentMethodType.BankCard
+                },
+                Description = "Test #1"
+            };
+
+            Payment payment = client.CreatePayment(newPayment);
+            string url = payment.Confirmation.ConfirmationUrl;
+
+            await Costumer.SetOrderId(_appRepository, payment.Id);
             await Costumer.SetCardStatus(_appRepository, CardsStatus.Progress);
-            return Redirect(response.FormUrl);
+
+            return Redirect(url);
         }
 
         public IActionResult Test()

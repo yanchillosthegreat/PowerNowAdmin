@@ -10,9 +10,11 @@ using Newtonsoft.Json;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
+using Yandex.Checkout.V3;
 
 namespace PowerBankAdmin.Pages.Acquiring
 {
+    [IgnoreAntiforgeryToken(Order = 1001)]
     public class IndexModel : PageModel
     {
         private AppRepository _appRepository;
@@ -22,40 +24,74 @@ namespace PowerBankAdmin.Pages.Acquiring
         }
         public async Task<IActionResult> OnGetAsync(string from, string orderId)
         {
-            if (string.IsNullOrEmpty(orderId)) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
+            //if (string.IsNullOrEmpty(orderId)) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
+            //var costumer = await CostumerModel.GetCostumerByOrderId(_appRepository, orderId);
+            //if (costumer == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
+
+            //var uri = Strings.SberPostBindings + $"?userName={Strings.SberApiLogin}&password={Strings.SberApiPassword}&clientId={costumer.Id}";
+            //var request = WebRequest.Create(uri);
+            //request.Method = "POST";
+
+            //var httpResponse = (HttpWebResponse)request.GetResponse();
+            //using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            //{
+            //    var resultString = streamReader.ReadToEnd();
+            //    var result = JsonConvert.DeserializeObject<AcquaringResponse>(resultString);
+            //    if(result.ErrorCode == "0")
+            //    {
+            //        if (result.Bindings != null && result.Bindings.Count() > 0)
+            //        {
+            //            await costumer.ClearBindings(_appRepository);
+            //            foreach(var binding in result.Bindings)
+            //            {
+            //                await costumer.AddBinding(_appRepository, new CardBindingModel
+            //                {
+            //                    BindingId = binding.BindingId,
+            //                    ExpiryDate = binding.ExpiryDate,
+            //                    MaskedPan = binding.MaskedPan
+            //                });
+            //            }
+            //        }
+            //    }
+            //}
+
             var costumer = await CostumerModel.GetCostumerByOrderId(_appRepository, orderId);
             if (costumer == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
 
-            var uri = Strings.SberPostBindings + $"?userName={Strings.SberApiLogin}&password={Strings.SberApiPassword}&clientId={costumer.Id}";
-            var request = WebRequest.Create(uri);
-            request.Method = "POST";
-
-            var httpResponse = (HttpWebResponse)request.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var resultString = streamReader.ReadToEnd();
-                var result = JsonConvert.DeserializeObject<AcquaringResponse>(resultString);
-                if(result.ErrorCode == "0")
-                {
-                    if (result.Bindings != null && result.Bindings.Count() > 0)
-                    {
-                        await costumer.ClearBindings(_appRepository);
-                        foreach(var binding in result.Bindings)
-                        {
-                            await costumer.AddBinding(_appRepository, new CardBindingModel
-                            {
-                                BindingId = binding.BindingId,
-                                ExpiryDate = binding.ExpiryDate,
-                                MaskedPan = binding.MaskedPan
-                            });
-                        }
-                    }
-                }
-            }
             await costumer.SetCardStatus(_appRepository, CardsStatus.Ok);
             return Redirect(from == Strings.GoToClientPage ? "/costumer" : from == Strings.GoToTakePage ? "/take/selecttariff" : "/Index" );
         }
-        
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+
+            using (var stream = new StreamReader(Request.Body))
+            {
+                var body = stream.ReadToEnd();
+                Message message = Client.ParseMessage(Request.Method, Request.ContentType, body);
+
+
+                var costumer = await CostumerModel.GetCostumerByOrderId(_appRepository, message.Object.Id);
+                if (costumer == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
+
+                await costumer.SetCardStatus(_appRepository, CardsStatus.Ok);
+                await costumer.ClearBindings(_appRepository);
+                await costumer.AddBinding(_appRepository, new CardBindingModel
+                {
+                    BindingId = message.Object.Id,
+                    //ExpiryDate = message.Object.ExpiresAt,
+                    MaskedPan = message.Object.PaymentMethod.Card.Last4
+                });
+
+                return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
+            }
+        }
+
+        class YandexMessage
+        {
+            public string Id { get; set; }
+        }
+
         class AcquaringResponse
         {
             public string ErrorCode { get; set; }
