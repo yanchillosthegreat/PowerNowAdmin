@@ -4,153 +4,156 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-@Html.AntiForgeryToken()
-
-<div class="row m-b-lg">
-    <div class="col-12">
-        <div class="col-xs-2">
-            <img src="~/css/patterns/person_icon.png" class="left" style="width: 32px; height: 32px;" />
-        </div>
-        <div class="col-xs-10">
-            <p class="pb-text-17-bold">@Model.Costumer.Name</p>
-            <span class="pb-text-13">Баллы </span><span class="pb-text-13-bold">0</span>
-        </div>
-    </div>
-</div>
+<div class="container">
 
     <div class="row">
-        <div class="col-12">
-            <div class="ibox pb-style">
-            <div class="ibox-title pb-style">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <img src="~/css/patterns/personal_data.png" style="width: 19px; height: 19px; margin-top: 4px;" />
-                    </div>
-                    <div class="col-xs-8">
-                        <span class="pb-text-17-normal">Личные данные</span>
-                    </div>
-                    <div class="col-xs-2">
-                        <a class="collapse-link right" style="padding-bottom: 10px; color: #16bdf0 !important">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
+        @Html.AntiForgeryToken()
+
+        <div class="row m-b-lg">
+            <div class="col-12">
+                <div class="col-xs-2">
+                    <img src="~/css/patterns/person_icon.png" class="left" style="width: 32px; height: 32px;" />
+                </div>
+                <div class="col-xs-10">
+                    <p class="pb-text-17-bold">@Model.Costumer.Name</p>
+                    <span class="pb-text-13">Баллы </span><span class="pb-text-13-bold">0</span>
                 </div>
             </div>
-                <div class="ibox-content pb-style">
-                    <form id="costumer-data-form" method="PUT">
-                        <input type="hidden" asp-for="Costumer.Id" value="@Model.Costumer.Id"/>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input asp-for="Costumer.Name" class="form-control pb-style" value="@Model.Costumer.Name" placeholder="Имя пользователя"/>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input asp-for="Costumer.Phone" class="form-control pb-style" value="@Model.Costumer.Phone" data-mask="+7 (999) 999 99 99" disabled/>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input asp-for="Costumer.Email" class="form-control pb-style" value="@Model.Costumer.Email" placeholder="E-mail"/>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-10">
-                                <input type="submit" id="change-costumer-data-button" class="form-control button btn-block btn-success ladda-button pb-button-style" value="Изменить данные"/>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="ibox pb-style">
-            <div class="ibox-title pb-style">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <img src="~/css/patterns/history.png" style="width: 19px; height: 19px; margin-top: 4px;" />
-                    </div>
-                    <div class="col-xs-8">
-                        <span class="pb-text-17-normal">История</span>
-                    </div>
-                    <div class="col-xs-2">
-                        <a class="collapse-link right" style="padding-bottom: 10px; color: #16bdf0 !important">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ibox-content pb-style">
-                    @foreach (var session in Model.Sessions)
-                    {
-                        <div class="row">
-                            <div class="col-xs-7">
-                                <p class="pb-text-orange-style m-b-xxs">@session.Powerbank.Holder.OwnerName</p>
-                                <p class="pb-text-grey-style">@session.Powerbank.Holder.OwnerAddress</p>
-                            </div>
-                            <div class="col-xs-5 right">
-                                <p class="pb-text-orange-style m-b-xxs">@session.SessionDuration</p>
-                                <p class="pb-text-grey-style">99р</p>
-                            </div>
-                        </div>
-                        <hr class="pb-hr-grey-style" />
-                    }    
-            </div>
-                </div>
         </div>
 
-        <div class="col-12">
-            <div class="ibox pb-style">
-            <div class="ibox-title pb-style">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <img src="~/css/patterns/cards.png" style="width: 19px; height: 19px; margin-top: 4px;" />
+        <div class="row">
+            <div class="col-12">
+                <div class="ibox pb-style">
+                    <div class="ibox-title pb-style">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <img src="~/css/patterns/personal_data.png" style="width: 19px; height: 19px; margin-top: 4px;" />
+                            </div>
+                            <div class="col-xs-8">
+                                <span class="pb-text-17-normal">Личные данные</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <a class="collapse-link right" style="padding-bottom: 10px; color: #16bdf0 !important">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-xs-8">
-                        <span class="pb-text-17-normal">Счёт</span>
-                    </div>
-                    <div class="col-xs-2">
-                        <a class="collapse-link right" style="padding-bottom: 10px; color: #16bdf0 !important">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
+                    <div class="ibox-content pb-style">
+                        <form id="costumer-data-form" method="PUT">
+                            <input type="hidden" asp-for="Costumer.Id" value="@Model.Costumer.Id" />
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="Costumer.Name" class="form-control pb-style" value="@Model.Costumer.Name" placeholder="Имя пользователя" />
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="Costumer.Phone" class="form-control pb-style" value="@Model.Costumer.Phone" data-mask="+7 (999) 999 99 99" disabled />
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input asp-for="Costumer.Email" class="form-control pb-style" value="@Model.Costumer.Email" placeholder="E-mail" />
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <input type="submit" id="change-costumer-data-button" class="form-control button btn-block btn-success ladda-button pb-button-style" value="Изменить данные" />
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="ibox-content pb-style">
-                @if (Model.Costumer.CardBindings != null)
-                {
-                    foreach (var cardBinding in Model.Costumer.CardBindings)
-                    {
-                        <div class="row col-12 m-b-md">
+            <div class="col-12">
+                <div class="ibox pb-style">
+                    <div class="ibox-title pb-style">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <img src="~/css/patterns/history.png" style="width: 19px; height: 19px; margin-top: 4px;" />
+                            </div>
+                            <div class="col-xs-8">
+                                <span class="pb-text-17-normal">История</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <a class="collapse-link right" style="padding-bottom: 10px; color: #16bdf0 !important">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content pb-style">
+                        @foreach (var session in Model.Sessions)
+                        {
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <p class="pb-text-orange-style m-b-xxs">@session.Powerbank.Holder.OwnerName</p>
+                                    <p class="pb-text-grey-style">@session.Powerbank.Holder.OwnerAddress</p>
+                                </div>
+                                <div class="col-xs-5 right">
+                                    <p class="pb-text-orange-style m-b-xxs">@session.SessionDuration</p>
+                                    <p class="pb-text-grey-style">99р</p>
+                                </div>
+                            </div>
+                            <hr class="pb-hr-grey-style" />
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="ibox pb-style">
+                    <div class="ibox-title pb-style">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <img src="~/css/patterns/cards.png" style="width: 19px; height: 19px; margin-top: 4px;" />
+                            </div>
+                            <div class="col-xs-8">
+                                <span class="pb-text-17-normal">Счёт</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <a class="collapse-link right" style="padding-bottom: 10px; color: #16bdf0 !important">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content pb-style">
+                        @if (Model.Costumer.CardBindings != null)
+                        {
+                            foreach (var cardBinding in Model.Costumer.CardBindings)
+                            {
+                                <div class="row col-12 m-b-md">
+                                    <div class="col-xs-2">
+                                        <img src="~/css/patterns/cross_red.png" width="24" height="24" />
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
+                                                style="height: 82px; padding-top: 10px">
+                                            @cardBinding.MaskedPan
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        <div class="row col-12">
                             <div class="col-xs-2">
 
                             </div>
-                            <div class="col-xs-10">
-                                <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
-                                        style="height: 82px; padding-top: 10px">
-                                    @cardBinding.MaskedPan
-                                </button>
-                            </div>
+                            <form method="post">
+                                <div class="col-xs-10">
+                                    <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
+                                            style="height: 82px; padding-top: 10px">
+                                        добавить карту
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    }
-
-                }
-                <div class="row col-12">
-                    <div class="col-xs-2">
-
                     </div>
-                    <form method="post">
-                        <div class="col-xs-10">
-                            <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
-                                    style="height: 82px; padding-top: 10px">
-                                добавить карту
-                            </button>
-                        </div>
-                    </form>
                 </div>
-            </div>
             </div>
         </div>
     </div>

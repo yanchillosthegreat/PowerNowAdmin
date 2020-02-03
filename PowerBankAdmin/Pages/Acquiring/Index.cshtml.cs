@@ -71,17 +71,29 @@ namespace PowerBankAdmin.Pages.Acquiring
                 Message message = Client.ParseMessage(Request.Method, Request.ContentType, body);
 
 
-                var costumer = await CostumerModel.GetCostumerByOrderId(_appRepository, message.Object.Id);
-                if (costumer == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
+                var client = new Yandex.Checkout.V3.Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
 
-                await costumer.SetCardStatus(_appRepository, CardsStatus.Ok);
-                await costumer.ClearBindings(_appRepository);
-                await costumer.AddBinding(_appRepository, new CardBindingModel
+                if (message.Event == Event.PaymentWaitingForCapture)
                 {
-                    BindingId = message.Object.Id,
-                    //ExpiryDate = message.Object.ExpiresAt,
-                    MaskedPan = message.Object.PaymentMethod.Card.Last4
-                });
+                    client.CapturePayment(message.Object.Id);
+                }
+
+                if (message.Event == Event.PaymentSucceeded && message.Object.Amount.Value == 1.00m)
+                {
+                    client.CreateRefund(new NewRefund { PaymentId = message.Object.Id, Amount = message.Object.Amount });
+
+                    var costumer = await CostumerModel.GetCostumerByOrderId(_appRepository, message.Object.Id);
+                    if (costumer == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
+
+                    await costumer.SetCardStatus(_appRepository, CardsStatus.Ok);
+                    await costumer.ClearBindings(_appRepository);
+                    await costumer.AddBinding(_appRepository, new CardBindingModel
+                    {
+                        BindingId = message.Object.Id,
+                        //ExpiryDate = message.Object.ExpiresAt,
+                        MaskedPan = message.Object.PaymentMethod.Card.Last4
+                    });
+                }
 
                 return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
             }

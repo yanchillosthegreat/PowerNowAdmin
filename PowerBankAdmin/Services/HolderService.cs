@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Models;
+using Yandex.Checkout.V3;
 
 namespace PowerBankAdmin.Services
 {
@@ -60,7 +61,8 @@ namespace PowerBankAdmin.Services
             {
                 Costumer = costumer,
                 Start = DateTime.Now,
-                Powerbank = powerBank
+                Powerbank = powerBank,
+                //CardId = cardBindingId
             };
 
             await _appRepository.PowerbankSessions.AddAsync(session);

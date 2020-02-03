@@ -155,6 +155,8 @@ namespace PowerBankAdmin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CardId");
+
                     b.Property<int?>("CostumerId");
 
                     b.Property<DateTime>("Finish");

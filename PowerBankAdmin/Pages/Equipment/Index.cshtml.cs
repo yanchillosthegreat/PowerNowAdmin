@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using PowerBankAdmin.Data.Interfaces;
+using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Services;
+using Yandex.Checkout.V3;
 
 namespace PowerBankAdmin.Pages.Equipment
 {
@@ -17,9 +19,12 @@ namespace PowerBankAdmin.Pages.Equipment
     public class IndexModel : PageModel
     {
         IHolderService _holderService;
-        public IndexModel(IHolderService holderService)
+        private readonly AppRepository _appRepository;
+
+        public IndexModel(IHolderService holderService, AppRepository appRepository)
         {
             _holderService = holderService;
+            _appRepository = appRepository;
         }
 
         public void OnGet()
@@ -63,7 +68,24 @@ namespace PowerBankAdmin.Pages.Equipment
 
                 switch (notify.PackageType) {
                     case "175":
+
+
+                        var client = new Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+                        client.CreatePayment(new NewPayment
+                        {
+                            Amount = new Amount { Currency = "RUB", Value = 49m },
+                            //PaymentMethodId = customer.CardBindings.LastOrDefault().BindingId,
+                            PaymentMethodId = "25c95fa8-000f-5000-9000-192ee86a71b2",
+                            Description = "Автоплатеж Тест #1",
+                            Confirmation = new Confirmation
+                            {
+                                Type = ConfirmationType.Redirect,
+                                ReturnUrl = ""
+                            },
+                        });
+
                         await _holderService.ReleasePowerBank("41473286", "1850000843", 1);
+
                         break;
                     default: break;
                 }

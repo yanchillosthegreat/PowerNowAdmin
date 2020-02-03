@@ -119,7 +119,7 @@ namespace PowerBankAdmin.Pages.Take
 
             var newPayment = new NewPayment
             {
-                Amount = new Amount { Value = 100.00m, Currency = "RUB" },
+                Amount = new Amount { Value = 1.00m, Currency = "RUB" },
                 SavePaymentMethod = true,
                 Confirmation = new Confirmation
                 {
