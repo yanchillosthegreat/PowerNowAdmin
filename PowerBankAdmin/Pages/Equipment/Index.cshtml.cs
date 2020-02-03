@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
@@ -70,21 +71,29 @@ namespace PowerBankAdmin.Pages.Equipment
                     case "175":
 
 
-                        var client = new Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
-                        client.CreatePayment(new NewPayment
-                        {
-                            Amount = new Amount { Currency = "RUB", Value = 49m },
-                            //PaymentMethodId = customer.CardBindings.LastOrDefault().BindingId,
-                            PaymentMethodId = "25c95fa8-000f-5000-9000-192ee86a71b2",
-                            Description = "Автоплатеж Тест #1",
-                            Confirmation = new Confirmation
+                        var powerbanks = notify.Data.PowerbankList;
+                        var sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).Where(x => x.IsActive);
+                        foreach (var session in sessions) {
+                            var powerbank = powerbanks.FirstOrDefault(x => x.PowerBankSn == session.Powerbank.Code);
+                            if (powerbank != null)
                             {
-                                Type = ConfirmationType.Redirect,
-                                ReturnUrl = ""
-                            },
-                        });
+                                var client = new Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+                                client.CreatePayment(new NewPayment
+                                {
+                                    Amount = new Amount { Currency = "RUB", Value = 99m },
+                                    //PaymentMethodId = customer.CardBindings.LastOrDefault().BindingId,
+                                    PaymentMethodId = "25c95fa8-000f-5000-9000-192ee86a71b2",
+                                    Description = "Автоплатеж Тест #1",
+                                    Confirmation = new Confirmation
+                                    {
+                                        Type = ConfirmationType.Redirect,
+                                        ReturnUrl = ""
+                                    },
+                                });
 
-                        await _holderService.ReleasePowerBank("41473286", "1850000843", 1);
+                                await _holderService.ReleasePowerBank(powerbank.PowerBankSn, powerbank.EquipmentSn, 1);
+                            }
+                        }
 
                         break;
                     default: break;
