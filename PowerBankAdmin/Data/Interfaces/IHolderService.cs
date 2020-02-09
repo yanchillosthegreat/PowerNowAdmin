@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PowerBankAdmin.Models;
+using PowerBankAdmin.Pages.Equipment;
 
 namespace PowerBankAdmin.Data.Interfaces
 {
@@ -23,8 +25,10 @@ namespace PowerBankAdmin.Data.Interfaces
         /// //Вызывать эту функцию, когда ответ от китайцев пришел, что сдали PB
         /// </summary>
         /// <returns>true, если получилось</returns>
-        Task<bool> ReleasePowerBank(string powerBankCode, string holderCode, int space);
+        Task<bool> ReleasePowerBank(string powerBankCode, string holderCode, int position);
 
         Task<bool> CanProvidePowerBank(int idHolder);
+
+        Task UpdatePowerbanksInfo(IEnumerable<EquipmentNotifyPowerbank> powerbanksNotifies);
     }
 }

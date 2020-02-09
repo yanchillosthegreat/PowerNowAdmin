@@ -52,7 +52,7 @@ namespace PowerBankAdmin.Pages.Costumer
             }*/
         }
 
-        public async Task<IActionResult> OnPutAsync()
+        public async Task<IActionResult> OnPostUpdateAsync()
         {
             var costumerToEdit = await _appRepository.Costumers.FirstOrDefaultAsync(x => x.Id == Costumer.Id);
             if (costumerToEdit == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode);

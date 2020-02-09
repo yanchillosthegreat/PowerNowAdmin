@@ -52,7 +52,7 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
 
-        public async Task<IActionResult> OnDeleteAsync(int? id)
+        public async Task<IActionResult> OnPostDeleteAsync(int? id)
         {
             if (id == null || id <= 0) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode);
 
@@ -83,7 +83,7 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
 
         private string BuildHtmlHolderRow()
         {
-            return $"<tr id=\"{PowerbankToAdd.Id}\"> <td> {PowerbankToAdd.Id} </td> <td> {PowerbankToAdd.Code} </td> <td> {PowerbankToAdd.Holder?.LocalCode} </td> <td> </td> <td> <span class=\"badge badge-warning\">Finished</span> </td><td> <button class=\"button btn-xs btn-warning\" onclick=\"stopSession({PowerbankToAdd.Id})\">stop</button> <button class=\"button btn-xs btn-warning\" onclick=\"deletePowerbank({PowerbankToAdd.Id})\">x</button></td></tr>";
+            return $"<tr id=\"{PowerbankToAdd.Id}\"> <td> {PowerbankToAdd.Id} </td> <td> {PowerbankToAdd.Code} </td> <td> {PowerbankToAdd.Holder?.LocalCode} </td> <td> </td> <td> </td> <td> <span class=\"badge badge-warning\">Finished</span> </td><td> <button class=\"button btn-xs btn-warning\" onclick=\"stopSession({PowerbankToAdd.Id})\">stop</button> <button class=\"button btn-xs btn-warning\" onclick=\"deletePowerbank({PowerbankToAdd.Id})\">x</button></td></tr>";
         }
 
         private async Task<bool> FixPowerBank(int holderId)
@@ -94,7 +94,6 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
             if (holder == null) return false;
             PowerbankToAdd.Holder = holder;
             return true;
-
         }
     }
 }

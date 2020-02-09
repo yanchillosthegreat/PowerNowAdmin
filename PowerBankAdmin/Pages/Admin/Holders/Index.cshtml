@@ -17,7 +17,7 @@
                                 Local Code
                             </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.LocalCode" data-mask="9_9_9_9" required=""/>
+                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.LocalCode" data-mask="9_9_9_9" required="" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -25,7 +25,7 @@
                                 Holder Code
                             </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.Code" data-mask="99999999" required=""/>
+                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.Code" data-mask="9999999999" required="" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -33,7 +33,7 @@
                                 Owner Name
                             </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.OwnerName"  required=""/>
+                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.OwnerName" required="" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -42,6 +42,50 @@
                             </label>
                             <div class="col-sm-10">
                                 <select id="adres-select" class="form-control" asp-for="@Model.HolderToAdd.OwnerAddress" required=""></select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Schedule
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.Schedule" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Comment
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.HolderToAdd.Comment" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Pay Avialability
+                            </label>
+
+                            <div class="col-sm-10">
+                                <div>
+                                    <input type="checkbox" id="hour" value="1" name="PayAvialabilities" checked>
+                                    <label for="hour">Почасовая оплата</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="day" value="2" name="PayAvialabilities">
+                                    <label for="hour">Дневная оплата</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                First Hour Free
+                            </label>
+
+                            <div class="col-sm-10">
+                                <div>
+                                    <input type="checkbox" id="firstHourFree" asp-for="FirstHourFree" checked>
+                                    <label for="firstHourFree">Первый час бесплатно</label>
+                                </div>
                             </div>
                         </div>
                         <button id="add-holder-submit-button" type="submit" class="btn btn-sm btn-success ladda-button">Добавить!</button>
@@ -146,8 +190,8 @@
     function deleteHolder(idHolder) {
         var token = $('input[name="__RequestVerificationToken"]').val()
         var request = $.ajax({
-            url: "/admin/holders",
-            type: "DELETE",
+            url: "/admin/holders?handler=delete",
+            type: "POST",
             dataType: "json",
             data: {
                 __RequestVerificationToken: token,

@@ -51,6 +51,7 @@
                                         <th>Id</th>
                                         <th>Code</th>
                                         <th>Holder</th>
+                                        <th>Position</th>
                                         <th>Session</th>
                                         <th>Status</th>
                                         <th></th>
@@ -60,27 +61,29 @@
                                     @{var i = 0;}
                                     @foreach (var pb in Model.Powerbanks)
                                     {
-                                        <tr id="@pb.Id">
-                                            <td>@pb.Id</td>
-                                            <td>@pb.Code</td>
-                                            <td>@pb.Holder?.LocalCode</td>
-                                            <td>@pb.Sessions?.LastOrDefault()?.Costumer?.Phone</td>
-                                            <td>
-                                                @if(@pb.Sessions?.LastOrDefault()?.IsActive ?? false)
-                                                {
-                                                    <span class="badge badge-primary">Active</span>
+                                    <tr id="@pb.Id">
+                                        <td>@pb.Id</td>
+                                        <td>@pb.Code</td>
+                                        <td>@pb.Holder?.LocalCode</td>
+                                        <td>@pb.Position</td>
+                                        <td>@pb.Sessions?.LastOrDefault()?.Costumer?.Phone</td>
+                                        <td>
+                                            @if (@pb.Sessions?.LastOrDefault()?.IsActive ?? false)
+                                            {
+                                                <span class="badge badge-primary">Active</span>
 
-                                                }else
-                                                {
-                                                    <span class="badge badge-warning">Finished</span>
-                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-warning">Finished</span>
+                                            }
 
-                                            </td>
-                                            <td>
-                                                <button class="button btn-xs btn-warning" onclick="stopSession(@pb.Id)">stop</button>
-                                                <button class="button btn-xs btn-warning" onclick="deletePowerbank(@pb.Id)">x</button>
-                                            </td>
-                                        </tr>
+                                        </td>
+                                        <td>
+                                            <button class="button btn-xs btn-warning" onclick="stopSession(@pb.Id)">stop</button>
+                                            <button class="button btn-xs btn-warning" onclick="deletePowerbank(@pb.Id)">x</button>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
@@ -131,7 +134,7 @@
                     switch (response.code) {
                         case 200:
                             alert("Session Stopped");
-                            $("tr#"+idPowerBank).find("td:eq(3)").html("<span class='badge badge-warning'>Finished</span>");
+                            $("tr#"+idPowerBank).find("td:eq(5)").html("<span class='badge badge-warning'>Finished</span>");
                             break;
                         default:
                             alert(response.message);
@@ -143,8 +146,8 @@
         function deletePowerbank(idPowerbank) {
         var token = $('input[name="__RequestVerificationToken"]').val()
         var request = $.ajax({
-            url: "/admin/powerbanks",
-            type: "DELETE",
+            url: "/admin/powerbanks?handler=delete",
+            type: "POST",
             dataType: "json",
             data: {
                 __RequestVerificationToken: token,

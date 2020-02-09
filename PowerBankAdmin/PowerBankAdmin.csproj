@@ -27,14 +27,11 @@
     <Folder Include="Models\Requests\" />
     <Folder Include="Pages\Equipment\" />
     <Folder Include="Pages\Shared\" />
-    <Folder Include="Services\" />
-    <Folder Include="Data\" />
     <Folder Include="Data\Moq\" />
     <Folder Include="Data\Repository\" />
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Admin\Auth\" />
     <Folder Include="Pages\Costumer\" />
-    <Folder Include="Data\Interfaces\" />
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Admin\Costumers\" />
     <Folder Include="Pages\Admin\Holders\" />
@@ -387,9 +384,7 @@
     <Content Remove="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Remove="wwwroot\lib\typehead\bootstrap3-typeahead.min.js" />
     <Content Remove="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.eot" />
-    <Content Remove="wwwroot\lib\jasny-bootstrap\dist\css\jasny-bootstrap.css" />
     <Content Remove="wwwroot\lib\jquery-ui\ui\disable-selection.js" />
-    <Content Remove="wwwroot\lib\jasny-bootstrap\dist\js\jasny-bootstrap.js" />
     <Content Remove="wwwroot\lib\jquery-ui\ui\ie.js" />
     <Content Remove="wwwroot\lib\jquery-ui\ui\keycode.js" />
     <Content Remove="wwwroot\lib\jquery-ui\ui\core.js" />
@@ -1035,13 +1030,33 @@
     <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Migrations\20190804002309_initial.cs" />
+    <Compile Remove="Migrations\20200209201319_Init.cs" />
+    <Compile Remove="Migrations\20200209201319_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200209210529_HolderRent.cs" />
+    <Compile Remove="Migrations\20200209210529_HolderRent.Designer.cs" />
     <Compile Remove="Pages\Costumer\Tutorial.cshtml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services\HolderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Pages\Shared\_Layout.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\lib\jasny-bootstrap\dist\js\jasny-bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jasny-bootstrap\dist\js\jasny-bootstrap.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\lib_bower\jasny-bootstrap\dist\js\jasny-bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\lib_bower\jasny-bootstrap\dist\js\jasny-bootstrap.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

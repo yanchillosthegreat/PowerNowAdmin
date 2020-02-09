@@ -10,8 +10,8 @@ namespace PowerBankAdmin.Models
         public DateTime Start { get; set; }
         public DateTime Finish { get; set; }
 
-        //public string CardId { get; set; }
-        
+        public string CardId { get; set; }
+
 
         public bool IsActive => Start > Finish;
 
@@ -27,6 +27,8 @@ namespace PowerBankAdmin.Models
                 return $"{Math.Ceiling(duration.TotalSeconds)} сек";
             }
         }
+
+        public RentModel RentModel { get; set; }
 
     }
 }

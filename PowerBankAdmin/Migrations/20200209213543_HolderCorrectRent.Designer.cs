@@ -10,8 +10,8 @@ using PowerBankAdmin.Data.Repository;
 namespace PowerBankAdmin.Migrations
 {
     [DbContext(typeof(AppRepository))]
-    [Migration("20200112210458_CardBinding")]
-    partial class CardBinding
+    [Migration("20200209213543_HolderCorrectRent")]
+    partial class HolderCorrectRent
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,6 +119,8 @@ namespace PowerBankAdmin.Migrations
 
                     b.Property<string>("Code");
 
+                    b.Property<string>("Comment");
+
                     b.Property<string>("LocalCode");
 
                     b.Property<string>("OwnerAddress");
@@ -129,9 +131,30 @@ namespace PowerBankAdmin.Migrations
 
                     b.Property<string>("OwnerName");
 
+                    b.Property<string>("Schedule");
+
                     b.HasKey("Id");
 
                     b.ToTable("Holders");
+                });
+
+            modelBuilder.Entity("PowerBankAdmin.Models.HolderRentModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("HolderModelId");
+
+                    b.Property<int?>("RentModelId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HolderModelId");
+
+                    b.HasIndex("RentModelId");
+
+                    b.ToTable("HolderRents");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.PowerbankModel", b =>
@@ -142,7 +165,11 @@ namespace PowerBankAdmin.Migrations
 
                     b.Property<string>("Code");
 
+                    b.Property<int>("Electricity");
+
                     b.Property<int?>("HolderId");
+
+                    b.Property<int>("Position");
 
                     b.HasKey("Id");
 
@@ -157,11 +184,15 @@ namespace PowerBankAdmin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CardId");
+
                     b.Property<int?>("CostumerId");
 
                     b.Property<DateTime>("Finish");
 
                     b.Property<int?>("PowerbankId");
+
+                    b.Property<int?>("RentModelId");
 
                     b.Property<DateTime>("Start");
 
@@ -171,7 +202,50 @@ namespace PowerBankAdmin.Migrations
 
                     b.HasIndex("PowerbankId");
 
+                    b.HasIndex("RentModelId");
+
                     b.ToTable("PowerbankSessions");
+                });
+
+            modelBuilder.Entity("PowerBankAdmin.Models.RentModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("FirstHourFree");
+
+                    b.Property<int>("RentStrategy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RentModels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstHourFree = false,
+                            RentStrategy = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstHourFree = true,
+                            RentStrategy = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FirstHourFree = false,
+                            RentStrategy = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstHourFree = true,
+                            RentStrategy = 1
+                        });
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.TransactionModel", b =>
@@ -257,6 +331,19 @@ namespace PowerBankAdmin.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("PowerBankAdmin.Models.HolderRentModel", b =>
+                {
+                    b.HasOne("PowerBankAdmin.Models.HolderModel", "HolderModel")
+                        .WithMany("HolderRentModels")
+                        .HasForeignKey("HolderModelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PowerBankAdmin.Models.RentModel", "RentModel")
+                        .WithMany("HolderRentModels")
+                        .HasForeignKey("RentModelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("PowerBankAdmin.Models.PowerbankModel", b =>
                 {
                     b.HasOne("PowerBankAdmin.Models.HolderModel", "Holder")
@@ -275,6 +362,10 @@ namespace PowerBankAdmin.Migrations
                         .WithMany("Sessions")
                         .HasForeignKey("PowerbankId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PowerBankAdmin.Models.RentModel", "RentModel")
+                        .WithMany()
+                        .HasForeignKey("RentModelId");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.TransactionModel", b =>

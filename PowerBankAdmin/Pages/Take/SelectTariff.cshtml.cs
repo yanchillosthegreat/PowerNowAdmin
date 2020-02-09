@@ -27,6 +27,8 @@ namespace PowerBankAdmin.Pages.Take
         public double SessionDuration { get; set; }
         [BindProperty]
         public int? HolderId { get; set; }
+        [BindProperty]
+        public HolderModel Holder { get; set; }
 
         public SelectTariffModel(IHolderService holderService, AppRepository appRepository)
         {
@@ -37,6 +39,7 @@ namespace PowerBankAdmin.Pages.Take
         public async Task OnGetAsync(int? holderId)
         {
             HolderId = holderId;
+            Holder = await _appRepository.Holders.Include(x => x.HolderRentModels).ThenInclude(x => x.RentModel).FirstOrDefaultAsync(x => x.Id == holderId);
             IdentifyCostumer();
             if (IsAuthorized())
             {
@@ -53,9 +56,10 @@ namespace PowerBankAdmin.Pages.Take
         {
             IdentifyCostumer();
             if(!IsAuthorized()) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
-
             if(holderId == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong Data");
+            
             var result = await _holderService.ProvidePowerBank(Costumer.Id, holderId ?? 0, tariff, card);
+            
             if(!result) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpServerErrorCode, "Can't provide powerbank");
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
@@ -69,36 +73,7 @@ namespace PowerBankAdmin.Pages.Take
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, message);
         }
 
-        public void TakePowerbank()
-        {
-            var borrowRequest = new BorrowRequest
-            {
-                EquipmentSn = "1800008823",
-                PackageType = "171",
-                Position = "1",
-                DeviceType = "8",
-                DeviceVersion = "1",
-                SessionId = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()
-            };
-
-            WebRequest request = WebRequest.Create("https://dry-wildwood-23355.herokuapp.com/operation");
-            request.ContentType = "application/json";
-            request.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                string body = JsonConvert.SerializeObject(borrowRequest);
-                streamWriter.Write(body);
-            }
-
-            var httpResponse = (HttpWebResponse)request.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-            }
-        }
-
-        public async Task<IActionResult> OnPostAddCardAsync()
+        public async Task<IActionResult> OnPostAddCardAsync(int? holderId)
         {
             base.IdentifyCostumer();
             //var _httpClient = new WebClient();
@@ -113,9 +88,7 @@ namespace PowerBankAdmin.Pages.Take
             //await Costumer.SetCardStatus(_appRepository, CardsStatus.Progress);
             //return Redirect(response.FormUrl);
 
-            var client = new Yandex.Checkout.V3.Client(
-    shopId: "667169",
-    secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+            var client = new Yandex.Checkout.V3.Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
 
             var newPayment = new NewPayment
             {
@@ -124,7 +97,7 @@ namespace PowerBankAdmin.Pages.Take
                 Confirmation = new Confirmation
                 {
                     Type = ConfirmationType.Redirect,
-                    ReturnUrl = $"https://power-now.ru/take/selecttariff"
+                    ReturnUrl = $"https://power-now.ru/take/selecttariff/{holderId}"
                 },
                 PaymentMethodData = new PaymentMethod
                 {

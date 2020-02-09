@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PowerBankAdmin.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,9 +18,11 @@ namespace PowerBankAdmin.Migrations
                     Email = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    BindId = table.Column<string>(nullable: true),
                     Card = table.Column<string>(nullable: true),
-                    CostumerStatus = table.Column<int>(nullable: false)
+                    BindId = table.Column<int>(nullable: false),
+                    CostumerStatus = table.Column<int>(nullable: false),
+                    OrderId = table.Column<string>(nullable: true),
+                    CardsStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +40,9 @@ namespace PowerBankAdmin.Migrations
                     OwnerName = table.Column<string>(nullable: true),
                     OwnerAddress = table.Column<string>(nullable: true),
                     OwnerLatitude = table.Column<string>(nullable: true),
-                    OwnerLongitude = table.Column<string>(nullable: true)
+                    OwnerLongitude = table.Column<string>(nullable: true),
+                    Schedule = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,6 +61,28 @@ namespace PowerBankAdmin.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CardBindingModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BindingId = table.Column<string>(nullable: true),
+                    MaskedPan = table.Column<string>(nullable: true),
+                    ExpiryDate = table.Column<string>(nullable: true),
+                    CostumerModelId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardBindingModel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CardBindingModel_Costumers_CostumerModelId",
+                        column: x => x.CostumerModelId,
+                        principalTable: "Costumers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,7 +156,9 @@ namespace PowerBankAdmin.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Code = table.Column<string>(nullable: true),
-                    HolderId = table.Column<int>(nullable: true)
+                    HolderId = table.Column<int>(nullable: true),
+                    Position = table.Column<int>(nullable: false),
+                    Electricity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,6 +169,27 @@ namespace PowerBankAdmin.Migrations
                         principalTable: "Holders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RentModels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RentStrategy = table.Column<int>(nullable: false),
+                    FirstHourFree = table.Column<bool>(nullable: false),
+                    HolderModelId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RentModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RentModels_Holders_HolderModelId",
+                        column: x => x.HolderModelId,
+                        principalTable: "Holders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,7 +222,9 @@ namespace PowerBankAdmin.Migrations
                     CostumerId = table.Column<int>(nullable: true),
                     PowerbankId = table.Column<int>(nullable: true),
                     Start = table.Column<DateTime>(nullable: false),
-                    Finish = table.Column<DateTime>(nullable: false)
+                    Finish = table.Column<DateTime>(nullable: false),
+                    CardId = table.Column<string>(nullable: true),
+                    RentModelId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -190,6 +241,23 @@ namespace PowerBankAdmin.Migrations
                         principalTable: "Powerbanks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PowerbankSessions_RentModels_RentModelId",
+                        column: x => x.RentModelId,
+                        principalTable: "RentModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "RentModels",
+                columns: new[] { "Id", "FirstHourFree", "HolderModelId", "RentStrategy" },
+                values: new object[,]
+                {
+                    { 1, false, null, 0 },
+                    { 2, true, null, 0 },
+                    { 3, false, null, 1 },
+                    { 4, true, null, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -201,6 +269,11 @@ namespace PowerBankAdmin.Migrations
                 name: "IX_Authorizations_UserId",
                 table: "Authorizations",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardBindingModel_CostumerModelId",
+                table: "CardBindingModel",
+                column: "CostumerModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CostumerAuthorizations_CostumerId",
@@ -223,6 +296,16 @@ namespace PowerBankAdmin.Migrations
                 column: "PowerbankId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PowerbankSessions_RentModelId",
+                table: "PowerbankSessions",
+                column: "RentModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RentModels_HolderModelId",
+                table: "RentModels",
+                column: "HolderModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TransactionModel_CostumerModelId",
                 table: "TransactionModel",
                 column: "CostumerModelId");
@@ -237,6 +320,9 @@ namespace PowerBankAdmin.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Authorizations");
+
+            migrationBuilder.DropTable(
+                name: "CardBindingModel");
 
             migrationBuilder.DropTable(
                 name: "CostumerAuthorizations");
@@ -255,6 +341,9 @@ namespace PowerBankAdmin.Migrations
 
             migrationBuilder.DropTable(
                 name: "Powerbanks");
+
+            migrationBuilder.DropTable(
+                name: "RentModels");
 
             migrationBuilder.DropTable(
                 name: "Costumers");

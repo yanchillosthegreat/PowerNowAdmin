@@ -34,59 +34,57 @@
     <form method="post" id="select-tariff-form">
         <input type="hidden" name="holderId" value="@Model.HolderId" />
         <div class="container">
-            <div class="col-xs-6 radiobutton">
-                <input type="radio" name="tariff" checked="checked" value="hour"/>
-                <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">49 ₽<br />за час</label>
-            </div>
-            <div class="col-xs-6 radiobutton">
-                <input type="radio" name="tariff" value="day"/>
-                <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">99 ₽<br />за сутки</label>
-            </div>
-        </div>
-
-        <div class="container m-t-lg">
-            <div class="col-xs-12">
-                <p class="pb-text-17-normal">Выбор способа оплатой</p>
-            </div>
-        </div>
-
-        <div class="container">
-            @if (Model.Costumer.CardBindings != null)
+            @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Hour) ?? false)
             {
-                //var c = 0;
-                foreach (var cardBinding in Model.Costumer.CardBindings)
-                {
-                    @*c++;
-                if (c == 1)
-                {
-                    <div class="col-xs-12 radiobutton m-b-sm">
-                        <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId"/>
-                        <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
-                    </div>
-
-                }
-                else
-                {
-                    <div class="col-xs-6 radiobutton">
-                        <input type="radio" name="card" value="@cardBinding.BindingId"/>
-                        <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
-                    </div>
-
-                }*@
-                    <div class="col-xs-12 radiobutton m-b-sm">
-                        <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" />
-                        <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
-                    </div>
-                }
-                <div class="col-md-12 m-b-md">
-                    <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
-                            style="height: 49px; padding-top: 10px">
-                        выбрать
-                    </button>
+                <div class="col-xs-6 radiobutton">
+                    <input type="radio" name="tariff" checked="checked" value="hour" />
+                    <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">49 ₽<br />за час</label>
                 </div>
             }
-        </div>
-    </form>
+            @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Day) ?? false)
+            {
+                <div class="col-xs-6 radiobutton">
+                    <input type="radio" name="tariff" value="day" />
+                    <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">99 ₽<br />за сутки</label>
+                </div>
+            }
+            @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.FirstHourFree) ?? false)
+            { 
+                <div class="col-xs-6">
+                    <p>Первый час бесплатно</p>
+                </div>
+            }
+            <div class="container m-t-lg">
+                <div class="col-xs-12">
+                    <p class="pb-text-17-normal">Выбор способа оплатой</p>
+                </div>
+            </div>
+            <div class="container">
+                @if (Model.Costumer.CardBindings != null)
+                {
+                    foreach (var cardBinding in Model.Costumer.CardBindings)
+                    {
+                        <div class="col-xs-12 radiobutton m-b-sm">
+                            @if (Model.Costumer.CardBindings.First() == cardBinding)
+                            {
+                                <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" />
+                            }
+                            else
+                            {
+                                <input type="radio" name="card" value="@cardBinding.BindingId" />
+                            }
+                            <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
+                        </div>
+                    }
+                    <div class="col-md-12 m-b-md">
+                        <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
+                                style="height: 49px; padding-top: 10px">
+                            выбрать
+                        </button>
+                    </div>
+                }
+            </div>
+</form>
 
     <div class="container">
         <form method="post">

@@ -19,11 +19,13 @@ namespace PowerBankAdmin.Pages.Equipment
     [IgnoreAntiforgeryToken(Order = 1001)]
     public class IndexModel : PageModel
     {
+        IAcquiringService _acquiringService;
         IHolderService _holderService;
         private readonly AppRepository _appRepository;
 
-        public IndexModel(IHolderService holderService, AppRepository appRepository)
+        public IndexModel(IAcquiringService acquiringService, IHolderService holderService, AppRepository appRepository)
         {
+            _acquiringService = acquiringService;
             _holderService = holderService;
             _appRepository = appRepository;
         }
@@ -69,30 +71,23 @@ namespace PowerBankAdmin.Pages.Equipment
 
                 switch (notify.PackageType) {
                     case "175":
+                        var powerbanksNotifies = notify.Data.PowerbankList;
 
+                        await _holderService.UpdatePowerbanksInfo(powerbanksNotifies);
 
-                        var powerbanks = notify.Data.PowerbankList;
-                        var sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).Where(x => x.IsActive);
-                        foreach (var session in sessions) {
-                            var powerbank = powerbanks.FirstOrDefault(x => x.PowerBankSn == session.Powerbank.Code);
-                            if (powerbank != null)
+                        foreach (var powerbanksNotify in powerbanksNotifies)
+                        {
+                            var sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).Where(x => x.IsActive);
+                            var session = sessions.FirstOrDefault(x => x.Powerbank.Code == powerbanksNotify.PowerBankSn);
+                            if (session == null)
                             {
-                                var client = new Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
-                                client.CreatePayment(new NewPayment
-                                {
-                                    Amount = new Amount { Currency = "RUB", Value = 99m },
-                                    //PaymentMethodId = customer.CardBindings.LastOrDefault().BindingId,
-                                    PaymentMethodId = "25c95fa8-000f-5000-9000-192ee86a71b2",
-                                    Description = "Автоплатеж Тест #1",
-                                    Confirmation = new Confirmation
-                                    {
-                                        Type = ConfirmationType.Redirect,
-                                        ReturnUrl = ""
-                                    },
-                                });
-
-                                await _holderService.ReleasePowerBank(powerbank.PowerBankSn, powerbank.EquipmentSn, 1);
+                                continue;
                             }
+
+                            var position = int.Parse(powerbanksNotify.Position);
+
+                            await _holderService.ReleasePowerBank(powerbanksNotify.PowerBankSn, powerbanksNotify.EquipmentSn, position);
+                            //_acquiringService.ProceedPayment(session);
                         }
 
                         break;

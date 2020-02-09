@@ -22,7 +22,10 @@ namespace PowerBankAdmin.Pages.Admin.Holders
         public IEnumerable<HolderModel> Holders { get; set; }
         [BindProperty]
         public HolderModel HolderToAdd { get; set; }
-
+        [BindProperty]
+        public List<int> PayAvialabilities { get; set; } //1 - Hour 2 - day
+        [BindProperty]
+        public bool FirstHourFree { get; set; }
 
         public IndexModel(AppRepository appRepository, IGeocodeService geocode)
         {
@@ -55,6 +58,7 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             public string Id { get; set; }
             public string Text { get; set; }
         };
+        IEnumerable<RentModel> RentModels { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
             if(!string.IsNullOrEmpty(HolderToAdd?.LocalCode) && string.IsNullOrEmpty(HolderToAdd?.Code))
@@ -69,10 +73,21 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             {
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Неверный адрес, не удалось определить координаты");
             }
+            RentModels = await _appRepository.RentModels.ToListAsync();
+            
             await _appRepository.Holders.AddAsync(HolderToAdd);
             await _appRepository.SaveChangesAsync();
+            await CalculateTariffs(HolderToAdd);
             var newRowHtml = BuildHtmlHolderRow();
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, newRowHtml);
+        }
+
+        private async Task CalculateTariffs(HolderModel holderToAdd)
+        {
+            if (PayAvialabilities == null) return;
+            var rentModels = new List<RentModel>();
+            if (PayAvialabilities.Contains(1)) await HolderToAdd.AddRentModel(_appRepository, RentModels.FirstOrDefault(x => x.RentStrategy == RentStrategy.Hour && FirstHourFree == this.FirstHourFree));
+            if (PayAvialabilities.Contains(2)) await HolderToAdd.AddRentModel(_appRepository, RentModels.FirstOrDefault(x => x.RentStrategy == RentStrategy.Day && FirstHourFree == this.FirstHourFree)); 
         }
 
         private async Task<bool> CalculateCoords()
@@ -84,7 +99,7 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             return true;
         }
 
-        public async Task<IActionResult> OnDeleteAsync(int? id)
+        public async Task<IActionResult> OnPostDeleteAsync(int? id)
         {
             if (id == null || id <= 0) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode);
 

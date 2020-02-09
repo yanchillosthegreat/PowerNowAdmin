@@ -187,8 +187,8 @@ $(document).ready(function () {
         e.preventDefault();
         var dataForm = changeCostumerDataForm.serialize();
         var request = $.ajax({
-            url: "/costumer",
-            type: "PUT",
+            url: "/costumer?handler=update",
+            type: "POST",
             dataType: "json",
             data: dataForm,
             success: function (response) {

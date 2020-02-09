@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,7 @@ using Newtonsoft.Json;
 using PowerBankAdmin.Data.Interfaces;
 using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Models;
+using PowerBankAdmin.Pages.Equipment;
 using Yandex.Checkout.V3;
 
 namespace PowerBankAdmin.Services
@@ -49,13 +51,15 @@ namespace PowerBankAdmin.Services
             var holder = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).FirstOrDefaultAsync(x => x.Id == holderId);
             if (costumer == null || holder == null) return false;
 
-            var powerBank = holder.Powerbanks.ToList().FirstOrDefault(x => x.Sessions.Count() == 0 || x.Sessions.All(y => !y.IsActive));
+            var powerBank = holder.Powerbanks.Where(x => x.Sessions.Where(y => y.IsActive).Count() == 0).OrderBy(x => x.Position).FirstOrDefault();
             if (powerBank == null) return false;
 
-            if(!await PrvidePowerBank(holder))
+            if(!await PrvidePowerBank(holder, powerBank))
             {
                 return false;
             }
+
+
 
             var session = new PowerbankSessionModel
             {
@@ -63,6 +67,7 @@ namespace PowerBankAdmin.Services
                 Start = DateTime.Now,
                 Powerbank = powerBank,
                 //CardId = cardBindingId
+                CardId = "testId"
             };
 
             await _appRepository.PowerbankSessions.AddAsync(session);
@@ -70,7 +75,9 @@ namespace PowerBankAdmin.Services
             return true;
         }
 
-        public async Task<bool> ReleasePowerBank(string powerBankCode, string holderCode, int space)
+
+
+        public async Task<bool> ReleasePowerBank(string powerBankCode, string holderCode, int position)
         {
             var powerBank = await _appRepository.Powerbanks.Include(x => x.Sessions).Include(x => x.Holder).FirstOrDefaultAsync(x => x.Code == powerBankCode);
             if (powerBank == null) return false;
@@ -99,7 +106,7 @@ namespace PowerBankAdmin.Services
 
 
 
-        private async Task<bool> PrvidePowerBank(HolderModel holderModel)
+        private async Task<bool> PrvidePowerBank(HolderModel holderModel, PowerbankModel powerbank)
         {
             var request = WebRequest.Create(_baseUrl);
             request.Method = "POST";
@@ -107,7 +114,7 @@ namespace PowerBankAdmin.Services
             {
                 var holderRequest = new HolderRequest()
                 {
-                    Position = "1",
+                    Position = powerbank.Position.ToString(),
                     EquipmentSn = holderModel.Code,
                     DeviceType = "8",
                     DeviceVersion = "1",
@@ -128,6 +135,18 @@ namespace PowerBankAdmin.Services
                 responceString = await reader.ReadToEndAsync();
             }
             return true;
+        }
+
+        public async Task UpdatePowerbanksInfo(IEnumerable<EquipmentNotifyPowerbank> powerbanksNotifies)
+        {
+            foreach (var powerbanksNotify in powerbanksNotifies)
+            {
+                var powerbankToUpdate = await _appRepository.Powerbanks.FirstOrDefaultAsync(x => x.Code == powerbanksNotify.PowerBankSn);
+                powerbankToUpdate.Position = int.Parse(powerbanksNotify.Position);
+                _appRepository.Entry(powerbankToUpdate).Property(x => x.Position).IsModified = true;
+            }
+
+            await _appRepository.SaveChangesAsync();
         }
 
         private class HolderRequest
