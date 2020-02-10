@@ -78,6 +78,10 @@ namespace PowerBankAdmin.Pages.Admin.Powerbanks
             await _appRepository.Powerbanks.AddAsync(PowerbankToAdd);
             await _appRepository.SaveChangesAsync();
             var newRowHtml = BuildHtmlHolderRow();
+
+            var holder = await _appRepository.Holders.FirstOrDefaultAsync(x => x.Id == PowerbankToAddHolderId);
+            await _holderService.UpdateHolderInfo(holder.Code);
+
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, newRowHtml);
         }
 

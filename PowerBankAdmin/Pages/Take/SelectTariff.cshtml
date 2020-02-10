@@ -33,7 +33,6 @@
     </div>
     <form method="post" id="select-tariff-form">
         <input type="hidden" name="holderId" value="@Model.HolderId" />
-        <div class="container">
             @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Hour) ?? false)
             {
                 <div class="col-xs-6 radiobutton">

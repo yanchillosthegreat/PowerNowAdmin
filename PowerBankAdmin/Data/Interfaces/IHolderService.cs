@@ -14,7 +14,7 @@ namespace PowerBankAdmin.Data.Interfaces
         /// <param name="idCostumer">ID Пользователя</param>
         /// <param name="idHolder">ID Холдера</param>
         /// <returns>true, если получилось</returns>
-        Task<bool> ProvidePowerBank(int idCostumer, int holderCode, string tariff, string cardBindingId);
+        Task<bool> ProvidePowerBank(int idCostumer, int holderCode, RentModel rentModel, string cardBindingId);
         /// <summary>
         /// Последняя сессия пользователя
         /// </summary>
@@ -30,5 +30,7 @@ namespace PowerBankAdmin.Data.Interfaces
         Task<bool> CanProvidePowerBank(int idHolder);
 
         Task UpdatePowerbanksInfo(IEnumerable<EquipmentNotifyPowerbank> powerbanksNotifies);
+
+        Task UpdateHolderInfo(string holderCode);
     }
 }

@@ -77,7 +77,7 @@ namespace PowerBankAdmin.Pages.Equipment
 
                         foreach (var powerbanksNotify in powerbanksNotifies)
                         {
-                            var sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).Where(x => x.IsActive);
+                            var sessions = _appRepository.PowerbankSessions.Include(x => x.Powerbank).Include(x => x.RentModel).Include(x => x.Costumer).Where(x => x.IsActive);
                             var session = sessions.FirstOrDefault(x => x.Powerbank.Code == powerbanksNotify.PowerBankSn);
                             if (session == null)
                             {
@@ -87,7 +87,7 @@ namespace PowerBankAdmin.Pages.Equipment
                             var position = int.Parse(powerbanksNotify.Position);
 
                             await _holderService.ReleasePowerBank(powerbanksNotify.PowerBankSn, powerbanksNotify.EquipmentSn, position);
-                            //_acquiringService.ProceedPayment(session);
+                            _acquiringService.ProceedPayment(session);
                         }
 
                         break;

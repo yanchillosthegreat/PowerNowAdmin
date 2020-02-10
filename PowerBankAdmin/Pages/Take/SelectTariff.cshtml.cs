@@ -57,8 +57,25 @@ namespace PowerBankAdmin.Pages.Take
             IdentifyCostumer();
             if(!IsAuthorized()) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
             if(holderId == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong Data");
-            
-            var result = await _holderService.ProvidePowerBank(Costumer.Id, holderId ?? 0, tariff, card);
+
+            var _holder = await _appRepository.Holders.Include(x => x.HolderRentModels).ThenInclude(x => x.RentModel).FirstOrDefaultAsync(x => x.Id == holderId);
+
+            RentModel rentModel = null;
+            switch (tariff)
+            {
+                case "hour":
+                    rentModel = _holder.HolderRentModels.FirstOrDefault(x => x.RentModel.RentStrategy == RentStrategy.Hour).RentModel;
+                    break;
+                case "day":
+                    rentModel = _holder.HolderRentModels.FirstOrDefault(x => x.RentModel.RentStrategy == RentStrategy.Day).RentModel;
+                    break;
+                default:
+                    break;
+            }
+
+            if (rentModel == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "No such rent model");
+
+            var result = await _holderService.ProvidePowerBank(Costumer.Id, holderId ?? 0, rentModel, card);
             
             if(!result) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpServerErrorCode, "Can't provide powerbank");
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);

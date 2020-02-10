@@ -16,15 +16,27 @@ namespace PowerBankAdmin.Services
         {
             var client = new Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
 
-            var oneHourCalculationStrategy = new OneHourCalculationStrategy(49, 99, true);
-            var amount1 = oneHourCalculationStrategy.Calculate(session.Start, session.Finish);
+            ICalculationStrategy strategy;
+
+            switch (session.RentModel.RentStrategy)
+            {
+                case RentStrategy.Day:
+                    strategy = new DayCalculationStrategy(99, session.RentModel.FirstHourFree);
+                    break;
+                case RentStrategy.Hour:
+                    strategy = new OneHourCalculationStrategy(49, 99, session.RentModel.FirstHourFree);
+                    break;
+                default:
+                    return;
+            }
+
+            var amount = strategy.Calculate(session.Start, session.Finish);
 
             client.CreatePayment(new NewPayment
             {
-                Amount = new Amount { Currency = "RUB", Value = 99m },
-                //PaymentMethodId = customer.CardBindings.LastOrDefault().BindingId,
-                PaymentMethodId = "25c95fa8-000f-5000-9000-192ee86a71b2",
-                Description = "Автоплатеж Тест #1",
+                Amount = new Amount { Currency = "RUB", Value = new decimal(amount) },
+                PaymentMethodId = session.CardId,
+                Description = $"{session.Costumer.Phone}, {session.Start} - {session.Finish}",
                 Confirmation = new Confirmation
                 {
                     Type = ConfirmationType.Redirect,
@@ -55,6 +67,7 @@ namespace PowerBankAdmin.Services
         public double Calculate(DateTime startTime, DateTime endTime)
         {
             var totalMinutes = (int)(endTime - startTime).TotalMinutes;
+            totalMinutes = (totalMinutes == 0) ? ((int)(endTime - startTime).TotalSeconds > 0 ? 1 : 0) : (totalMinutes);
             var totalHours = totalMinutes / 60 + (totalMinutes % 60 == 0 ? 0 : 1);
 
             if (isFirstHourFree)
@@ -91,6 +104,7 @@ namespace PowerBankAdmin.Services
         public double Calculate(DateTime startTime, DateTime endTime)
         {
             var totalMinutes = (int)(endTime - startTime).TotalMinutes;
+            totalMinutes = (totalMinutes == 0) ? ((int)(endTime - startTime).TotalSeconds > 0 ? 1 : 0) : (totalMinutes);
             var totalHours = totalMinutes / 60 + (totalMinutes % 60 == 0 ? 0 : 1);
 
             if (isFirstHourFree)

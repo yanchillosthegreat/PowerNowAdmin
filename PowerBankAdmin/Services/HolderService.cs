@@ -45,7 +45,7 @@ namespace PowerBankAdmin.Services
             return await _appRepository.PowerbankSessions.LastOrDefaultAsync(x => x.IsActive && x.Costumer.Id == idClient);
         }
 
-        public async Task<bool> ProvidePowerBank(int idCostumer, int holderId, string tariff, string cardBindingId)
+        public async Task<bool> ProvidePowerBank(int idCostumer, int holderId, RentModel rentModel, string cardBindingId)
         {
             var costumer = await _appRepository.Costumers.FirstOrDefaultAsync(x => x.Id == idCostumer);
             var holder = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).FirstOrDefaultAsync(x => x.Id == holderId);
@@ -59,23 +59,19 @@ namespace PowerBankAdmin.Services
                 return false;
             }
 
-
-
             var session = new PowerbankSessionModel
             {
                 Costumer = costumer,
                 Start = DateTime.Now,
                 Powerbank = powerBank,
-                //CardId = cardBindingId
-                CardId = "testId"
+                CardId = cardBindingId,
+                RentModel = rentModel
             };
 
             await _appRepository.PowerbankSessions.AddAsync(session);
             await _appRepository.SaveChangesAsync();
             return true;
         }
-
-
 
         public async Task<bool> ReleasePowerBank(string powerBankCode, string holderCode, int position)
         {
@@ -137,13 +133,57 @@ namespace PowerBankAdmin.Services
             return true;
         }
 
+        public async Task UpdateHolderInfo(string holderCode)
+        {
+            var request = WebRequest.Create(_baseUrl);
+            request.Method = "POST";
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                var holderRequest = new HolderRequest()
+                {
+                    EquipmentSn = holderCode,
+                    DeviceType = "8",
+                    DeviceVersion = "1",
+                    SessionId = "94868768687778",
+                    PackageType = "175"
+                };
+                var holderRequestString = JsonConvert.SerializeObject(holderRequest);
+                var holderRequestBuf = Encoding.UTF8.GetBytes(holderRequestString);
+                requestStream.Write(holderRequestBuf);
+            }
+
+            var response = await request.GetResponseAsync();
+            string responceString = "";
+
+            using (Stream dataStream = response.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(dataStream);
+                responceString = await reader.ReadToEndAsync();
+            }
+        }
+
         public async Task UpdatePowerbanksInfo(IEnumerable<EquipmentNotifyPowerbank> powerbanksNotifies)
         {
             foreach (var powerbanksNotify in powerbanksNotifies)
             {
-                var powerbankToUpdate = await _appRepository.Powerbanks.FirstOrDefaultAsync(x => x.Code == powerbanksNotify.PowerBankSn);
+                var powerbankToUpdate = await _appRepository.Powerbanks.Include(x => x.Holder).FirstOrDefaultAsync(x => x.Code == powerbanksNotify.PowerBankSn);
+                if (powerbankToUpdate == null) continue;
+
                 powerbankToUpdate.Position = int.Parse(powerbanksNotify.Position);
                 _appRepository.Entry(powerbankToUpdate).Property(x => x.Position).IsModified = true;
+
+                powerbankToUpdate.Electricity = int.Parse(powerbanksNotify.Electricity);
+                _appRepository.Entry(powerbankToUpdate).Property(x => x.Electricity).IsModified = true;
+
+                var currentHolder = powerbankToUpdate.Holder;
+                var newHolder = await _appRepository.Holders.FirstOrDefaultAsync(x => x.Code == powerbanksNotify.EquipmentSn);
+
+                if (currentHolder == null || newHolder == null) continue;
+                
+                if (currentHolder.Code != newHolder.Code)
+                {
+                    powerbankToUpdate.Holder = newHolder;
+                }
             }
 
             await _appRepository.SaveChangesAsync();
