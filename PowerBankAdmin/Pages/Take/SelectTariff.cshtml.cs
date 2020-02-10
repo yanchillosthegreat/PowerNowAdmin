@@ -105,7 +105,7 @@ namespace PowerBankAdmin.Pages.Take
             //await Costumer.SetCardStatus(_appRepository, CardsStatus.Progress);
             //return Redirect(response.FormUrl);
 
-            var client = new Yandex.Checkout.V3.Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+            var client = new Yandex.Checkout.V3.Client(shopId: "665382", secretKey: "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8");
 
             var newPayment = new NewPayment
             {

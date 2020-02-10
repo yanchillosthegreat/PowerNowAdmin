@@ -16,6 +16,7 @@ namespace PowerBankAdmin.Data.Repository
         public DbSet<HolderRentModel> HolderRents { get; set; }
         public DbSet<PowerbankModel> Powerbanks { get; set; }
         public DbSet<PowerbankSessionModel> PowerbankSessions { get; set; }
+        public DbSet<CardBindingModel> CardBidnings { get; set; }
 
         public AppRepository(DbContextOptions<AppRepository> options) : base(options)
         {
@@ -25,6 +26,7 @@ namespace PowerBankAdmin.Data.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<UserModel>()
                 .HasData(new UserModel { Id = 1, Login = "admin", Password = "admin" });
             modelBuilder.Entity<RentModel>()
@@ -59,7 +61,6 @@ namespace PowerBankAdmin.Data.Repository
                 .HasOne(x => x.RentModel)
                 .WithMany(x => x.HolderRentModels)
                 .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

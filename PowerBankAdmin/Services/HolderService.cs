@@ -51,13 +51,17 @@ namespace PowerBankAdmin.Services
             var holder = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).FirstOrDefaultAsync(x => x.Id == holderId);
             if (costumer == null || holder == null) return false;
 
-            var powerBank = holder.Powerbanks.Where(x => x.Sessions.Where(y => y.IsActive).Count() == 0).OrderBy(x => x.Position).FirstOrDefault();
+            var powerBank = holder.Powerbanks.Where(x => x.Sessions.Where(y => y.IsActive).Count() == 0 && x.Electricity > 75).OrderBy(x => x.Position).FirstOrDefault();
             if (powerBank == null) return false;
 
             if(!await PrvidePowerBank(holder, powerBank))
             {
                 return false;
             }
+
+            var card = await _appRepository.CardBidnings.FirstOrDefaultAsync(x => x.BindingId == cardBindingId);
+            card.IsLocked = true;
+            _appRepository.Entry(card).Property(x => x.IsLocked).IsModified = true;
 
             var session = new PowerbankSessionModel
             {
@@ -93,6 +97,12 @@ namespace PowerBankAdmin.Services
             newHolder.Powerbanks = newHolderPowerBanks;
             _appRepository.Entry(oldHolder).Collection(x => x.Powerbanks).IsModified = true;
             _appRepository.Entry(newHolder).Collection(x => x.Powerbanks).IsModified = true;
+
+            var card = await _appRepository.CardBidnings.FirstOrDefaultAsync(x => x.BindingId == session.CardId);
+            card.IsLocked = false;
+            _appRepository.Entry(card).Property(x => x.IsLocked).IsModified = true;
+
+
             await _appRepository.SaveChangesAsync();
             return true;
         }

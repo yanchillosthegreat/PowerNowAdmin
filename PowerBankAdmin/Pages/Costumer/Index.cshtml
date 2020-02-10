@@ -125,17 +125,24 @@
                         {
                             foreach (var cardBinding in Model.Costumer.CardBindings)
                             {
-                                <div class="row col-12 m-b-md">
-                                    <div class="col-xs-2">
-                                        <img src="~/css/patterns/cross_red.png" width="24" height="24" />
-                                    </div>
-                                    <div class="col-xs-10">
-                                        <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
-                                                style="height: 82px; padding-top: 10px">
-                                            @cardBinding.MaskedPan
-                                        </button>
-                                    </div>
+                        
+                            <div class="row col-12 m-b-md">
+                                <div class="col-xs-2">
+                                    <form method="post">
+                                        <input type="image" src="~/css/patterns/cross_red.png" border="0" width="24" height="24"
+                                               asp-page-handler="DeleteCard" />
+                                        <input type="hidden" name="bindingId" value="@cardBinding.BindingId" />
+                                    </form>
                                 </div>
+                                <div class="col-xs-10">
+                                    <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
+                                            style="height: 82px; padding-top: 10px">
+                                        ******@cardBinding.LastDigits
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        
                             }
 
                         }

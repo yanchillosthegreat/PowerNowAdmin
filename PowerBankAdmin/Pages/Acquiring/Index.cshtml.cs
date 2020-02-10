@@ -71,7 +71,7 @@ namespace PowerBankAdmin.Pages.Acquiring
                 Message message = Client.ParseMessage(Request.Method, Request.ContentType, body);
 
 
-                var client = new Yandex.Checkout.V3.Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+                var client = new Yandex.Checkout.V3.Client(shopId: "665382", secretKey: "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8");
 
                 if (message.Event == Event.PaymentWaitingForCapture)
                 {
@@ -90,8 +90,8 @@ namespace PowerBankAdmin.Pages.Acquiring
                     await costumer.AddBinding(_appRepository, new CardBindingModel
                     {
                         BindingId = message.Object.Id,
-                        //ExpiryDate = message.Object.ExpiresAt,
-                        MaskedPan = message.Object.PaymentMethod.Card.Last4
+                        FirstDigits = message.Object.PaymentMethod.Card.First6,
+                        LastDigits = message.Object.PaymentMethod.Card.Last4
                     });
                 }
 

@@ -14,7 +14,7 @@ namespace PowerBankAdmin.Services
 
         public void ProceedPayment(PowerbankSessionModel session)
         {
-            var client = new Client(shopId: "667169", secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+            var client = new Client(shopId: "665382", secretKey: "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8");
 
             ICalculationStrategy strategy;
 

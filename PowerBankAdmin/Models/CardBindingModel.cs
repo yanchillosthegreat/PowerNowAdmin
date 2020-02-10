@@ -9,7 +9,9 @@ namespace PowerBankAdmin.Models
     {
         public int Id { get; set; }
         public string BindingId { get; set; }
-        public string MaskedPan { get; set; }
         public string ExpiryDate { get; set; }
+        public string FirstDigits { get; set; }
+        public string LastDigits { get; set; }
+        public bool IsLocked { get; set; }
     }
 }

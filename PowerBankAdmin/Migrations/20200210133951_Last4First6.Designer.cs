@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBankAdmin.Data.Repository;
 
 namespace PowerBankAdmin.Migrations
 {
     [DbContext(typeof(AppRepository))]
-    partial class AppRepositoryModelSnapshot : ModelSnapshot
+    [Migration("20200210133951_Last4First6")]
+    partial class Last4First6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,15 +54,13 @@ namespace PowerBankAdmin.Migrations
 
                     b.Property<string>("FirstDigits");
 
-                    b.Property<bool>("IsLocked");
-
                     b.Property<string>("LastDigits");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CostumerModelId");
 
-                    b.ToTable("CardBidnings");
+                    b.ToTable("CardBindingModel");
                 });
 
             modelBuilder.Entity("PowerBankAdmin.Models.CostumerAuthorizationModel", b =>

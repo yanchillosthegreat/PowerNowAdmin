@@ -1034,6 +1034,10 @@
     <Compile Remove="Migrations\20200209201319_Init.Designer.cs" />
     <Compile Remove="Migrations\20200209210529_HolderRent.cs" />
     <Compile Remove="Migrations\20200209210529_HolderRent.Designer.cs" />
+    <Compile Remove="Migrations\20200209213543_HolderCorrectRent.cs" />
+    <Compile Remove="Migrations\20200209213543_HolderCorrectRent.Designer.cs" />
+    <Compile Remove="Migrations\20200210133951_Last4First6.cs" />
+    <Compile Remove="Migrations\20200210133951_Last4First6.Designer.cs" />
     <Compile Remove="Pages\Costumer\Tutorial.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>

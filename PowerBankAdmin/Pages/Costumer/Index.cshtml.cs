@@ -62,24 +62,26 @@ namespace PowerBankAdmin.Pages.Costumer
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
 
+        public async Task<IActionResult> OnPostDeleteCardAsync(string bindingId)
+        {
+            base.IdentifyCostumer();
+
+            var costumer = await _appRepository.Costumers.FirstOrDefaultAsync(x => x.Id == Costumer.Id);
+            var card = costumer.CardBindings.FirstOrDefault(x => x.BindingId == bindingId);
+
+            if (card.IsLocked) return Redirect("Costumer");
+
+            _appRepository.Attach(card);
+            _appRepository.Remove(card);
+            await _appRepository.SaveChangesAsync();
+
+            return Redirect("Costumer");
+        }
+
         public async Task<IActionResult> OnPostAddCardAsync()
         {
             base.IdentifyCostumer();
-            //var _httpClient = new WebClient();
-            //var random = new Random();
-            //var orderNumber = random.Next(15000, 16000);
-            //var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&clientId={Costumer.Id}&password=power-now&orderNumber={orderNumber}&amount=1&returnUrl=https://power-now.ru/acquiring/{Strings.GoToClientPage}";
-            //var responseText = await _httpClient.DownloadStringTaskAsync(new Uri(urlString));
-
-            //JsonSerializer serializer = new JsonSerializer();
-            //RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
-            //await Costumer.SetOrderId(_appRepository, response.OrderId);
-            //await Costumer.SetCardStatus(_appRepository, CardsStatus.Progress);
-            //return Redirect(response.FormUrl);
-
-            var client = new Yandex.Checkout.V3.Client(
-shopId: "667169",
-secretKey: "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas");
+            var client = new Yandex.Checkout.V3.Client(shopId: "665382", secretKey: "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8");
 
             var newPayment = new NewPayment
             {

@@ -72,7 +72,9 @@
                             {
                                 <input type="radio" name="card" value="@cardBinding.BindingId" />
                             }
-                            <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">@cardBinding.MaskedPan</label>
+                                <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px; padding-top: 10px">
+                                    ******@cardBinding.LastDigits
+                                </label>
                         </div>
                     }
                     <div class="col-md-12 m-b-md">
