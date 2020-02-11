@@ -93,24 +93,14 @@ namespace PowerBankAdmin.Pages.Take
         public async Task<IActionResult> OnPostAddCardAsync(int? holderId)
         {
             base.IdentifyCostumer();
-            //var _httpClient = new WebClient();
-            //var random = new Random();
-            //var orderNumber = random.Next(15000, 16000);
-            //var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&clientId={Costumer.Id}&password=power-now&orderNumber={orderNumber}&amount=1&returnUrl=https://power-now.ru/acquiring/{Strings.GoToTakePage}"; 
-            // var responseText = await _httpClient.DownloadStringTaskAsync(new Uri(urlString));
 
-            //JsonSerializer serializer = new JsonSerializer();
-            //RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
-            //await Costumer.SetOrderId(_appRepository, response.OrderId);
-            //await Costumer.SetCardStatus(_appRepository, CardsStatus.Progress);
-            //return Redirect(response.FormUrl);
-
-            var client = new Yandex.Checkout.V3.Client(shopId: "665382", secretKey: "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8");
+            var client = new Yandex.Checkout.V3.Client(shopId: Strings.YandexShopId, secretKey: Strings.YandexAPIKey);
 
             var newPayment = new NewPayment
             {
                 Amount = new Amount { Value = 1.00m, Currency = "RUB" },
                 SavePaymentMethod = true,
+                Capture = true,
                 Confirmation = new Confirmation
                 {
                     Type = ConfirmationType.Redirect,
@@ -120,7 +110,7 @@ namespace PowerBankAdmin.Pages.Take
                 {
                     Type = PaymentMethodType.BankCard
                 },
-                Description = "Test #1"
+                Description = "Добавление карты"
             };
 
             Payment payment = client.CreatePayment(newPayment);

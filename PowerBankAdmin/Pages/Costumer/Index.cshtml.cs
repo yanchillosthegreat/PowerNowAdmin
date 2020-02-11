@@ -81,7 +81,7 @@ namespace PowerBankAdmin.Pages.Costumer
         public async Task<IActionResult> OnPostAddCardAsync()
         {
             base.IdentifyCostumer();
-            var client = new Yandex.Checkout.V3.Client(shopId: "665382", secretKey: "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8");
+            var client = new Yandex.Checkout.V3.Client(shopId: Strings.YandexShopId, secretKey: Strings.YandexAPIKey);
 
             var newPayment = new NewPayment
             {

@@ -41,6 +41,11 @@ namespace PowerBankAdmin
         public const string GoToClientPage = "client";
         public const string GoToTakePage = "take";
 
+        //Yandex
+        //public const string YandexAPIKey = "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8";
+        //public const string YandexShopId = "665382";
 
+        public const string YandexAPIKey = "test_yaa_BuTea1360q-9lXQVQRzdqSiThR_2b_6U_P2wXas";
+        public const string YandexShopId = "667169";
     }
 }

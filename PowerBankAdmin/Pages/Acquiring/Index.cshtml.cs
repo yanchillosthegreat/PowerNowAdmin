@@ -71,22 +71,25 @@ namespace PowerBankAdmin.Pages.Acquiring
                 Message message = Client.ParseMessage(Request.Method, Request.ContentType, body);
 
 
-                var client = new Yandex.Checkout.V3.Client(shopId: "665382", secretKey: "live_UhDOLcd5Ck0Z7JwKzFvePIWd6i_5cZgmLKRY7CfY7g8");
+                var client = new Yandex.Checkout.V3.Client(shopId: Strings.YandexShopId, secretKey: Strings.YandexAPIKey);
 
-                if (message.Event == Event.PaymentWaitingForCapture)
+                if (message.Event == Event.RefundSucceeded)
                 {
-                    client.CapturePayment(message.Object.Id);
+                    return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
                 }
 
                 if (message.Event == Event.PaymentSucceeded && message.Object.Amount.Value == 1.00m)
                 {
-                    client.CreateRefund(new NewRefund { PaymentId = message.Object.Id, Amount = message.Object.Amount });
+                    try
+                    {
+                        var refund = client.CreateRefund(new NewRefund { PaymentId = message.Object.Id, Amount = message.Object.Amount });
+                    }
+                    catch { }
 
                     var costumer = await CostumerModel.GetCostumerByOrderId(_appRepository, message.Object.Id);
                     if (costumer == null) return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong OrderId");
 
                     await costumer.SetCardStatus(_appRepository, CardsStatus.Ok);
-                    await costumer.ClearBindings(_appRepository);
                     await costumer.AddBinding(_appRepository, new CardBindingModel
                     {
                         BindingId = message.Object.Id,
