@@ -487,7 +487,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScr
 +function ($) { "use strict";
 
   var isIphone = (window.orientation !== undefined)
-  var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1
+  var isAndroid = false
   var isIE = window.navigator.appName == 'Microsoft Internet Explorer'
 
   // INPUTMASK PUBLIC CLASS DEFINITION

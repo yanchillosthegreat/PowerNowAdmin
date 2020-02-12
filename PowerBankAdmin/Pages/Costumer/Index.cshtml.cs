@@ -96,7 +96,7 @@ namespace PowerBankAdmin.Pages.Costumer
                 {
                     Type = PaymentMethodType.BankCard
                 },
-                Description = "Test #1"
+                Description = "Добавление карты"
             };
 
             Payment payment = client.CreatePayment(newPayment);
