@@ -67,11 +67,11 @@
                     <div class="col-xs-12 radiobutton m-b-sm">
                         @if (Model.Costumer.CardBindings.First() == cardBinding)
                         {
-                            <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" />
+                            <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10"/>
                         }
                         else
                         {
-                            <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" />
+                            <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10"/>
                         }
                         <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px;">
                             ******@cardBinding.LastDigits
@@ -79,7 +79,7 @@
                     </div>
                 }
 
-                <div class="col-md-12 m-b-sm">
+                <div class="col-xs-12 m-b-sm">
                     <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
                             style="height: 49px;" form="add-card-form">
                         привязать карту

@@ -1038,6 +1038,8 @@
     <Compile Remove="Migrations\20200209213543_HolderCorrectRent.Designer.cs" />
     <Compile Remove="Migrations\20200210133951_Last4First6.cs" />
     <Compile Remove="Migrations\20200210133951_Last4First6.Designer.cs" />
+    <Compile Remove="Migrations\20200210165240_CardBindings-added-to-AppRepository.cs" />
+    <Compile Remove="Migrations\20200210165240_CardBindings-added-to-AppRepository.Designer.cs" />
     <Compile Remove="Pages\Costumer\Tutorial.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
