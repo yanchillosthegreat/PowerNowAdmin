@@ -21,7 +21,7 @@ namespace PowerBankAdmin.Pages.Map
         public async Task OnGetAsync() 
         {
             IdentifyCostumer();
-            Holders = await _appRepository.Holders.ToListAsync();
+            Holders = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).ToListAsync();
             ViewData["Title"] = "КАРТА С ПАУЕР БАНКАМИ";
             ViewData["City"] = "/css/patterns/city_3.png";
         }
