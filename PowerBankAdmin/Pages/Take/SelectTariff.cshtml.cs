@@ -69,6 +69,9 @@ namespace PowerBankAdmin.Pages.Take
                 case "day":
                     rentModel = _holder.HolderRentModels.FirstOrDefault(x => x.RentModel.RentStrategy == RentStrategy.Day).RentModel;
                     break;
+                case "firstHourFree":
+                    rentModel = _holder.HolderRentModels.FirstOrDefault(x => x.RentModel.RentStrategy == RentStrategy.FirstHourFree).RentModel;
+                    break;
                 default:
                     break;
             }

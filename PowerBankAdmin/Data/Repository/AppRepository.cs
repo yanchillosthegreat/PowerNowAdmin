@@ -30,13 +30,11 @@ namespace PowerBankAdmin.Data.Repository
             modelBuilder.Entity<UserModel>()
                 .HasData(new UserModel { Id = 1, Login = "admin", Password = "admin" });
             modelBuilder.Entity<RentModel>()
-                .HasData(new RentModel { Id = 1, RentStrategy = RentStrategy.Hour, FirstHourFree = false });
+                .HasData(new RentModel { Id = 1, RentStrategy = RentStrategy.Hour });
             modelBuilder.Entity<RentModel>()
-                .HasData(new RentModel { Id = 2, RentStrategy = RentStrategy.Hour, FirstHourFree = true });
+                .HasData(new RentModel { Id = 2, RentStrategy = RentStrategy.Day });
             modelBuilder.Entity<RentModel>()
-                .HasData(new RentModel { Id = 3, RentStrategy = RentStrategy.Day, FirstHourFree = false });
-            modelBuilder.Entity<RentModel>()
-                .HasData(new RentModel { Id = 4, RentStrategy = RentStrategy.Day, FirstHourFree = true });
+                .HasData(new RentModel { Id = 3, RentStrategy = RentStrategy.FirstHourFree });
             modelBuilder.Entity<VerificationCodeModel>()
                 .HasOne(x => x.Costumer)
                 .WithMany(x => x.Verifications)

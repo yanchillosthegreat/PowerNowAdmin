@@ -69,13 +69,13 @@ namespace PowerBankAdmin.Models
     {
         public int Id { get; set; }
         public RentStrategy RentStrategy { get; set; }
-        public bool FirstHourFree { get; set; }
         public IEnumerable<HolderRentModel> HolderRentModels { get; set; }
     }
 
     public enum RentStrategy
     {
         Hour,
-        Day
+        Day,
+        FirstHourFree
     }
 }

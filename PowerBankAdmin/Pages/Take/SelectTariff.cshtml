@@ -31,178 +31,177 @@
     <form method="post" id="select-tariff-form"></form>
 
     <input type="hidden" name="holderId" value="@Model.HolderId" form="select-tariff-form" />
-    @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Hour) ?? false)
-    {
-        <div class="container">
+    <div class="container">
+        @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.FirstHourFree) ?? false)
+        {
+            <div class="col-xs-6 radiobutton">
+                <input type="radio" name="tariff" checked="checked" value="firstHourFree" form="select-tariff-form" />
+                <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">1-ый час<br />бесплатно</label>
+            </div>
+        }
+        @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Hour) ?? false)
+        {
             <div class="col-xs-6 radiobutton">
                 <input type="radio" name="tariff" checked="checked" value="hour" form="select-tariff-form" />
                 <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">49 ₽<br />за час</label>
             </div>
-        </div>
-    }
-    @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Day) ?? false)
-    {
-        <div class="container">
+        }
+        @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Day) ?? false)
+        {
             <div class="col-xs-6 radiobutton">
                 <input type="radio" name="tariff" value="day" form="select-tariff-form" />
                 <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">99 ₽<br />за сутки</label>
             </div>
-        </div>
-            }
-            @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.FirstHourFree) ?? false)
-            {
-                <div class="col-xs-6">
-                    <p>Первый час бесплатно</p>
-                </div>
-            }
-            <div class="container m-t-sm">
-                <div class="col-xs-12">
-                    <p class="pb-text-17-normal">Выбор способа оплаты</p>
-                </div>
+        }
+    </div>
+        <div class="container m-t-sm">
+            <div class="col-xs-12">
+                <p class="pb-text-17-normal">Выбор способа оплаты</p>
             </div>
-            <div class="container">
-                @if (Model.Costumer.CardBindings != null)
+        </div>
+        <div class="container">
+            @if (Model.Costumer.CardBindings != null)
+            {
+                foreach (var cardBinding in Model.Costumer.CardBindings)
                 {
-                    foreach (var cardBinding in Model.Costumer.CardBindings)
-                    {
-                        <div class="col-xs-12 radiobutton m-b-sm">
-                            @if (Model.Costumer.CardBindings.First() == cardBinding)
-                            {
-                                <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" />
-                            }
-                            else
-                            {
-                                <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" />
-                            }
-                            <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px;">
-                                ******@cardBinding.LastDigits
-                            </label>
-                        </div>
-                    }
+                    <div class="col-xs-12 radiobutton m-b-sm">
+                        @if (Model.Costumer.CardBindings.First() == cardBinding)
+                        {
+                            <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" />
+                        }
+                        else
+                        {
+                            <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" />
+                        }
+                        <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px;">
+                            ******@cardBinding.LastDigits
+                        </label>
+                    </div>
+                }
 
+                <div class="col-md-12 m-b-sm">
+                    <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
+                            style="height: 49px;" form="add-card-form">
+                        привязать карту
+                    </button>
+                </div>
+
+                @if (Model.Costumer.CardBindings != null && Model.Costumer.CardBindings.Count() != 0)
+                {
                     <div class="col-md-12 m-b-sm">
-                        <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
-                                style="height: 49px;" form="add-card-form">
-                            привязать карту
+                        <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
+                                style="height: 49px;" form="select-tariff-form">
+                            выбрать
                         </button>
                     </div>
-
-                    @if (Model.Costumer.CardBindings != null && Model.Costumer.CardBindings.Count() != 0)
-                    {
-                        <div class="col-md-12 m-b-sm">
-                            <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
-                                    style="height: 49px;" form="select-tariff-form">
-                                выбрать
-                            </button>
-                        </div>
-                    }
                 }
-            </div>
+            }
         </div>
-        <div class="container" id="session-timer-block">
-            <div class="row text-center m-t-lg" id="timer-equipment-block">
-                <div>
-                    <input id="session-duration" type="hidden" value="@ViewData["SessionDuration"]" />
-                    <pre id="timer-text" class="p-power-now-normal"></pre>
-                </div>
-            </div>
-            <div class="row m-t-lg">
-            </div>
-            <div class="row">
-                <div class="col-xs-10 pb-no-left-padding">
-                    <span class="p-power-now-normal">Зарегистрируйся на сайте и получи </span>
-                    <span class="p-power-now-normal" style="font-weight: bold;">49 баллов</span>
-                </div>
-            </div>
+    </div>
+<div class="container" id="session-timer-block">
+    <div class="row text-center m-t-lg" id="timer-equipment-block">
+        <div>
+            <input id="session-duration" type="hidden" value="@ViewData["SessionDuration"]" />
+            <pre id="timer-text" class="p-power-now-normal"></pre>
         </div>
+    </div>
+    <div class="row m-t-lg">
+    </div>
+    <div class="row">
+        <div class="col-xs-10 pb-no-left-padding">
+            <span class="p-power-now-normal">Зарегистрируйся на сайте и получи </span>
+            <span class="p-power-now-normal" style="font-weight: bold;">49 баллов</span>
+        </div>
+    </div>
+</div>
 
-        <script type="text/javascript">
+<script type="text/javascript">
 
-            $(document).ready(function () {
-                var timerBlock = $("#session-timer-block");
-                var tariffBlock = $("#tariff-selector-block");
-                var elapsed_seconds = parseInt($("#session-duration").val());
-                if (elapsed_seconds > 0) {
-                    timerBlock.show();
-                    tariffBlock.hide();
-                    startTimer();
-                }
-                else {
-                    timerBlock.hide();
-                }
-
-
-                function startTimer() {
-                    var timerText = $("#timer-text");
-
-                    var elapsed_seconds = parseInt($("#session-duration").val());
-                    setInterval(function () {
-                        elapsed_seconds = elapsed_seconds + 1;
-                        timerText.text(get_elapsed_time_string(elapsed_seconds));
-                    }, 1000);
-
-                    setInterval(check, 5000);
-                }
+    $(document).ready(function () {
+        var timerBlock = $("#session-timer-block");
+        var tariffBlock = $("#tariff-selector-block");
+        var elapsed_seconds = parseInt($("#session-duration").val());
+        if (elapsed_seconds > 0) {
+            timerBlock.show();
+            tariffBlock.hide();
+            startTimer();
+        }
+        else {
+            timerBlock.hide();
+        }
 
 
+        function startTimer() {
+            var timerText = $("#timer-text");
 
-                function check() {
-                    var token = $('input[name="__RequestVerificationToken"]').val()
-                    var request = $.ajax({
-                        url: "/take?handler=check",
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            __RequestVerificationToken: token
-                        },
-                        success: function (response) {
-                            switch (response.code) {
-                                case 200:
-                                    switch (response.message) {
-                                        case "1":
-                                            break;
-                                        case "0":
-                                            alert("Session is over");
-                                            location.reload();
-                                            break;
-                                        default:
-                                            alert(response.message);
-                                            break;
-                                    }
+            var elapsed_seconds = parseInt($("#session-duration").val());
+            setInterval(function () {
+                elapsed_seconds = elapsed_seconds + 1;
+                timerText.text(get_elapsed_time_string(elapsed_seconds));
+            }, 1000);
+
+            setInterval(check, 5000);
+        }
+
+
+
+        function check() {
+            var token = $('input[name="__RequestVerificationToken"]').val()
+            var request = $.ajax({
+                url: "/take?handler=check",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    __RequestVerificationToken: token
+                },
+                success: function (response) {
+                    switch (response.code) {
+                        case 200:
+                            switch (response.message) {
+                                case "1":
+                                    break;
+                                case "0":
+                                    alert("Session is over");
+                                    location.reload();
                                     break;
                                 default:
                                     alert(response.message);
                                     break;
                             }
-                        }
-                    });
-                }
-
-
-                function get_elapsed_time_string(total_seconds) {
-                    function pretty_time_string(num) {
-                        return (num < 10 ? "0\u00A0\u00A0" : "") + num.toString().split('').join('\u00A0\u00A0');
+                            break;
+                        default:
+                            alert(response.message);
+                            break;
                     }
-
-                    var hours = Math.floor(total_seconds / 3600);
-                    total_seconds = total_seconds % 3600;
-
-                    var minutes = Math.floor(total_seconds / 60);
-                    total_seconds = total_seconds % 60;
-
-                    var seconds = Math.floor(total_seconds);
-
-                    // Pad the minutes and seconds with leading zeros, if required
-                    hours = pretty_time_string(hours);
-                    minutes = pretty_time_string(minutes);
-                    seconds = pretty_time_string(seconds);
-
-                    // Compose the string for display
-                    var currentTimeString = hours + "\u00A0  :  \u00A0" + minutes + "\u00A0  :  \u00A0" + seconds;
-
-                    return currentTimeString;
                 }
             });
+        }
 
 
-        </script>
+        function get_elapsed_time_string(total_seconds) {
+            function pretty_time_string(num) {
+                return (num < 10 ? "0\u00A0\u00A0" : "") + num.toString().split('').join('\u00A0\u00A0');
+            }
+
+            var hours = Math.floor(total_seconds / 3600);
+            total_seconds = total_seconds % 3600;
+
+            var minutes = Math.floor(total_seconds / 60);
+            total_seconds = total_seconds % 60;
+
+            var seconds = Math.floor(total_seconds);
+
+            // Pad the minutes and seconds with leading zeros, if required
+            hours = pretty_time_string(hours);
+            minutes = pretty_time_string(minutes);
+            seconds = pretty_time_string(seconds);
+
+            // Compose the string for display
+            var currentTimeString = hours + "\u00A0  :  \u00A0" + minutes + "\u00A0  :  \u00A0" + seconds;
+
+            return currentTimeString;
+        }
+    });
+
+
+</script>

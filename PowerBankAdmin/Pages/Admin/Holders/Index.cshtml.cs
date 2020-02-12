@@ -23,7 +23,7 @@ namespace PowerBankAdmin.Pages.Admin.Holders
         [BindProperty]
         public HolderModel HolderToAdd { get; set; }
         [BindProperty]
-        public List<int> PayAvialabilities { get; set; } //1 - Hour 2 - day
+        public List<int> PayAvialabilities { get; set; } //1 - Hour 2 - Day 3 - First Hour Free
         [BindProperty]
         public bool FirstHourFree { get; set; }
 
@@ -86,8 +86,9 @@ namespace PowerBankAdmin.Pages.Admin.Holders
         {
             if (PayAvialabilities == null) return;
             var rentModels = new List<RentModel>();
-            if (PayAvialabilities.Contains(1)) await HolderToAdd.AddRentModel(_appRepository, RentModels.FirstOrDefault(x => x.RentStrategy == RentStrategy.Hour && FirstHourFree == this.FirstHourFree));
-            if (PayAvialabilities.Contains(2)) await HolderToAdd.AddRentModel(_appRepository, RentModels.FirstOrDefault(x => x.RentStrategy == RentStrategy.Day && FirstHourFree == this.FirstHourFree)); 
+            if (PayAvialabilities.Contains(1)) await HolderToAdd.AddRentModel(_appRepository, RentModels.FirstOrDefault(x => x.RentStrategy == RentStrategy.Hour));
+            if (PayAvialabilities.Contains(2)) await HolderToAdd.AddRentModel(_appRepository, RentModels.FirstOrDefault(x => x.RentStrategy == RentStrategy.Day));
+            if (PayAvialabilities.Contains(3)) await HolderToAdd.AddRentModel(_appRepository, RentModels.FirstOrDefault(x => x.RentStrategy == RentStrategy.FirstHourFree));
         }
 
         private async Task<bool> CalculateCoords()

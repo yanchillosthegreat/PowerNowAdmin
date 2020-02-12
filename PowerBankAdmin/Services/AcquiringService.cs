@@ -21,16 +21,21 @@ namespace PowerBankAdmin.Services
             switch (session.RentModel.RentStrategy)
             {
                 case RentStrategy.Day:
-                    strategy = new DayCalculationStrategy(99, session.RentModel.FirstHourFree);
+                    strategy = new DayCalculationStrategy(99, false);
                     break;
                 case RentStrategy.Hour:
-                    strategy = new OneHourCalculationStrategy(49, 99, session.RentModel.FirstHourFree);
+                    strategy = new OneHourCalculationStrategy(49, 99, false);
+                    break;
+                case RentStrategy.FirstHourFree:
+                    strategy = new OneHourCalculationStrategy(49, 99, true);
                     break;
                 default:
                     return;
             }
 
             var amount = strategy.Calculate(session.Start, session.Finish);
+
+            if (amount <= 0) return;
 
             client.CreatePayment(new NewPayment
             {
