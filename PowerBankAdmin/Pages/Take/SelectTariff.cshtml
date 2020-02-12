@@ -32,27 +32,29 @@
 
     <input type="hidden" name="holderId" value="@Model.HolderId" form="select-tariff-form" />
     <div class="container">
-        @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.FirstHourFree) ?? false)
-        {
-            <div class="col-xs-6 radiobutton">
-                <input type="radio" name="tariff" checked="checked" value="firstHourFree" form="select-tariff-form" />
-                <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">1-ый час<br />бесплатно</label>
-            </div>
-        }
-        @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Hour) ?? false)
-        {
-            <div class="col-xs-6 radiobutton">
-                <input type="radio" name="tariff" checked="checked" value="hour" form="select-tariff-form" />
-                <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">49 ₽<br />за час</label>
-            </div>
-        }
-        @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Day) ?? false)
-        {
-            <div class="col-xs-6 radiobutton">
-                <input type="radio" name="tariff" value="day" form="select-tariff-form" />
-                <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">99 ₽<br />за сутки</label>
-            </div>
-        }
+        <div class="row">
+            @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.FirstHourFree) ?? false)
+            {
+                <div class="col-xs-6 radiobutton">
+                    <input type="radio" name="tariff" checked="checked" value="firstHourFree" form="select-tariff-form" />
+                    <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">1-ый час<br />бесплатно</label>
+                </div>
+            }
+            @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Hour) ?? false)
+            {
+                <div class="col-xs-6 radiobutton">
+                    <input type="radio" name="tariff" checked="checked" value="hour" form="select-tariff-form" />
+                    <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">49 ₽<br />за час</label>
+                </div>
+            }
+            @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Day) ?? false)
+            {
+                <div class="col-xs-6 radiobutton">
+                    <input type="radio" name="tariff" value="day" form="select-tariff-form" />
+                    <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">99 ₽<br />за сутки</label>
+                </div>
+            }
+        </div>
     </div>
         <div class="container m-t-sm">
             <div class="col-xs-12">
@@ -64,40 +66,47 @@
             {
                 foreach (var cardBinding in Model.Costumer.CardBindings)
                 {
-                    <div class="col-xs-12 radiobutton m-b-sm">
-                        @if (Model.Costumer.CardBindings.First() == cardBinding)
-                        {
-                            <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10"/>
-                        }
-                        else
-                        {
-                            <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10"/>
-                        }
-                        <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px;">
-                            ******@cardBinding.LastDigits
-                        </label>
-                    </div>
-                }
-
-                <div class="col-xs-12 m-b-sm">
-                    <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
-                            style="height: 49px;" form="add-card-form">
-                        привязать карту
-                    </button>
+            <div class="row">
+                <div class="col-xs-12 radiobutton m-b-sm">
+                    @if (Model.Costumer.CardBindings.First() == cardBinding)
+                    {
+                        <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10" />
+                    }
+                    <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px;">
+                        ******@cardBinding.LastDigits
+                    </label>
                 </div>
-
-                @if (Model.Costumer.CardBindings != null && Model.Costumer.CardBindings.Count() != 0)
-                {
-                    <div class="col-md-12 m-b-sm">
-                        <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
-                                style="height: 49px;" form="select-tariff-form">
-                            выбрать
-                        </button>
-                    </div>
+            </div>
                 }
-            }
-        </div>
-    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 m-b-sm">
+                            <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
+                                    style="height: 49px;" form="add-card-form">
+                                привязать карту
+                            </button>
+                        </div>
+                    </div>
+
+                    @if (Model.Costumer.CardBindings != null && Model.Costumer.CardBindings.Count() != 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-12 m-b-sm">
+                                <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
+                                        style="height: 49px;" form="select-tariff-form">
+                                    выбрать
+                                </button>
+                            </div>
+                        </div>
+
+                    }
+                    }
+                </div>
+            </div>
 <div class="container" id="session-timer-block">
     <div class="row text-center m-t-lg" id="timer-equipment-block">
         <div>

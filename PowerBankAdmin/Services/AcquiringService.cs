@@ -41,6 +41,7 @@ namespace PowerBankAdmin.Services
             {
                 Amount = new Amount { Currency = "RUB", Value = new decimal(amount) },
                 PaymentMethodId = session.CardId,
+                Capture = true,
                 Description = $"{session.Costumer.Phone}, {session.Start} - {session.Finish}",
                 Confirmation = new Confirmation
                 {
