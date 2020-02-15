@@ -45,6 +45,7 @@ namespace PowerBankAdmin
             }*/
 
             app.UseDeveloperExceptionPage();
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseMiddleware<CostumerAuthorizationMiddleware>();
