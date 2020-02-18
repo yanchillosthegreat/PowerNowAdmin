@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,12 @@ namespace PowerBankAdmin.Services
                 var costumerToSendInHeader = (CostumerModel)costumer.Clone();
                 costumerToSendInHeader.Authorizations = new List<CostumerAuthorizationModel>();
                 httpContext.Request.Headers.Add(Strings.CostumerObject, JsonConvert.SerializeObject(costumerToSendInHeader));
+
+                var activeSession = costumer.Sessions.FirstOrDefault(x => x.IsActive);
+                if (activeSession != null && httpContext.Request.Path == "/")
+                {
+                    httpContext.Response.Redirect($"/Take/SelectTariff/{activeSession.Powerbank.Holder.Id}");
+                }
             }
             await _next(httpContext);
         }
@@ -54,7 +61,7 @@ namespace PowerBankAdmin.Services
             }
 
             var db = httpContext.RequestServices.GetService(typeof(AppRepository)) as AppRepository;
-            var authorization = await db.CostumerAuthorizations.Include(a => a.Costumer).ThenInclude(x => x.CardBindings).FirstOrDefaultAsync(x => x.AuthToken == authToken);
+            var authorization = await db.CostumerAuthorizations.Include(a => a.Costumer).ThenInclude(x => x.CardBindings).Include(x => x.Costumer).ThenInclude(x => x.Sessions).ThenInclude(x => x.Powerbank).ThenInclude(x => x.Holder).FirstOrDefaultAsync(x => x.AuthToken == authToken);
 
             return authorization?.Costumer;
         }

@@ -9,7 +9,11 @@
 
 <div style="position: absolute; z-index: -10; width: 100%; bottom:0; left: 0; right: 0">
     <img src="~/css/patterns/wave.png" style="width: 100%" />
-    <!--<img src="~/css/patterns/powerbank_holder.gif" class="img-responsive" style="position:absolute; bottom: 0" />-->
+    @*<img src="~/css/patterns/animation.gif" class="img-responsive" style="position:absolute; bottom: 50px" />*@
+    <div style="position: absolute; bottom: 25px; left: 46px">
+        <img src="~/css/patterns/pin.png" width="18" height="25" style="margin-right: 10px"/>
+        <a style="color: #16BDF0; text-decoration: underline;" href="/map">Найти место сдачи пауер банка</a>
+    </div>
 </div>
 
 <div id="tariff-selector-block" class="col-md-12 m-t-lg p-t-md" style="background-color: #1b1e21; border-radius: 8px 8px; padding-top:30px; padding-bottom:30px; opacity: 0.90">
@@ -35,7 +39,7 @@
         <div class="row">
             @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.FirstHourFree) ?? false)
             {
-                <div class="col-xs-12 radiobutton">
+                <div class="col-xs-12 radiobuttonTariff">
                     <input type="radio" name="tariff" checked="checked" value="firstHourFree" form="select-tariff-form" />
                     <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">1-ый час<br />бесплатно</label>
                 </div>
