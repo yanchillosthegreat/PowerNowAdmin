@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerBankAdmin.Data.Repository;
 
 namespace PowerBankAdmin.Migrations
 {
     [DbContext(typeof(AppRepository))]
-    partial class AppRepositoryModelSnapshot : ModelSnapshot
+    [Migration("20200217230303_PaymentSystemName")]
+    partial class PaymentSystemName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

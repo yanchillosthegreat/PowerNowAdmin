@@ -18,7 +18,7 @@
             <img src="~/css/patterns/pin.png" style="width: 18px; height: 26px;" />
         </div>
         <div class="col-xs-10">
-            <p class="pb-text-13">Ул. Маросейка, 4/2с1 Кофемания</p>
+            <p class="pb-text-13">@Model.Holder.OwnerAddress</p>
         </div>
     </div>
     <div class="container m-t-sm">
@@ -35,78 +35,87 @@
         <div class="row">
             @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.FirstHourFree) ?? false)
             {
-                <div class="col-xs-6 radiobutton">
+                <div class="col-xs-12 radiobutton">
                     <input type="radio" name="tariff" checked="checked" value="firstHourFree" form="select-tariff-form" />
                     <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">1-ый час<br />бесплатно</label>
                 </div>
             }
             @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Hour) ?? false)
             {
-                <div class="col-xs-6 radiobutton">
+                <div class="col-xs-12 radiobutton">
                     <input type="radio" name="tariff" checked="checked" value="hour" form="select-tariff-form" />
                     <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">49 ₽<br />за час</label>
                 </div>
             }
             @if (Model.Holder.HolderRentModels?.Any(x => x.RentModel.RentStrategy == Models.RentStrategy.Day) ?? false)
             {
-                <div class="col-xs-6 radiobutton">
+                <div class="col-xs-12 radiobutton">
                     <input type="radio" name="tariff" value="day" form="select-tariff-form" />
                     <label class="btn btn-primary-orange btn-block pb-button-shadow pb-text-13-bold" style="padding-top: 4px">99 ₽<br />за сутки</label>
                 </div>
             }
         </div>
     </div>
-        <div class="container m-t-sm">
-            <div class="col-xs-12">
-                <p class="pb-text-17-normal">Выбор способа оплаты</p>
-            </div>
+    <div class="container m-t-sm">
+        <div class="col-xs-12">
+            <p class="pb-text-17-normal">Выбор способа оплаты</p>
         </div>
-        <div class="container">
-            @if (Model.Costumer.CardBindings != null)
+    </div>
+    <div class="container">
+        @if (Model.Costumer.CardBindings != null)
+        {
+            foreach (var cardBinding in Model.Costumer.CardBindings)
             {
-                foreach (var cardBinding in Model.Costumer.CardBindings)
-                {
-            <div class="row">
-                <div class="col-xs-12 radiobutton m-b-sm">
-                    @if (Model.Costumer.CardBindings.First() == cardBinding)
-                    {
-                        <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10" />
-                    }
-                    else
-                    {
-                        <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10" />
-                    }
-                    <label class="btn btn-primary-orange btn-block pb-button-shadow" style="height: 49px;">
-                        ******@cardBinding.LastDigits
-                    </label>
-                </div>
-            </div>
-                }
+                <div class="row">
+                    <div class="col-xs-12 radiobutton m-b-sm">
+                        @if (Model.Costumer.CardBindings.First() == cardBinding)
+                        {
+                            <input type="radio" name="card" checked="checked" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10;" />
+                        }
+                        else
+                        {
+                            <input type="radio" name="card" value="@cardBinding.BindingId" form="select-tariff-form" style="z-index: 10;" />
+                        }
+                            <label class="btn btn-block" style="text-align: left; font-size: 17px; letter-spacing: 0.2em;">
+                                ****@cardBinding.LastDigits
 
-                    <div class="row">
-                        <div class="col-xs-12 m-b-sm">
-                            <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
-                                    style="height: 49px;" form="add-card-form">
-                                привязать карту
-                            </button>
-                        </div>
+                                @if ((cardBinding.PaymentSystemName).ToUpper() == "VISA")
+                                {
+                                    <img src="~/css/patterns/visa_logo.png" class="img-responsive" style="width: 38px; height: 12px; float: right; margin-top: 5px" />
+                                }
+                                else if ((cardBinding.PaymentSystemName).ToUpper() == "MASTERCARD")
+                                {
+                                    <img src="~/css/patterns/visa_logo.png" class="img-responsive" style="width: 24px; height: 23px; float: right; margin-top: 5px" />
+                                }
+                            </label>
                     </div>
+                </div>
+            }
 
-                    @if (Model.Costumer.CardBindings != null && Model.Costumer.CardBindings.Count() != 0)
-                    {
-                        <div class="row">
-                            <div class="col-md-12 m-b-sm">
-                                <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
-                                        style="height: 49px;" form="select-tariff-form">
-                                    выбрать
-                                </button>
-                            </div>
-                        </div>
-
-                    }
-                    }
+            <div class="row">
+                <div class="col-xs-12 m-b-sm">
+                    <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" asp-page-handler="AddCard"
+                            style="height: 49px;" form="add-card-form">
+                        привязать карту
+                    </button>
                 </div>
             </div>
+
+            @if (Model.Costumer.CardBindings != null && Model.Costumer.CardBindings.Count() != 0)
+            {
+                <div class="row">
+                    <div class="col-md-12 m-b-sm">
+                        <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow"
+                                style="height: 49px;" form="select-tariff-form">
+                            выбрать
+                        </button>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+</div>
 <div class="container" id="session-timer-block">
     <div class="row text-center m-t-lg" id="timer-equipment-block">
         <div>
@@ -116,12 +125,12 @@
     </div>
     <div class="row m-t-lg">
     </div>
-    <div class="row">
-        <div class="col-xs-10 pb-no-left-padding">
-            <span class="p-power-now-normal">Зарегистрируйся на сайте и получи </span>
-            <span class="p-power-now-normal" style="font-weight: bold;">49 баллов</span>
-        </div>
-    </div>
+    @*<div class="row">
+            <div class="col-xs-10 pb-no-left-padding">
+                <span class="p-power-now-normal">Зарегистрируйся на сайте и получи </span>
+                <span class="p-power-now-normal" style="font-weight: bold;">49 баллов</span>
+            </div>
+        </div>*@
 </div>
 
 <script type="text/javascript">

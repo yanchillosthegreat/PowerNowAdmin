@@ -177,7 +177,27 @@ namespace PowerBankAdmin.Services
             foreach (var powerbanksNotify in powerbanksNotifies)
             {
                 var powerbankToUpdate = await _appRepository.Powerbanks.Include(x => x.Holder).FirstOrDefaultAsync(x => x.Code == powerbanksNotify.PowerBankSn);
-                if (powerbankToUpdate == null) continue;
+                if (powerbankToUpdate == null)
+                {
+                    var holder = await _appRepository.Holders.FirstOrDefaultAsync(x => x.Code == powerbanksNotify.EquipmentSn);
+                    if (holder == null)
+                    {
+                        continue;
+                    }
+
+                    var powerbankToAdd = new PowerbankModel
+                    {
+                        Code = powerbanksNotify.PowerBankSn,
+                        Position = int.Parse(powerbanksNotify.Position),
+                        Electricity = int.Parse(powerbanksNotify.Electricity),
+                        Holder = holder
+                    };
+
+                    await _appRepository.Powerbanks.AddAsync(powerbankToAdd);
+                    await _appRepository.SaveChangesAsync();
+
+                    continue;
+                }
 
                 powerbankToUpdate.Position = int.Parse(powerbanksNotify.Position);
                 _appRepository.Entry(powerbankToUpdate).Property(x => x.Position).IsModified = true;

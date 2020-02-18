@@ -13,5 +13,6 @@ namespace PowerBankAdmin.Models
         public string FirstDigits { get; set; }
         public string LastDigits { get; set; }
         public bool IsLocked { get; set; }
+        public string PaymentSystemName { get; set; }
     }
 }

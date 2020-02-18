@@ -94,7 +94,8 @@ namespace PowerBankAdmin.Pages.Acquiring
                     {
                         BindingId = message.Object.Id,
                         FirstDigits = message.Object.PaymentMethod.Card.First6,
-                        LastDigits = message.Object.PaymentMethod.Card.Last4
+                        LastDigits = message.Object.PaymentMethod.Card.Last4,
+                        PaymentSystemName = message.Object.PaymentMethod.Card.CardType
                     });
                 }
 
