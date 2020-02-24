@@ -65,7 +65,7 @@ namespace PowerBankAdmin.Pages.Take
         }
 
         [HttpPost]
-        public async Task<IActionResult> OnPostAsync(string c1, string c2, string c3, string c4)
+        public async Task<IActionResult> OnPostCheckEquipmentAsync(string c1, string c2, string c3, string c4)
         {
             var code = string.Format("{0}{1}{2}{3}", c1, c2, c3, c4);
 
@@ -73,35 +73,20 @@ namespace PowerBankAdmin.Pages.Take
             if (!IsAuthorized())
                 return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
             if (string.IsNullOrEmpty(code))
-                return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Wrong code");
+                return JsonHelper.JsonResponse(Strings.StatusError, Constants.InvalidCode, "Wrong code");
             var holder = await _appRepository.Holders.FirstOrDefaultAsync(x => x.LocalCode == code);
             if (holder == null)
-                return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "No such Holder");
+                return JsonHelper.JsonResponse(Strings.StatusError, Constants.NoSuchHolder, "No such Holder");
 
             var result = await _holderService.CanProvidePowerBank(holder.Id);
             if (!result)
             {
-                return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
+                return JsonHelper.JsonResponse(Strings.StatusError, Constants.NoAvailablePowebank, "Couldn't provide powerbank");
             }
 
-            return Redirect($"/Take/SelectTariff/{holder.Id}");
+            //return Redirect($"/Take/SelectTariff/{holder.Id}");
 
-                //var result = await _holderService.ProvidePowerBank(Costumer.Id, holder.Id);
-                //if (!result)
-                //    return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Couldn't provide powerbank");
-
-                //var _httpClient = new WebClient();
-                //var random = new Random();
-                //var orderNumber = random.Next(15000, 16000);
-                //var urlString = $"https://3dsec.sberbank.ru/payment/rest/register.do?userName=power-now-api&password=power-now&orderNumber={orderNumber}&amount=100&returnUrl=http://power-now.ru/take";
-                //var responseText = _httpClient.DownloadString(new Uri(urlString));
-
-                //JsonSerializer serializer = new JsonSerializer();
-                //RegisterDoResponse response = JsonConvert.DeserializeObject<RegisterDoResponse>(responseText);
-
-                //return Redirect(response.FormUrl);
-
-            return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
+            return JsonHelper.JsonResponse(Strings.StatusOK, 4, holder.Id.ToString());
         }
 
         public async Task<IActionResult> OnPostCheckAsync()
@@ -113,5 +98,15 @@ namespace PowerBankAdmin.Pages.Take
             var message = session == null ? "0" : "1"; // 1 - session is Active
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, message);
         }
+
+        //public async Task<IActionResult> OnPostCheckEquipmentAsync()
+        //{
+        //    IdentifyCostumer();
+        //    if (!IsAuthorized())
+        //        return JsonHelper.JsonResponse(Strings.StatusError, Constants.HttpClientErrorCode, "Not Authorized");
+        //    var session = await _appRepository.PowerbankSessions.FirstOrDefaultAsync(x => x.Costumer.Id == Costumer.Id && x.IsActive);
+        //    var message = session == null ? "0" : "1"; // 1 - session is Active
+        //    return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode, message);
+        //}
     }
 }

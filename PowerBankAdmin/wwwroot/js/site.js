@@ -67,6 +67,36 @@ $(document).ready(function () {
     var changeCostumerDataButton = $("#change-costumer-data-button");
 
 
+    enterHolderCodeForm.on("submit", function (e) {
+        e.preventDefault();
+        var formData = enterHolderCodeForm.serialize();
+        var request = $.ajax({
+            url: "/take/index?handler=checkEquipment",
+            type: "POST",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                switch (response.code) {
+                    case 1:
+                        alert('Введен некорректный номер автомата');
+                        break;
+                    case 2:
+                        alert('Нет автомата с введеным номером');
+                        break;
+                    case 3:
+                        alert('Данный автомат не может предоставить ни одного заряжанного устройства');
+                        break;
+                    case 4:
+                        window.location.href = '/Take/SelectTariff/' + response.message
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+    });
+
     selectTariffForm.on("submit", function (e) {
         e.preventDefault();
         var formData = selectTariffForm.serialize();
@@ -121,7 +151,6 @@ $(document).ready(function () {
                             case "1":
                                 break;
                             case "0":
-                                alert("Session is over");
                                 location.reload();
                                 break;
                             default:
@@ -220,7 +249,6 @@ $(document).ready(function () {
                             case "1":
                                 break;
                             case "0":
-                                alert("Session is over");
                                 location.reload();
                                 break;
                             default:

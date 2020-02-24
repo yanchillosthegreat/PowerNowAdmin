@@ -28,7 +28,7 @@ namespace PowerBankAdmin.Data.Repository
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<UserModel>()
-                .HasData(new UserModel { Id = 1, Login = "admin", Password = "admin" });
+                .HasData(new UserModel { Id = 1, Login = "MirzoPN", Password = "MirzoPNPassword" });
             modelBuilder.Entity<RentModel>()
                 .HasData(new RentModel { Id = 1, RentStrategy = RentStrategy.Hour });
             modelBuilder.Entity<RentModel>()

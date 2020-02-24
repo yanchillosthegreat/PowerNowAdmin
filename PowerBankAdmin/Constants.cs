@@ -10,5 +10,10 @@ namespace PowerBankAdmin
 
         //VerificationSettings
         public const int VerificationCodeExpirationPeriod = 5 * 60;
+
+        //Holder Codes
+        public const int InvalidCode = 1;
+        public const int NoSuchHolder = 2;
+        public const int NoAvailablePowebank = 3;
     }
 }
