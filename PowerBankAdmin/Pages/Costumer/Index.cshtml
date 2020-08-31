@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="ibox-content pb-style">
-                    @foreach (var session in Model.Sessions)
+                    @foreach (var session in Model.Sessions.OrderByDescending(x => x.Start))
                     {
                         <div class="row">
                             <div class="col-xs-7">
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-xs-5 right">
                                 <p class="pb-text-orange-style m-b-xxs">@session.SessionDuration</p>
-                                <p class="pb-text-grey-style">99р</p>
+                                <p class="pb-text-grey-style">@session.Price р</p>
                             </div>
                         </div>
                         <hr class="pb-hr-grey-style" />

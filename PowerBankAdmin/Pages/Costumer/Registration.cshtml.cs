@@ -11,6 +11,7 @@ using PowerBankAdmin.Data.Repository;
 using PowerBankAdmin.Helpers;
 using PowerBankAdmin.Models;
 using PowerBankAdmin.Services;
+using Yandex.Checkout.V3;
 
 namespace PowerBankAdmin.Pages.Costumer
 {
@@ -37,6 +38,29 @@ namespace PowerBankAdmin.Pages.Costumer
         {
             _smsService = smsService;
             _appRepository = appRepository;
+
+            //var dude = _appRepository.Costumers.Include(x => x.CardBindings).FirstOrDefault(x => x.Phone.Contains("443"));
+            //var foo = _appRepository.CardBidnings.FirstOrDefault(x => x.BindingId == "2687f56c-000f-5000-8000-18421823560d");
+
+            //var client = new Client(shopId: Strings.YandexShopId, secretKey: Strings.YandexAPIKey);
+
+            //client.CreatePayment(new NewPayment
+            //{
+            //    Amount = new Amount { Currency = "RUB", Value = new decimal(250) },
+            //    PaymentMethodId = "2687f56c-000f-5000-8000-18421823560d",
+            //    Capture = true,
+            //    Description = "Списание 250 руб. за использование паувербанка более 5-ти дней",
+            //    Confirmation = new Confirmation
+            //    {
+            //        Type = ConfirmationType.Redirect,
+            //        ReturnUrl = ""
+            //    },
+            //});
+
+            //var dude1 = _appRepository.Costumers.Include(x => x.Sessions).ThenInclude(x => x.Powerbank).FirstOrDefault(x => x.Phone.Contains("225"));
+            //var dude2 = _appRepository.Costumers.Include(x => x.Sessions).ThenInclude(x => x.Powerbank).FirstOrDefault(x => x.Phone.Contains("071"));
+
+            //var mirzo = _appRepository.Costumers.Include(x => x.Sessions).ThenInclude(x => x.Powerbank).FirstOrDefault(x => x.Phone.Contains("+7 (123) 123 12 34"));
         }
 
         public void OnGet()

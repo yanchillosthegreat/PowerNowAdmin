@@ -66,9 +66,9 @@
                                         <td>@pb.Code</td>
                                         <td>@pb.Holder?.LocalCode</td>
                                         <td>@pb.Position</td>
-                                        <td>@pb.Sessions?.LastOrDefault()?.Costumer?.Phone</td>
+                                        <td>@pb.Sessions?.OrderByDescending(x => x.Id).FirstOrDefault()?.Costumer?.Phone</td>
                                         <td>
-                                            @if (@pb.Sessions?.LastOrDefault()?.IsActive ?? false)
+                                            @if (@pb.Sessions?.OrderByDescending(x => x.Id).FirstOrDefault()?.IsActive ?? false)
                                             {
                                                 <span class="badge badge-primary">Active</span>
 

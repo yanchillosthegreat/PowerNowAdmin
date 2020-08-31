@@ -79,7 +79,7 @@ namespace PowerBankAdmin.Services
 
         public async Task<bool> ReleasePowerBank(string powerBankCode, string holderCode, int position)
         {
-            var powerBank = await _appRepository.Powerbanks.Include(x => x.Sessions).Include(x => x.Holder).FirstOrDefaultAsync(x => x.Code == powerBankCode);
+            var powerBank = await _appRepository.Powerbanks.Include(x => x.Sessions).ThenInclude(x => x.RentModel).Include(x => x.Holder).FirstOrDefaultAsync(x => x.Code == powerBankCode);
             if (powerBank == null) return false;
 
             var session = powerBank.Sessions.FirstOrDefault(x => x.IsActive);
@@ -102,6 +102,29 @@ namespace PowerBankAdmin.Services
             card.IsLocked = false;
             _appRepository.Entry(card).Property(x => x.IsLocked).IsModified = true;
 
+            ICalculationStrategy strategy;
+
+            switch (session.RentModel.RentStrategy)
+            {
+                case RentStrategy.Day:
+                    strategy = new DayCalculationStrategy(99, false);
+                    break;
+                case RentStrategy.Hour:
+                    strategy = new OneHourCalculationStrategy(49, 99, false);
+                    break;
+                case RentStrategy.FirstHourFree:
+                    strategy = new OneHourCalculationStrategy(49, 99, true);
+                    break;
+                default:
+                    strategy = null;
+                    break;
+            }
+
+            if (strategy != null) {
+                var amount = strategy.Calculate(session.Start, session.Finish);
+                session.Price = amount;
+                _appRepository.Entry(session).Property(x => x.Price).IsModified = true;
+            }
 
             await _appRepository.SaveChangesAsync();
             return true;

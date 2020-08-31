@@ -29,12 +29,10 @@
     <Folder Include="Pages\Shared\" />
     <Folder Include="Data\Moq\" />
     <Folder Include="Data\Repository\" />
-    <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Admin\Auth\" />
     <Folder Include="Pages\Costumer\" />
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Admin\Costumers\" />
-    <Folder Include="Pages\Admin\Holders\" />
     <Folder Include="Pages\Admin\Powerbanks\" />
     <Folder Include="Pages\Tutorial\" />
     <Folder Include="Pages\Map\" />
@@ -1040,6 +1038,8 @@
     <Compile Remove="Migrations\20200210133951_Last4First6.Designer.cs" />
     <Compile Remove="Migrations\20200210165240_CardBindings-added-to-AppRepository.cs" />
     <Compile Remove="Migrations\20200210165240_CardBindings-added-to-AppRepository.Designer.cs" />
+    <Compile Remove="Migrations\20200217230303_PaymentSystemName.cs" />
+    <Compile Remove="Migrations\20200217230303_PaymentSystemName.Designer.cs" />
     <Compile Remove="Pages\Costumer\Tutorial.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>

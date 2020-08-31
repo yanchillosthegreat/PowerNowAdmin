@@ -15,6 +15,8 @@ namespace PowerBankAdmin.Models
 
         public bool IsActive => Start > Finish;
 
+        public double Price { get; set; }
+
         public string SessionDuration
         {
             get
