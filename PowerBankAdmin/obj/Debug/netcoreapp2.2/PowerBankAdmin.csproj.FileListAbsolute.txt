@@ -72,7 +72,6 @@ C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreap
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Acquiring\Index.g.cshtml.cs
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Admin\Auth\Login.g.cshtml.cs
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Admin\Costumers\Index.g.cshtml.cs
-C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Admin\Holders\Add.g.cshtml.cs
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Admin\Holders\Index.g.cshtml.cs
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Admin\Index.g.cshtml.cs
 C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Admin\Powerbanks\Index.g.cshtml.cs
@@ -110,3 +109,4 @@ C:\Users\yanmoroz\source\repos\PowerNowAdmin2\PowerBankAdmin\bin\Debug\netcoreap
 C:\Users\yanmoroz\source\repos\PowerNowAdmin2\PowerBankAdmin\bin\Debug\netcoreapp2.2\wwwroot\lib\jasny-bootstrap\dist\js\jasny-bootstrap.min.js
 C:\Users\yanmoroz\source\repos\PowerNowAdmin2\PowerBankAdmin\bin\Debug\netcoreapp2.2\wwwroot\lib_bower\jasny-bootstrap\dist\js\jasny-bootstrap.js
 C:\Users\yanmoroz\source\repos\PowerNowAdmin2\PowerBankAdmin\bin\Debug\netcoreapp2.2\wwwroot\lib_bower\jasny-bootstrap\dist\js\jasny-bootstrap.min.js
+C:\Users\yanmoroz\Source\Repos\PowerNowAdmin2\PowerBankAdmin\obj\Debug\netcoreapp2.2\Razor\Pages\Admin\Holders\Edut.g.cshtml.cs

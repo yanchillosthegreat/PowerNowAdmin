@@ -116,7 +116,7 @@ namespace PowerBankAdmin.Pages.Take
                 Description = "Для привязки карты списываем сумму в 1 рубль, которую сразу же вернем на Вашу карту"
             };
 
-            Payment payment = client.CreatePayment(newPayment);
+            Payment payment = client.CreatePayment(newPayment, Costumer.Id.ToString());
             string url = payment.Confirmation.ConfirmationUrl;
 
             await Costumer.SetOrderId(_appRepository, payment.Id);

@@ -3,6 +3,7 @@ using PowerBankAdmin.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PowerBankAdmin.Models
@@ -52,6 +53,19 @@ namespace PowerBankAdmin.Models
             this.HolderRentModels = rentModelsList;
             appRepository.Entry(this).Collection(x => x.HolderRentModels).IsModified = true;
             await appRepository.SaveChangesAsync();
+        }
+
+        public async Task RemoveRentModel(AppRepository appRepository, RentModel rentModel)
+        {
+            HolderModel entity = this;
+            HolderRentModel holderRentModel = entity.HolderRentModels.ToList().FirstOrDefault(x => x.RentModel.Id == rentModel.Id);
+            if (holderRentModel == null || entity.HolderRentModels == null || !entity.HolderRentModels.Any(x => x.RentModel.Id == rentModel.Id))
+                return;
+            List<HolderRentModel> list = entity.HolderRentModels.ToList();
+            list.Remove(holderRentModel);
+            entity.HolderRentModels = list;
+            appRepository.Entry(entity).Collection(x => x.HolderRentModels).IsModified = true;
+            int num = await appRepository.SaveChangesAsync();
         }
     }
 

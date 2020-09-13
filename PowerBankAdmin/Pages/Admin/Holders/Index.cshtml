@@ -121,16 +121,19 @@
                                     @{var i = 0;}
                                     @foreach (var holder in Model.Holders)
                                     {
-                                        <tr id="@holder.Id">
-                                            <td>@holder.Id</td>
-                                            <td>@holder.LocalCode</td>
-                                            <td>@holder.Code</td>
-                                            <td>@holder.OwnerName</td>
-                                            <td>@holder.OwnerAddress</td>
-                                            <td>
-                                                <button class="button btn-xs btn-danger" onclick="deleteHolder(@holder.Id)">x</button>
-                                            </td>
-                                        </tr>
+                                    <tr id="@holder.Id">
+                                        <td>@holder.Id</td>
+                                        <td>@holder.LocalCode</td>
+                                        <td>@holder.Code</td>
+                                        <td>@holder.OwnerName</td>
+                                        <td>@holder.OwnerAddress</td>
+                                        <td>
+                                            <button class="button btn-xs btn-danger" onclick="deleteHolder(@holder.Id)">x</button>
+                                        </td>
+                                        <td>
+                                            <a class="button btn-xs btn-danger" asp-page="./Edut" asp-route-id="@holder.Id">Edit</a>
+                                        </td>
+                                    </tr>
                                     }
 
                                 </tbody>

@@ -1,0 +1,115 @@
+﻿@page
+@model Pages.Admin.Holders.EdutModel
+
+<div class="wrapper-content">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Добавить холдер</h5>
+                </div>
+                <div class="ibox-content">
+                    <form id="update-holder-form">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Local Code
+                            </label>
+                            <input type="hidden" asp-for="@Model.Holder.Id"/>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.Holder.LocalCode" data-mask="9999" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Holder Code
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.Holder.Code" data-mask="9999999999" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Owner Name
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.Holder.OwnerName" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Owner Address
+                            </label>
+                            <div class="col-sm-10">
+                                <select id="adres-select" class="form-control" asp-for="@Model.Holder.OwnerAddress">
+                                    <option>@Model.Holder.OwnerAddress</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Schedule
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.Holder.Schedule" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Comment
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="@Model.Holder.Comment" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">
+                                Pay Avialability
+                            </label>
+
+                            <div class="col-sm-10">
+                                <div>
+                                    <input type="checkbox" id="hour" value="1" name="PayAvialabilities" checked="@Model.PayAvialabilities.Contains(1)">
+                                    <label for="hour">Первый час 49р</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="day" value="2" name="PayAvialabilities" checked="@Model.PayAvialabilities.Contains(2)">
+                                    <label for="hour">99руб сутки</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="firstHourFree" value="3" name="PayAvialabilities" checked="@Model.PayAvialabilities.Contains(3)">
+                                    <label for="hour">Первый час бесплатно</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="update-holder-submit-button" type="submit" class="btn btn-sm btn-success ladda-button">Обновить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#adres-select').select2({
+            ajax: {
+                url: "/admin/holders?handler=addresssuggest",
+                dataType: "json",
+                data: function (params) {
+                    var query = {
+                        search: params.term
+                    }
+                    return query;
+                },
+                delay: 500,
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+    })
+</script>

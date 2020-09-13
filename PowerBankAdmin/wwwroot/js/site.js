@@ -41,7 +41,9 @@ $(document).ready(function () {
 
     //Holders page
     var formAddHolder = $("#add-holder-form");
+    var formUpdateHolder = $("#update-holder-form");
     var submitAddHolder = $("#add-holder-submit-button").ladda();
+    var submitUpdateHolder = $("#update-holder-submit-button").ladda();
     var holdersTable = $("#holders-table");
 
     //Powerbanks page
@@ -277,6 +279,27 @@ $(document).ready(function () {
                 switch (response.code) {
                     case 200:
                         holdersTable.append(response.message);
+                        break;
+                    default:
+                        alert(response.message);
+                        break;
+                }
+            }
+        });
+    });
+
+    formUpdateHolder.on("submit", function (e) {
+        e.preventDefault();
+        var formData = formUpdateHolder.serialize();
+        var request = $.ajax({
+            url: "/admin/holders/edut",
+            type: "POST",
+            dataType: "json",
+            data: formData,
+            success: function (response) {
+                switch (response.code) {
+                    case 200:
+                        alert('Холдер обновлен');
                         break;
                     default:
                         alert(response.message);

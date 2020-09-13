@@ -53,7 +53,7 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             }
             return new JsonResult(sel2l);
         }
-        class Select2Obj
+        public class Select2Obj
         {
             public string Id { get; set; }
             public string Text { get; set; }
