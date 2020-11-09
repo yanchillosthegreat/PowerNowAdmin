@@ -67,6 +67,8 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             _appRepository.Entry(Holder).Property(x => x.OwnerAddress).IsModified = true;
             _appRepository.Entry(Holder).Property(x => x.Schedule).IsModified = true;
             _appRepository.Entry(Holder).Property(x => x.Comment).IsModified = true;
+            _appRepository.Entry(Holder).Property(x => x.OwnerLatitude).IsModified = true;
+            _appRepository.Entry(Holder).Property(x => x.OwnerLongitude).IsModified = true;
 
             var rentModels = await _appRepository.RentModels.ToListAsync();
             if (PayAvialabilities.Contains(1))
@@ -95,6 +97,7 @@ namespace PowerBankAdmin.Pages.Admin.Holders
             }
             _appRepository.Entry(holderToEdit).Collection(x => x.HolderRentModels).IsModified = true;
 
+            await CalculateCoords(Holder);
             await _appRepository.SaveChangesAsync();
             return JsonHelper.JsonResponse(Strings.StatusOK, Constants.HttpOkCode);
         }
@@ -111,6 +114,15 @@ namespace PowerBankAdmin.Pages.Admin.Holders
                 }
             }
             return new JsonResult(sel2l);
+        }
+
+        private async Task<bool> CalculateCoords(HolderModel holder)
+        {
+            var cords = await _geocode.Geocode(holder.OwnerAddress);
+            if (String.IsNullOrEmpty(cords.latitude)) return false;
+            holder.OwnerLatitude = cords.latitude;
+            holder.OwnerLongitude = cords.longitude;
+            return true;
         }
     }
 }

@@ -47,14 +47,41 @@ namespace PowerBankAdmin.Services
 
         public async Task<bool> ProvidePowerBank(int idCostumer, int holderId, RentModel rentModel, string cardBindingId)
         {
-            var costumer = await _appRepository.Costumers.FirstOrDefaultAsync(x => x.Id == idCostumer);
+            var costumer = await _appRepository.Costumers.Include(x => x.Sessions).FirstOrDefaultAsync(x => x.Id == idCostumer);
             var holder = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).FirstOrDefaultAsync(x => x.Id == holderId);
             if (costumer == null || holder == null) return false;
 
-            var powerBank = holder.Powerbanks.Where(x => x.Sessions.Where(y => y.IsActive).Count() == 0 && x.Electricity > 75).OrderBy(x => x.Position).FirstOrDefault();
-            if (powerBank == null) return false;
+            PowerbankModel powerBankToProvide = null;
 
-            if(!await PrvidePowerBank(holder, powerBank))
+            var lastPowerbankSession = costumer.Sessions.OrderBy(x => x.Start).LastOrDefault();
+            if (lastPowerbankSession == null)
+            {
+                var powerBank = holder.Powerbanks.Where(x => x.Sessions.Where(y => y.IsActive).Count() == 0 && x.Electricity > 75).OrderBy(x => x.Position).FirstOrDefault();
+                if (powerBank == null) return false;
+
+                powerBankToProvide = powerBank;
+            } else
+            {
+                var powerBanks = holder.Powerbanks.Where(x => x.Sessions.Where(y => y.IsActive).Count() == 0 && x.Electricity > 75).OrderBy(x => x.Position);
+                if (powerBanks.Count() == 1)
+                {
+                    powerBankToProvide = powerBanks.FirstOrDefault();
+                }
+                else
+                {
+                    powerBankToProvide = powerBanks.Where(x => x.Id != lastPowerbankSession.Powerbank.Id).FirstOrDefault();
+                }
+            }
+
+            //if (powerBankToProvide == null)
+            //{
+            //    var powerBank = holder.Powerbanks.Where(x => x.Sessions.Where(y => y.IsActive).Count() == 0 && x.Electricity > 75).OrderBy(x => x.Position).FirstOrDefault();
+            //    if (powerBank == null) return false;
+
+            //    powerBankToProvide = powerBank;
+            //}
+
+            if(!await PrvidePowerBank(holder, powerBankToProvide))
             {
                 return false;
             }
@@ -67,7 +94,7 @@ namespace PowerBankAdmin.Services
             {
                 Costumer = costumer,
                 Start = DateTime.Now,
-                Powerbank = powerBank,
+                Powerbank = powerBankToProvide,
                 CardId = cardBindingId,
                 RentModel = rentModel
             };

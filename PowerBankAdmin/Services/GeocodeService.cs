@@ -42,11 +42,11 @@ namespace PowerBankAdmin.Services
             foreach(var geoObject in geoObjects)
             {
                 var lat = geoObject.GeoObject?.Point?.Pos?.Split(' ')?[1];
-                var lon = geoObject.GeoObject?.Point?.Pos?.Split(' ')?[0];
+                var lon = geoObject.GeoObject?.Point?.Pos?.Split(' ')?[0]; 
 
                 var a = new Address
                 {
-                    FormattedAddress = geoObject?.GeoObject?.Name,
+                    FormattedAddress = String.Format("{0}, {1}", geoObject?.GeoObject?.Description, geoObject?.GeoObject?.Name),
                     Latitude = lat,
                     Longitude = lon
                 };
@@ -110,6 +110,8 @@ namespace PowerBankAdmin.Services
         public string Name { get; set; }
         [JsonProperty("Point")]
         public Point Point { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
     }
 
     public class Point

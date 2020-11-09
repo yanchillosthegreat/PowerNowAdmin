@@ -1,0 +1,110 @@
+﻿@page
+@model Pages.Admin.ManualPayments.IndexModel
+
+<div class="wrapper-content">
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Card Bindings</h5>
+            </div>
+            <div style="background-color: white; padding-left: 20px">
+                <label>Сумма списания: </label>
+                <input id="smth" style="margin-left: 4px"/>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table id="bindings-table" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Customer Id</th>
+                                    <th>Phone</th>
+                                    <th>Binding Id</th>
+                                    <th>First Digits</th>
+                                    <th>Last Digits</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{var i = 0;}
+                                @foreach (var customer in Model.Costumers)
+                                {
+                                    @foreach (var binding in customer.CardBindings)
+                                    {
+                                        {i = i + 1;}
+                                    <tr id="@binding.Id">
+                                    <td>@i</td>
+                                    <td>@customer.Id</td>
+                                    <td>@customer.Phone</td>
+                                    <td>@binding.BindingId</td>
+                                    <td>@binding.FirstDigits</td>
+                                    <td>@binding.LastDigits</td>
+                                    <td>
+                                        <button class="button btn-xs" onclick="proceedPayment('@binding.BindingId')">Списать</button>
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#bindings-table').DataTable({
+            pageLength: 100,
+            responsive: true,
+            buttons: [
+                { extend: 'copy' },
+                { extend: 'csv' },
+                { extend: 'excel', title: 'ExampleFile' },
+                { extend: 'pdf', title: 'ExampleFile' },
+
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+    });
+
+    function proceedPayment(bindingId) {
+            var token = $('input[name="__RequestVerificationToken"]').val()
+            var request = $.ajax({
+                url: "/admin/manualpayments?handler=takemoney",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    __RequestVerificationToken: token,
+                    bindingId: bindingId,
+                    amount: document.getElementById('smth').value
+                },
+                success: function (response) {
+                    switch (response.code) {
+                        case 200:
+                            alert("Запрос на списание отправлен");
+                            break;
+                        default:
+                            alert(response.message);
+                            break;
+                    }
+                }
+            });
+        }
+</script>

@@ -114,6 +114,7 @@
                                         <th>OwnerName</th>
                                         <th>OwnerAddress</th>
                                         <th></th>
+                                        <th></th>
 
                                     </tr>
                                 </thead>
@@ -148,6 +149,10 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $(document).ready(function () {
+            $("#footer").hide();
+        });
 
         $('#adres-select').select2({
             ajax: {

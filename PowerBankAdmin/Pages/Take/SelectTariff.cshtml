@@ -10,20 +10,21 @@
 <div style="position: absolute; z-index: -10; width: 100%; bottom:0; left: 0; right: 0">
     <img src="~/css/patterns/wave.png" style="width: 100%" />
     @*<img src="~/css/patterns/animation.gif" class="img-responsive" style="position:absolute; bottom: 50px" />*@
-    <div style="position: absolute; bottom: 25px; left: 46px">
-        <img src="~/css/patterns/pin.png" width="18" height="25" style="margin-right: 10px" />
-        <a style="color: #16BDF0; text-decoration: underline;" href="/map">Найти место сдачи пауер банка</a>
-    </div>
 </div>
 
 <div id="tariff-selector-block" class="col-md-12 m-t-lg p-t-md" style="background-color: #1b1e21; border-radius: 8px 8px; padding-top:30px; padding-bottom:30px; opacity: 0.90">
-    <div class="container">
-        <img src="~/css/patterns/pin.png" style="width: 18px; height: 26px; display: inline-block; vertical-align: top; margin-right: 5px;" />
-        <div style="display: inline-block;">
-            <p class="pb-text-13">@Model.Holder.OwnerAddress</p>
-            <p class="pb-text-13" style="margin-top: -10px">@Model.Holder.OwnerName</p>
+    <div class="row col-12">
+        <div class="col-xs-1">
+            <img src="~/css/patterns/pin.png" width="18" height="25" />
+        </div>
+        <div class="col-xs-9">
+            <text class="pb-text-13" style="display: inline-block">@Model.Holder.OwnerAddress</text>
+            <br />
+            <text class="pb-text-13" style="margin-top: -10px">@Model.Holder.OwnerName</text>
+            <br />
         </div>
     </div>
+
     <div class="container m-t-sm">
         <div class="col-xs-12">
             <p class="pb-text-17-normal">Выберите тариф</p>
@@ -110,12 +111,19 @@
                     <div class="col-md-12 m-b-sm">
                         <button type="submit" class="btn btn-primary-orange btn-block pb-button-shadow" name="chooseButton"
                                 style="height: 49px;" form="select-tariff-form">
-                            выбрать
+                            взять powerbank
                         </button>
                     </div>
                 </div>
 
             }
+
+            <div class="row">
+                <div style="margin-left: 16px">
+                    <img src="~/css/patterns/pin.png" width="18" height="25" style="margin-right: 10px" />
+                    <a style="color: #16BDF0; text-decoration: underline;" href="/map">Найти место сдачи пауэрбанка</a>
+                </div>
+            </div>
         }
     </div>
 </div>
@@ -128,6 +136,13 @@
     </div>
     <div class="row m-t-lg">
         <img src="~/css/patterns/powerbank_holder.gif" class="img-responsive" style="max-height: 291px; max-width: 334px; margin: auto" />
+    </div>
+
+    <div style="position: absolute; z-index: -10; width: 100%; bottom:20px; left: 0; right: 0">
+        <div style="margin-left: 16px">
+            <img src="~/css/patterns/pin.png" width="18" height="25" style="margin-right: 10px" />
+            <a style="color: #16BDF0; text-decoration: underline;" href="/map">Найти место сдачи пауэрбанка</a>
+        </div>
     </div>
 </div>
 

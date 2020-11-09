@@ -14,6 +14,13 @@ namespace PowerBankAdmin.Services
 
         public void ProceedPayment(PowerbankSessionModel session)
         {
+            var secondsBetweenStartAndFinish = (session.Finish - session.Start).TotalSeconds;
+
+            if (secondsBetweenStartAndFinish < 60)
+            {
+                return;
+            }
+
             var client = new Client(shopId: Strings.YandexShopId, secretKey: Strings.YandexAPIKey);
 
             ICalculationStrategy strategy;

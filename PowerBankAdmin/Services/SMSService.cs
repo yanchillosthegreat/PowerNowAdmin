@@ -15,7 +15,7 @@ namespace PowerBankAdmin.Services
     {
         public async Task<bool> SendSms(string Phone, string Text)
         {
-            var sign = "SMS Aero";
+            var sign = "Power Now";
             var channel = "DIRECT";
 
             var url = $"https://gate.smsaero.ru/v2/sms/send?number={Phone}&text={Text}&sign={sign}&channel={channel}";

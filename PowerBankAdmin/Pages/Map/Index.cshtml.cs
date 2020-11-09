@@ -22,7 +22,7 @@ namespace PowerBankAdmin.Pages.Map
         {
             IdentifyCostumer();
             Holders = await _appRepository.Holders.Include(x => x.Powerbanks).ThenInclude(x => x.Sessions).ToListAsync();
-            ViewData["Title"] = "КАРТА С ПАУЕР БАНКАМИ";
+            ViewData["Title"] = "КАРТА С ПАУЭРБАНКАМИ";
             ViewData["City"] = "/css/patterns/city_3.png";
         }
     }
